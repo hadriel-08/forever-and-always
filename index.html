@@ -29,15 +29,15 @@ body { background: var(--night); color: var(--champ); font-family: 'DM Sans', sa
    CUSTOM CURSOR (Elevated Z-Index)
 ═══════════════════════════════════════ */
 @media (pointer: fine) {
-  body, a, button, .qcard, .magic-frame, .open-chat, .planet, .lantern { cursor: none !important; }
+  body, a, button, .qcard, .magic-frame, .open-chat, .planet, .lantern, #chat-modal, .close-modal, .chat-box { cursor: none !important; }
 }
 #grain { position:fixed; inset:0; z-index:99998; pointer-events:none; opacity:.04; mix-blend-mode:overlay; width:100%; height:100%; }
-#c-dot, #c-ring { position:fixed; border-radius:50%; pointer-events:none; z-index:99999; transform:translate(-50%,-50%); opacity:0; }
-#c-dot { width:5px; height:5px; background:var(--champ); box-shadow: 0 0 12px 2px rgba(246,234,216,0.8); transition: opacity .3s ease, transform .1s ease-out; }
+#c-dot, #c-ring { position:fixed; border-radius:50%; pointer-events:none; z-index:999999; transform:translate(-50%,-50%); opacity:0; }
+#c-dot { width:5px; height:5px; background:var(--champ); box-shadow: 0 0 12px 2px rgba(246,234,216,0.8); transition: opacity .3s ease; }
 #c-ring { 
   width:36px; height:36px; border: 1px solid rgba(246,234,216,0.4); background: rgba(255,255,255,0.02);
   backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);
-  transition: width .4s var(--trans), height .4s var(--trans), border-color .4s ease, background .4s ease, transform .2s ease-out; 
+  transition: width .4s var(--trans), height .4s var(--trans), border-color .4s ease, background .4s ease; 
 }
 #c-ring.hover { width:65px; height:65px; border-color: rgba(238,154,184,0.6); background: rgba(196,128,106,0.08); backdrop-filter: blur(4px); }
 .trail-dot { position:fixed; border-radius:50%; pointer-events:none; z-index:99997; transform:translate(-50%,-50%); mix-blend-mode: screen; }
@@ -48,7 +48,7 @@ body { background: var(--night); color: var(--champ); font-family: 'DM Sans', sa
 /* ═══════════════════════════════════════
    CINEMATIC LOADER
 ═══════════════════════════════════════ */
-#loader { position:fixed; inset:0; z-index:90000; pointer-events:none; display:flex; align-items:center; justify-content:center; background: var(--night); transition: opacity 1s ease-in-out; }
+#loader { position:fixed; inset:0; z-index:900000; pointer-events:none; display:flex; align-items:center; justify-content:center; background: var(--night); transition: opacity 1s ease-in-out; }
 #loader.out { opacity: 0; }
 #loader.gone { display:none; }
 .lc-mid { position:relative; z-index:1; text-align:center; transition:all 1s ease; }
@@ -208,7 +208,7 @@ canvas#stars { position: absolute; inset: 0; z-index: 2; pointer-events: none; m
 @keyframes corePulse { 0%,100%{box-shadow:0 0 40px rgba(196,128,106,.6),0 0 80px rgba(196,128,106,.3)} 50%{box-shadow:0 0 60px rgba(196,128,106,.9),0 0 120px rgba(196,128,106,.45)} }
 
 /* Polaroid Modal */
-#polaroid-modal { position: fixed; inset: 0; z-index: 100000; background: rgba(3,1,8,0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
+#polaroid-modal { position: fixed; inset: 0; z-index: 1000000; background: rgba(3,1,8,0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
 #polaroid-modal.active { opacity: 1; pointer-events: auto; }
 .polaroid { background: rgba(246,234,216,0.05); border: 1px solid rgba(246,234,216,0.15); padding: 1.2rem 1.2rem 3.5rem 1.2rem; border-radius: 12px; box-shadow: 0 25px 60px rgba(0,0,0,0.6); width: 90%; max-width: 400px; transform: scale(0.9) translateY(30px) rotate(-3deg); transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); }
 #polaroid-modal.active .polaroid { transform: scale(1) translateY(0) rotate(0deg); }
@@ -364,51 +364,6 @@ canvas#stars { position: absolute; inset: 0; z-index: 2; pointer-events: none; m
 .vn-sub { font-family: 'Playfair Display', serif; font-style: italic; color: rgba(246,234,216,0.7); font-size: 1.1rem; }
 
 /* ═══════════════════════════════════════
-   CHAPTER 9: HEARTBEAT SCANNER & TUNNEL
-═══════════════════════════════════════ */
-#vault { background: linear-gradient(180deg, var(--night) 0%, #06020A 100%); padding: 7rem 2rem; position: relative; overflow: hidden; }
-.vault-c { max-width: 700px; margin: 0 auto; position: relative; z-index: 10; text-align: center; }
-.vault-box { background: rgba(246,234,216,0.02); border: 1px solid rgba(246,234,216,0.1); border-radius: 24px; padding: 3.5rem 2rem; backdrop-filter: blur(15px); box-shadow: 0 20px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05); position: relative; overflow: hidden; transition: opacity 1s ease; }
-.vault-box::before { content:''; position:absolute; inset:0; background:radial-gradient(circle at 50% -20%,rgba(196,128,106,.15),transparent 70%); pointer-events:none; }
-.v-icon { font-size: 3rem; margin-bottom: 1rem; filter: drop-shadow(0 0 15px rgba(246,234,216,0.3)); }
-.v-hint { font-family: 'Playfair Display', serif; font-style: italic; color: rgba(246,234,216,0.85); font-size: 1.25rem; line-height: 1.6; margin-bottom: 2.5rem; transition: color 0.3s ease; }
-
-/* Heartbeat Scanner UI (Red Heart) */
-#heartbeat-scanner {
-  margin: 2rem auto; width: 120px; height: 120px; border-radius: 50%;
-  border: 2px solid rgba(238,154,184,0.3); position: relative; cursor: pointer;
-  display: flex; align-items: center; justify-content: center; overflow: hidden;
-  box-shadow: 0 0 30px rgba(196,128,106,0.1); user-select: none;
-  -webkit-user-select: none; touch-action: none; z-index: 10;
-}
-#scanner-progress {
-  position: absolute; bottom: 0; left: 0; width: 100%; height: 0%;
-  background: rgba(238,154,184,0.4); transition: height 0.08s linear;
-  box-shadow: 0 0 20px rgba(238,154,184,0.8);
-}
-.fingerprint-icon { font-size: 3.5rem; position: relative; z-index: 2; text-shadow: 0 0 15px rgba(255,255,255,0.5); pointer-events: none; }
-
-/* 3D Tunnel Overlay */
-#tunnel-overlay {
-  position: fixed; inset: 0; background: #000; z-index: 90000;
-  display: none; opacity: 0; transition: opacity 1.5s ease;
-  perspective: 800px; overflow: hidden;
-}
-#tunnel-camera { position: absolute; top: 50%; left: 50%; width: 0; height: 0; transform-style: preserve-3d; }
-.t-panel {
-  position: absolute; width: 280px; height: 380px; margin-left: -140px; margin-top: -190px;
-  background-size: cover; background-position: center; background-color: rgba(255,255,255,0.05); 
-  border-radius: 12px; border: 2px solid rgba(255,255,255,0.1); box-shadow: 0 0 40px rgba(238,154,184,0.3);
-  display: flex; align-items: center; justify-content: center;
-}
-.t-panel::after { content: 'Memory'; font-family: 'Cinzel', serif; color: rgba(255,255,255,0.3); letter-spacing: 0.2em; font-size: 0.8rem; }
-#tunnel-flash-bg { position: absolute; inset: 0; background: #FFF; opacity: 0; pointer-events: none; transition: opacity 2s ease; z-index: 10; }
-#anniversary-letter {
-  position: absolute; inset: 0; z-index: 20; display: none; opacity: 0;
-  background: #030108; color: #F6EAD8; padding: 2rem; overflow-y: auto; text-align: center; transition: opacity 2s ease;
-}
-
-/* ═══════════════════════════════════════
    LANTERN WISHES WITH MAGICAL TRAIL
 ═══════════════════════════════════════ */
 #wishes { background:var(--night); position: relative; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden;}
@@ -512,7 +467,7 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
   <div class="dot"     data-target="#letter" title="Letter"></div>
   <div class="dot"     data-target="#promises" title="Promises"></div>
   <div class="dot"     data-target="#voice-note" title="My Voice"></div>
-  <div class="dot"     data-target="#vault" title="Time Capsule"></div>
+  <!-- Vault Dot Removed for Now -->
   <div class="dot"     data-target="#wishes" title="Wishes"></div>
 </nav>
 
@@ -816,7 +771,8 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
     </div>
   </section>
 
-  <!-- CHAPTER 9: HEARTBEAT SCANNER & TUNNEL -->
+  <!-- CHAPTER 9: HEARTBEAT SCANNER & TUNNEL (LOCKED FOR NOW) -->
+  <!-- 
   <section id="vault" class="content-sec" data-name="Time Capsule" data-num="09">
     <div class="orb" style="width:600px;height:600px;background:radial-gradient(circle,rgba(196,128,106,.05),transparent);top:20%;left:50%;transform:translateX(-50%);animation:orbGlow 12s ease infinite;"></div>
     
@@ -838,9 +794,10 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
       </div>
     </div>
   </section>
+  -->
 
   <!-- UPGRADED MAGICAL LANTERN WISHES -->
-  <section id="wishes" class="content-sec" data-name="Wishes" data-num="10">
+  <section id="wishes" class="content-sec" data-name="Wishes" data-num="09">
     <canvas id="fw"></canvas>
     <div class="orb" style="width:550px;height:550px;background:radial-gradient(circle,rgba(196,128,106,.09),transparent);top:50%;left:50%;transform:translate(-50%,-50%);animation:orbGlow 8s ease infinite;"></div>
 
@@ -855,7 +812,7 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
     <div class="wish-c" id="wish-text-container" style="display: none; opacity: 0; transition: opacity 2s ease;">
       <div class="ch-tag center">
         <div class="cl cl-l"></div>
-        <span>Chapter X</span>
+        <span>Chapter IX</span>
         <div class="cl cl-r"></div>
       </div>
       <h2 class="w-ttl">Happy Birthday<br><em>Jeshuu</em> 🎂</h2>
@@ -869,7 +826,7 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
   </section>
 
   <!-- OUTRO WITH FLOATING HEARTS BACKGROUND -->
-  <section id="outro" class="content-sec" data-name="The End" data-num="11">
+  <section id="outro" class="content-sec" data-name="The End" data-num="10">
     <div class="orb" style="width:480px;height:480px;background:radial-gradient(circle,rgba(124,26,72,.12),transparent);top:50%;left:50%;transform:translate(-50%,-50%);animation:orbGlow 9s ease infinite;"></div>
     <div id="outro-hearts-container"></div>
     <div class="outro-c rev">
@@ -951,10 +908,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const PAL = ['#FF6BA4','#FFD700','#FF9A40','#C4806A','#EE9AB8','#A8E4FF','#C8A0F8','#FFF','#FF4D96','#66FFD4'];
 
   function resize() { W = window.innerWidth; H = window.innerHeight; if(cHero){cHero.width=W; cHero.height=H;} if(cFw){cFw.width=W; cFw.height=H;} buildStars(); }
+  
+  /* STAR SETTINGS UPDATED: STRICTLY WHITE */
   function buildStars() {
     stars = [];
     for(let i=0; i< (isMobile ? 150 : 350); i++) {
-      stars.push({ angle: Math.random()*Math.PI*2, dist: Math.random()*Math.max(W,H), orbitSpeed: Math.random()*0.002+0.001, r: Math.random()*1.5+.5, color: '#fff', warpFactor: 1 });
+      stars.push({ angle: Math.random()*Math.PI*2, dist: Math.random()*Math.max(W,H), orbitSpeed: Math.random()*0.002+0.001, r: Math.random()*1.5+.5, color: '#FFFFFF', warpFactor: 1 });
     }
   }
 
@@ -1012,10 +971,17 @@ document.addEventListener("DOMContentLoaded", () => {
           let oldX = W/2 + Math.cos(s.angle)*(s.dist*s.warpFactor), oldY = H/2 + Math.sin(s.angle)*(s.dist*s.warpFactor);
           s.warpFactor += (warpSpeed * 0.001); 
           let newX = W/2 + Math.cos(s.angle)*(s.dist*s.warpFactor), newY = H/2 + Math.sin(s.angle)*(s.dist*s.warpFactor);
-          ctxHero.globalAlpha = 1; ctxHero.strokeStyle = s.color; 
+          
+          /* SMOOTH CONTINUOUS WARP - Respawns near center! */
+          ctxHero.globalAlpha = Math.min(1, s.warpFactor); ctxHero.strokeStyle = s.color; 
           ctxHero.lineWidth = s.r*(s.warpFactor>1?s.warpFactor*0.5:1); ctxHero.lineCap = 'round';
           ctxHero.beginPath(); ctxHero.moveTo(oldX, oldY); ctxHero.lineTo(newX, newY); ctxHero.stroke();
-          if (newX < 0 || newX > W || newY < 0 || newY > H) { s.warpFactor = 0.01; s.angle = Math.random()*Math.PI*2; }
+          
+          if (newX < 0 || newX > W || newY < 0 || newY > H) { 
+            s.warpFactor = 0.01; 
+            s.dist = Math.random() * (Math.min(W,H) / 3); /* Spawn near center for a looping look */
+            s.angle = Math.random()*Math.PI*2; 
+          }
         }
       } else if (introMode === 'flash') {
         ctxHero.clearRect(0,0,W,H);
@@ -1052,8 +1018,7 @@ document.addEventListener("DOMContentLoaded", () => {
   ══════════════════════════════════════ */
   window.triggerWarp = function() {
     introMode = 'warp'; warpSpeed = 1;
-    stars.forEach(s => { s.color = Math.random()>0.4?(Math.random()>0.5?'#FFD700':'#EE9AB8'):'#FFF'; });
-    
+    // Stars strictly stay white as requested
     function makeRipple() {
       const shock = document.createElement('div'); shock.className = 'glass-shockwave';
       document.getElementById('hero').appendChild(shock);
@@ -1185,7 +1150,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     const hovEls = ()=>[...document.querySelectorAll('button,.qcard,.dot,a,.flip-card,.planet,#playVoiceBtn,.tl-content,.magic-frame,.lantern,#magic-paper,.secret-trigger,.cv, #heartbeat-scanner, .open-chat')];
     document.addEventListener('mousemove', e => { ring.classList.toggle('hover', hovEls().some(el=>el.contains(e.target)||el===e.target)); });
-    function followRing(){ rx+=(globalMouseX-rx)*.12; ry+=(globalMouseY-ry)*.12; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(followRing); } followRing();
+    
+    /* CURSOR ANIMATION UPDATED: MUCH SMOOTHER physics */
+    function followRing(){ rx+=(globalMouseX-rx)*0.2; ry+=(globalMouseY-ry)*0.2; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(followRing); } followRing();
   }
 
   /* ══════════════════════════════════════
@@ -1240,7 +1207,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }, {passive:true});
 
   /* ══════════════════════════════════════
-     DYNAMIC LIVE CHAT ENGINE (NAMES ADDED)
+     DYNAMIC LIVE CHAT ENGINE (UPDATED TO EXACT SPECS)
   ══════════════════════════════════════ */
   const chatData = {
     chat1: {
@@ -1249,7 +1216,7 @@ document.addEventListener("DOMContentLoaded", () => {
       messages: [
         { sender: 'deon', text: "hiii are you from uchilla church??", delay: 1000 },
         { sender: 'jeshuu', text: "yaaa u didn't kn??", delay: 2000 },
-        { sender: 'sys', text: "that's how our convo started jeshuuu jiii.... ✨", delay: 2000 }
+        { sender: 'sys', text: "and that's how our story took a major turn jeshuuu 💖✨", delay: 2000 }
       ]
     },
     chat2: {
@@ -1257,15 +1224,13 @@ document.addEventListener("DOMContentLoaded", () => {
       date: "January 4, 2026",
       messages: [
         { sender: 'jeshuu', text: "hyy do u have crush on anyone", delay: 1000 },
-        { sender: 'jeshuu', text: "...", delay: 1500 },
-        { sender: 'jeshuu', text: "...", delay: 1500 },
-        { sender: 'deon', text: "do u have crush on anyone", delay: 2000 },
+        { sender: 'jeshuu', text: ".", delay: 1500 }, // ONE DOT
+        { sender: 'deon', text: "do u have crush on anyone??", delay: 2000 },
         { sender: 'jeshuu', text: "yes ..", delay: 1500 },
-        { sender: 'deon', text: "...", delay: 1500 },
-        { sender: 'deon', text: "...", delay: 1500 },
+        { sender: 'sys', text: "ltr on the best night in my life... 🌙✨", delay: 2000 }, // NIGHT LINE
         { sender: 'deon', text: "is it me??", delay: 2000 },
         { sender: 'jeshuu', text: "yesss!!", delay: 1500 },
-        { sender: 'deon', text: "don't need to imagine more ig", delay: 2000 },
+        { sender: 'deon', text: "u dont need to imagine", delay: 2000 }, // EXACT TEXT
         { sender: 'jeshuu', text: "ahh really i can't digest", delay: 2000 },
         { sender: 'deon', text: "don't digest simply agree", delay: 2000 },
         { sender: 'sys', text: "And that's how our love story started... ✨", delay: 2000 }
@@ -1325,7 +1290,6 @@ document.addEventListener("DOMContentLoaded", () => {
     lantern.addEventListener('click', () => {
       lantern.classList.add('fly'); document.getElementById('shooting-hint').style.opacity = '0';
       
-      // Spawn magic dust trail as it flies
       let trailInt = setInterval(() => {
         const rect = lantern.getBoundingClientRect();
         const dust = document.createElement('div'); dust.className = 'fairy-dust';
@@ -1384,7 +1348,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   /* ══════════════════════════════════════
      CHAPTER 9: HEARTBEAT SCANNER & 3D TUNNEL
+     Currently completely disabled for Birthday Version
   ══════════════════════════════════════ */
+  /*
   const scanner = document.getElementById('heartbeat-scanner');
   const sProg = document.getElementById('scanner-progress');
   const sHint = document.getElementById('scanner-hint');
@@ -1445,6 +1411,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const tOverlay = document.getElementById('tunnel-overlay');
     tOverlay.style.opacity = '0'; setTimeout(() => tOverlay.style.display = 'none', 1500);
   });
+  */
 
   /* ══════════════════════════════════════
      SECRET EASTER EGG (SCROLL TO TOP BUTTON)
