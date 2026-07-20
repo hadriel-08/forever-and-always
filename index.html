@@ -220,7 +220,7 @@ canvas#stars { position: absolute; inset: 0; z-index: 2; pointer-events: none; m
 /* ═══════════════════════════════════════
    LIVE CHAT MODAL 
 ═══════════════════════════════════════ */
-#chat-modal { position: fixed; inset: 0; z-index: 100000; background: rgba(3,1,8,0.9); backdrop-filter: blur(15px); display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
+#chat-modal { position: fixed; inset: 0; z-index: 1000000; background: rgba(3,1,8,0.9); backdrop-filter: blur(15px); display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.4s ease; }
 #chat-modal.active { opacity: 1; pointer-events: auto; }
 .chat-box { width: 90%; max-width: 400px; height: 60vh; max-height: 600px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; display: flex; flex-direction: column; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.8); }
 .chat-header { padding: 1rem; background: rgba(196,128,106,0.15); border-bottom: 1px solid rgba(255,255,255,0.05); text-align: center; }
@@ -364,6 +364,57 @@ canvas#stars { position: absolute; inset: 0; z-index: 2; pointer-events: none; m
 .vn-sub { font-family: 'Playfair Display', serif; font-style: italic; color: rgba(246,234,216,0.7); font-size: 1.1rem; }
 
 /* ═══════════════════════════════════════
+   CHAPTER 9: HEARTBEAT SCANNER & TUNNEL
+═══════════════════════════════════════ */
+#vault { background: linear-gradient(180deg, var(--night) 0%, #06020A 100%); padding: 7rem 2rem; position: relative; overflow: hidden; }
+.vault-c { max-width: 700px; margin: 0 auto; position: relative; z-index: 10; text-align: center; }
+.vault-box { background: rgba(246,234,216,0.02); border: 1px solid rgba(246,234,216,0.1); border-radius: 24px; padding: 3.5rem 2rem; backdrop-filter: blur(15px); box-shadow: 0 20px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05); position: relative; overflow: hidden; transition: opacity 1s ease; }
+.vault-box::before { content:''; position:absolute; inset:0; background:radial-gradient(circle at 50% -20%,rgba(196,128,106,.15),transparent 70%); pointer-events:none; }
+.v-icon { font-size: 3rem; margin-bottom: 1rem; filter: drop-shadow(0 0 15px rgba(246,234,216,0.3)); }
+.v-hint { font-family: 'Playfair Display', serif; font-style: italic; color: rgba(246,234,216,0.85); font-size: 1.25rem; line-height: 1.6; margin-bottom: 2.5rem; transition: color 0.3s ease; }
+
+/* Locked Overlay Styling */
+#vault-lock-overlay { position: absolute; inset: 0; background: rgba(3,1,8,0.85); backdrop-filter: blur(8px); z-index: 20; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 24px; transition: opacity 1s ease; }
+.lock-icon { font-size: 3rem; margin-bottom: 1rem; text-shadow: 0 0 20px rgba(196,128,106,0.4); }
+.lock-title { font-family:'Playfair Display',serif; color:var(--champ); font-size: 1.5rem; font-style: italic; margin-bottom: 1.2rem; }
+#countdown-timer { font-family:'Cinzel',serif; font-size: 1.3rem; color: var(--rose); letter-spacing: 0.1em; background: rgba(255,255,255,0.05); padding: 10px 20px; border-radius: 8px; border: 1px solid rgba(196,128,106,0.3); }
+
+/* Heartbeat Scanner UI (Red Heart) */
+#heartbeat-scanner {
+  margin: 2rem auto; width: 120px; height: 120px; border-radius: 50%;
+  border: 2px solid rgba(238,154,184,0.3); position: relative; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; overflow: hidden;
+  box-shadow: 0 0 30px rgba(196,128,106,0.1); user-select: none;
+  -webkit-user-select: none; touch-action: none; z-index: 10;
+}
+#scanner-progress {
+  position: absolute; bottom: 0; left: 0; width: 100%; height: 0%;
+  background: rgba(238,154,184,0.4); transition: height 0.08s linear;
+  box-shadow: 0 0 20px rgba(238,154,184,0.8);
+}
+.fingerprint-icon { font-size: 3.5rem; position: relative; z-index: 2; text-shadow: 0 0 15px rgba(255,255,255,0.5); pointer-events: none; }
+
+/* 3D Tunnel Overlay */
+#tunnel-overlay {
+  position: fixed; inset: 0; background: #000; z-index: 90000;
+  display: none; opacity: 0; transition: opacity 1.5s ease;
+  perspective: 800px; overflow: hidden;
+}
+#tunnel-camera { position: absolute; top: 50%; left: 50%; width: 0; height: 0; transform-style: preserve-3d; }
+.t-panel {
+  position: absolute; width: 280px; height: 380px; margin-left: -140px; margin-top: -190px;
+  background-size: cover; background-position: center; background-color: rgba(255,255,255,0.05); 
+  border-radius: 12px; border: 2px solid rgba(255,255,255,0.1); box-shadow: 0 0 40px rgba(238,154,184,0.3);
+  display: flex; align-items: center; justify-content: center;
+}
+.t-panel::after { content: 'Memory'; font-family: 'Cinzel', serif; color: rgba(255,255,255,0.3); letter-spacing: 0.2em; font-size: 0.8rem; }
+#tunnel-flash-bg { position: absolute; inset: 0; background: #FFF; opacity: 0; pointer-events: none; transition: opacity 2s ease; z-index: 10; }
+#anniversary-letter {
+  position: absolute; inset: 0; z-index: 20; display: none; opacity: 0;
+  background: #030108; color: #F6EAD8; padding: 2rem; overflow-y: auto; text-align: center; transition: opacity 2s ease;
+}
+
+/* ═══════════════════════════════════════
    LANTERN WISHES WITH MAGICAL TRAIL
 ═══════════════════════════════════════ */
 #wishes { background:var(--night); position: relative; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden;}
@@ -467,7 +518,7 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
   <div class="dot"     data-target="#letter" title="Letter"></div>
   <div class="dot"     data-target="#promises" title="Promises"></div>
   <div class="dot"     data-target="#voice-note" title="My Voice"></div>
-  <!-- Vault Dot Removed for Now -->
+  <div class="dot"     data-target="#vault" title="Time Capsule"></div>
   <div class="dot"     data-target="#wishes" title="Wishes"></div>
 </nav>
 
@@ -564,7 +615,7 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
         </div>
       </div>
       
-      <!-- Interactive 3D Solar System (With Spring Effect) -->
+      <!-- Interactive 3D Solar System -->
       <div class="solar-wrap rev magnetic-wrap">
         <div class="solar-core"></div>
         <div class="o-ring r1"><div class="planet open-polaroid" data-img="memory1.jpg" data-cap="That day we couldn't stop laughing ✨"></div></div>
@@ -771,8 +822,7 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
     </div>
   </section>
 
-  <!-- CHAPTER 9: HEARTBEAT SCANNER & TUNNEL (LOCKED FOR NOW) -->
-  <!-- 
+  <!-- CHAPTER 9: HEARTBEAT SCANNER & TUNNEL WITH TIMER LOCK -->
   <section id="vault" class="content-sec" data-name="Time Capsule" data-num="09">
     <div class="orb" style="width:600px;height:600px;background:radial-gradient(circle,rgba(196,128,106,.05),transparent);top:20%;left:50%;transform:translateX(-50%);animation:orbGlow 12s ease infinite;"></div>
     
@@ -784,6 +834,14 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
       </div>
       
       <div class="vault-box magnetic-wrap" id="vault-box-ui">
+        
+        <!-- THE LOCK & TIMER OVERLAY -->
+        <div id="vault-lock-overlay">
+          <div class="lock-icon">🔒</div>
+          <h3 class="lock-title">Unlocks on our Anniversary</h3>
+          <div id="countdown-timer">Calculating time...</div>
+        </div>
+
         <h3 style="font-family:'Playfair Display',serif; color:var(--champ); font-size: 1.8rem; margin-bottom: 1rem; font-style: italic;">The 1-Year Anniversary Vault</h3>
         
         <div id="heartbeat-scanner">
@@ -794,10 +852,9 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
       </div>
     </div>
   </section>
-  -->
 
   <!-- UPGRADED MAGICAL LANTERN WISHES -->
-  <section id="wishes" class="content-sec" data-name="Wishes" data-num="09">
+  <section id="wishes" class="content-sec" data-name="Wishes" data-num="10">
     <canvas id="fw"></canvas>
     <div class="orb" style="width:550px;height:550px;background:radial-gradient(circle,rgba(196,128,106,.09),transparent);top:50%;left:50%;transform:translate(-50%,-50%);animation:orbGlow 8s ease infinite;"></div>
 
@@ -812,7 +869,7 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
     <div class="wish-c" id="wish-text-container" style="display: none; opacity: 0; transition: opacity 2s ease;">
       <div class="ch-tag center">
         <div class="cl cl-l"></div>
-        <span>Chapter IX</span>
+        <span>Chapter X</span>
         <div class="cl cl-r"></div>
       </div>
       <h2 class="w-ttl">Happy Birthday<br><em>Jeshuu</em> 🎂</h2>
@@ -826,7 +883,7 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
   </section>
 
   <!-- OUTRO WITH FLOATING HEARTS BACKGROUND -->
-  <section id="outro" class="content-sec" data-name="The End" data-num="10">
+  <section id="outro" class="content-sec" data-name="The End" data-num="11">
     <div class="orb" style="width:480px;height:480px;background:radial-gradient(circle,rgba(124,26,72,.12),transparent);top:50%;left:50%;transform:translate(-50%,-50%);animation:orbGlow 9s ease infinite;"></div>
     <div id="outro-hearts-container"></div>
     <div class="outro-c rev">
@@ -893,7 +950,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.body.style.overflow = 'hidden';
 
   /* ══════════════════════════════════════
-     MASTER ANIMATION LOOP
+     MASTER ANIMATION LOOP (UPDATED WARP PHYSICS)
   ══════════════════════════════════════ */
   const cHero = document.getElementById('stars');
   const ctxHero = cHero ? cHero.getContext('2d') : null;
@@ -909,11 +966,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function resize() { W = window.innerWidth; H = window.innerHeight; if(cHero){cHero.width=W; cHero.height=H;} if(cFw){cFw.width=W; cFw.height=H;} buildStars(); }
   
-  /* STAR SETTINGS UPDATED: STRICTLY WHITE */
+  /* STRICTLY WHITE STARS FOR INTRO */
   function buildStars() {
     stars = [];
     for(let i=0; i< (isMobile ? 150 : 350); i++) {
-      stars.push({ angle: Math.random()*Math.PI*2, dist: Math.random()*Math.max(W,H), orbitSpeed: Math.random()*0.002+0.001, r: Math.random()*1.5+.5, color: '#FFFFFF', warpFactor: 1 });
+      stars.push({ 
+        angle: Math.random()*Math.PI*2, 
+        dist: Math.random()*Math.max(W,H), 
+        orbitSpeed: Math.random()*0.002+0.001, 
+        r: Math.random()*1.5+.5, 
+        color: '#FFFFFF'
+      });
     }
   }
 
@@ -965,23 +1028,36 @@ document.addEventListener("DOMContentLoaded", () => {
           ctxHero.beginPath(); ctxHero.arc(s.x,s.y,s.r,0,Math.PI*2); ctxHero.fill();
         }
       } else if (introMode === 'warp') {
-        if (warpSpeed < 25) warpSpeed *= 1.05; 
-        ctxHero.fillStyle = `rgba(3,1,8,0.25)`; ctxHero.fillRect(0,0,W,H);
+        /* NEW SEAMLESS HIGH-SPEED WARP PHYSICS */
+        if (warpSpeed < 30) warpSpeed += 0.5; 
+        ctxHero.fillStyle = `rgba(3,1,8,0.25)`; 
+        ctxHero.fillRect(0,0,W,H);
+        
         for(const s of stars){
-          let oldX = W/2 + Math.cos(s.angle)*(s.dist*s.warpFactor), oldY = H/2 + Math.sin(s.angle)*(s.dist*s.warpFactor);
-          s.warpFactor += (warpSpeed * 0.001); 
-          let newX = W/2 + Math.cos(s.angle)*(s.dist*s.warpFactor), newY = H/2 + Math.sin(s.angle)*(s.dist*s.warpFactor);
+          let prevDist = s.dist;
+          // Stars accelerate as they get further from center (3D depth illusion)
+          s.dist += warpSpeed * (s.dist / 150 + 0.5); 
           
-          /* SMOOTH CONTINUOUS WARP - Respawns near center! */
-          ctxHero.globalAlpha = Math.min(1, s.warpFactor); ctxHero.strokeStyle = s.color; 
-          ctxHero.lineWidth = s.r*(s.warpFactor>1?s.warpFactor*0.5:1); ctxHero.lineCap = 'round';
-          ctxHero.beginPath(); ctxHero.moveTo(oldX, oldY); ctxHero.lineTo(newX, newY); ctxHero.stroke();
-          
-          if (newX < 0 || newX > W || newY < 0 || newY > H) { 
-            s.warpFactor = 0.01; 
-            s.dist = Math.random() * (Math.min(W,H) / 3); /* Spawn near center for a looping look */
-            s.angle = Math.random()*Math.PI*2; 
+          if (s.dist > Math.max(W,H) * 1.2) {
+             s.dist = Math.random() * 20 + 5; // Spawn smoothly near center
+             s.angle = Math.random() * Math.PI * 2;
+             prevDist = s.dist; // Prevent massive line drawing across screen on spawn
           }
+
+          let oldX = W/2 + Math.cos(s.angle) * prevDist;
+          let oldY = H/2 + Math.sin(s.angle) * prevDist;
+          let newX = W/2 + Math.cos(s.angle) * s.dist;
+          let newY = H/2 + Math.sin(s.angle) * s.dist;
+
+          // Fade in smoothly so they don't abruptly pop in
+          ctxHero.globalAlpha = Math.min(1, s.dist / 100); 
+          ctxHero.strokeStyle = s.color; 
+          ctxHero.lineWidth = s.r * (warpSpeed/10); 
+          ctxHero.lineCap = 'round';
+          ctxHero.beginPath();
+          ctxHero.moveTo(oldX, oldY);
+          ctxHero.lineTo(newX, newY);
+          ctxHero.stroke();
         }
       } else if (introMode === 'flash') {
         ctxHero.clearRect(0,0,W,H);
@@ -1018,7 +1094,6 @@ document.addEventListener("DOMContentLoaded", () => {
   ══════════════════════════════════════ */
   window.triggerWarp = function() {
     introMode = 'warp'; warpSpeed = 1;
-    // Stars strictly stay white as requested
     function makeRipple() {
       const shock = document.createElement('div'); shock.className = 'glass-shockwave';
       document.getElementById('hero').appendChild(shock);
@@ -1151,7 +1226,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const hovEls = ()=>[...document.querySelectorAll('button,.qcard,.dot,a,.flip-card,.planet,#playVoiceBtn,.tl-content,.magic-frame,.lantern,#magic-paper,.secret-trigger,.cv, #heartbeat-scanner, .open-chat')];
     document.addEventListener('mousemove', e => { ring.classList.toggle('hover', hovEls().some(el=>el.contains(e.target)||el===e.target)); });
     
-    /* CURSOR ANIMATION UPDATED: MUCH SMOOTHER physics */
     function followRing(){ rx+=(globalMouseX-rx)*0.2; ry+=(globalMouseY-ry)*0.2; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(followRing); } followRing();
   }
 
@@ -1207,7 +1281,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }, {passive:true});
 
   /* ══════════════════════════════════════
-     DYNAMIC LIVE CHAT ENGINE (UPDATED TO EXACT SPECS)
+     DYNAMIC LIVE CHAT ENGINE
   ══════════════════════════════════════ */
   const chatData = {
     chat1: {
@@ -1224,13 +1298,13 @@ document.addEventListener("DOMContentLoaded", () => {
       date: "January 4, 2026",
       messages: [
         { sender: 'jeshuu', text: "hyy do u have crush on anyone", delay: 1000 },
-        { sender: 'jeshuu', text: ".", delay: 1500 }, // ONE DOT
+        { sender: 'jeshuu', text: ".", delay: 1500 },
         { sender: 'deon', text: "do u have crush on anyone??", delay: 2000 },
         { sender: 'jeshuu', text: "yes ..", delay: 1500 },
-        { sender: 'sys', text: "ltr on the best night in my life... 🌙✨", delay: 2000 }, // NIGHT LINE
+        { sender: 'sys', text: "ltr on the best night in my life... 🌙✨", delay: 2000 },
         { sender: 'deon', text: "is it me??", delay: 2000 },
         { sender: 'jeshuu', text: "yesss!!", delay: 1500 },
-        { sender: 'deon', text: "u dont need to imagine", delay: 2000 }, // EXACT TEXT
+        { sender: 'deon', text: "u dont need to imagine", delay: 2000 },
         { sender: 'jeshuu', text: "ahh really i can't digest", delay: 2000 },
         { sender: 'deon', text: "don't digest simply agree", delay: 2000 },
         { sender: 'sys', text: "And that's how our love story started... ✨", delay: 2000 }
@@ -1347,16 +1421,38 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ══════════════════════════════════════
-     CHAPTER 9: HEARTBEAT SCANNER & 3D TUNNEL
-     Currently completely disabled for Birthday Version
+     CHAPTER 9: HEARTBEAT SCANNER & TIMER LOCK
   ══════════════════════════════════════ */
-  /*
   const scanner = document.getElementById('heartbeat-scanner');
   const sProg = document.getElementById('scanner-progress');
   const sHint = document.getElementById('scanner-hint');
+  const lockOverlay = document.getElementById('vault-lock-overlay');
+  const timerEl = document.getElementById('countdown-timer');
   let scanTimer = null, scanProgress = 0, vaultUnlocked = false;
 
+  /* --- CHANGE THIS DATE TO YOUR EXACT ANNIVERSARY --- */
+  const annivDate = new Date("Jan 4, 2027 00:00:00").getTime();
+
+  const updateTimer = () => {
+    const now = new Date().getTime();
+    const distance = annivDate - now;
+    if (distance < 0) {
+       lockOverlay.style.opacity = '0';
+       setTimeout(() => { lockOverlay.style.display = 'none'; }, 1000);
+    } else {
+       const d = Math.floor(distance / (1000 * 60 * 60 * 24));
+       const h = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+       const m = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+       const s = Math.floor((distance % (1000 * 60)) / 1000);
+       timerEl.innerHTML = `${d}d ${h}h ${m}m ${s}s`;
+    }
+  };
+  setInterval(updateTimer, 1000); updateTimer();
+
   const startScan = (e) => {
+    // Prevent scanning if it's still locked!
+    if(new Date().getTime() < annivDate) return; 
+
     if(vaultUnlocked) return; e.preventDefault(); sHint.textContent = "Syncing...";
     scanTimer = setInterval(() => {
       scanProgress += 2; if(sProg) sProg.style.height = scanProgress + '%';
@@ -1370,7 +1466,8 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   const stopScan = (e) => {
-    if(vaultUnlocked) return; clearInterval(scanTimer); scanProgress = 0;
+    if(vaultUnlocked || new Date().getTime() < annivDate) return; 
+    clearInterval(scanTimer); scanProgress = 0;
     if(sProg) sProg.style.height = '0%'; sHint.textContent = "Press and hold to sync heartbeats...";
   };
 
@@ -1411,7 +1508,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const tOverlay = document.getElementById('tunnel-overlay');
     tOverlay.style.opacity = '0'; setTimeout(() => tOverlay.style.display = 'none', 1500);
   });
-  */
 
   /* ══════════════════════════════════════
      SECRET EASTER EGG (SCROLL TO TOP BUTTON)
