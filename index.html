@@ -178,7 +178,6 @@ canvas#stars { position: absolute; inset: 0; z-index: 2; pointer-events: none; m
   content: "";
   position: absolute;
   inset: 0;
-  /* UPDATED: Brighter, more visible static cosmic dust pattern */
   background-image: url('data:image/svg+xml;utf8,<svg width="400" height="400" xmlns="http://www.w3.org/2000/svg"><circle cx="40" cy="40" r="2" fill="rgba(255,255,255,0.4)"/><circle cx="200" cy="120" r="3" fill="rgba(238,154,184,0.3)"/><circle cx="320" cy="280" r="2" fill="rgba(255,255,255,0.3)"/><circle cx="100" cy="320" r="3.5" fill="rgba(246,234,216,0.2)"/><circle cx="350" cy="50" r="1.5" fill="rgba(255,215,0,0.3)"/></svg>');
   background-size: 400px 400px;
   z-index: 5;
@@ -502,8 +501,8 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
   padding: 12px 20px; border-radius: 20px; backdrop-filter: blur(8px); box-shadow: 0 0 20px rgba(255,215,0,0.15); 
   font-family: 'Playfair Display', serif; font-style: italic; color: var(--champ); font-size: 0.95rem; 
   opacity: 0; transform: scale(0.5); transition: opacity 0.5s, transform 0.5s; 
-  white-space: normal; /* Fixed wrapping issue */
-  max-width: 140px; 
+  white-space: normal; 
+  max-width: 160px;
   text-align: center;
   line-height: 1.3;
   z-index: 20;
@@ -533,7 +532,7 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
 }
 
 /* ═══════════════════════════════════════
-   CHAPTER 14: SOLAR ECLIPSE (UPDATED EFFECTS)
+   CHAPTER 14: SOLAR ECLIPSE
 ═══════════════════════════════════════ */
 #eclipse { background: var(--night); position: relative; overflow: hidden; transition: background 2.5s ease; min-height: 100vh; }
 .eclipse-container { text-align: center; position: relative; z-index: 10; width: 100%; max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; }
@@ -1190,7 +1189,6 @@ document.addEventListener("DOMContentLoaded", () => {
   let fireworksRunning = false;
 
   const PAL = ['#FF6BA4','#FFD700','#FF9A40','#C4806A','#EE9AB8','#A8E4FF','#C8A0F8','#FFF','#FF4D96','#66FFD4'];
-  const WARP_PAL = ['#FFF', '#F6EAD8', '#EE9AB8', '#C4806A', '#7C1A48']; 
 
   function resize() { W = window.innerWidth; H = window.innerHeight; if(cHero){cHero.width=W; cHero.height=H;} if(cFw){cFw.width=W; cFw.height=H;} buildStars(); }
   
@@ -1199,7 +1197,6 @@ document.addEventListener("DOMContentLoaded", () => {
   ══════════════════════════════════════ */
   function buildStars() {
     stars = [];
-    // Create 3 distinct layers for parallax depth
     for(let i=0; i< (isMobile ? 120 : 350); i++) {
       let layer = Math.random() > 0.8 ? 3 : (Math.random() > 0.5 ? 2 : 1);
       stars.push({ 
@@ -1209,7 +1206,6 @@ document.addEventListener("DOMContentLoaded", () => {
         r: (Math.random() * 1.2 + 0.5) * (layer * 0.7), 
         alpha: Math.random() * 0.5 + 0.3 + (layer * 0.1),
         layer: layer,
-        // Add subtle colors to some stars
         color: Math.random() > 0.85 ? PAL[Math.floor(Math.random()*3)] : '#FFFFFF'
       });
     }
@@ -1240,7 +1236,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const endX = this.x - this.len;
       const endY = this.y + this.len;
       
-      // Comet tail gradient
       const grad = ctx.createLinearGradient(this.x, this.y, endX, endY);
       grad.addColorStop(0, this.color);
       grad.addColorStop(0.2, this.color);
@@ -1254,14 +1249,13 @@ document.addEventListener("DOMContentLoaded", () => {
       ctx.lineCap = 'round';
       ctx.stroke();
       
-      // Glowing head
       ctx.beginPath();
       ctx.arc(this.x, this.y, this.size * 1.5, 0, Math.PI * 2);
       ctx.fillStyle = '#FFF';
       ctx.shadowBlur = 15;
       ctx.shadowColor = this.color;
       ctx.fill();
-      ctx.shadowBlur = 0; // reset
+      ctx.shadowBlur = 0;
       
       this.x -= this.speed;
       this.y += this.speed;
@@ -1313,7 +1307,6 @@ document.addEventListener("DOMContentLoaded", () => {
   function masterLoop() {
     if (isCanvasVisible && ctxHero) {
       if (introMode === 'orbit') {
-        // Subtle trail effect
         ctxHero.fillStyle = 'rgba(3, 1, 8, 0.3)';
         ctxHero.fillRect(0, 0, W, H);
         
@@ -1325,12 +1318,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
         for(const s of stars){
           s.angle += s.orbitSpeed; 
-          
-          // Apply parallax based on layer
           let px = W/2 + Math.cos(s.angle) * s.dist - (mouseOffsetX * s.layer);
           let py = H/2 + Math.sin(s.angle) * s.dist - (mouseOffsetY * s.layer);
           
-          // Twinkle effect
           let currentAlpha = s.alpha + Math.sin(Date.now() * 0.003 * s.layer + s.dist) * 0.3;
           
           ctxHero.globalAlpha = Math.max(0.1, Math.min(1, currentAlpha)); 
@@ -1344,8 +1334,7 @@ document.addEventListener("DOMContentLoaded", () => {
         shootingStars.forEach(ss => ss.draw(ctxHero));
 
       } else if (introMode === 'warp') {
-        // Hyperspace stretch effect
-        warpSpeed *= 1.08; // Exponential acceleration
+        warpSpeed *= 1.08; 
         ctxHero.fillStyle = `rgba(3,1,8, ${Math.max(0.05, 0.3 - warpSpeed*0.01)})`; 
         ctxHero.fillRect(0,0,W,H);
         
@@ -1363,8 +1352,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
           ctxHero.globalAlpha = Math.min(1, warpSpeed / 20); 
           ctxHero.strokeStyle = s.color; 
-          
-          // Stars stretch into lines as they speed up
           ctxHero.lineWidth = s.r * Math.min(3, (warpSpeed/5)); 
           ctxHero.lineCap = 'round';
           
@@ -1373,7 +1360,6 @@ document.addEventListener("DOMContentLoaded", () => {
           ctxHero.lineTo(newX, newY);
           ctxHero.stroke();
           
-          // Reset star if it goes off screen to create infinite loop
           if (s.dist > Math.max(W,H) * 1.5) {
              s.dist = Math.random() * 50; 
              s.angle = Math.random() * Math.PI * 2;
@@ -1383,8 +1369,26 @@ document.addEventListener("DOMContentLoaded", () => {
         ctxHero.clearRect(0,0,W,H);
         ctxHero.fillStyle = `rgba(255,255,255,${flashAlpha})`; 
         ctxHero.fillRect(0,0,W,H);
+        
         if (flashAlpha > 0) {
+          ctxHero.globalAlpha = flashAlpha; 
+          ctxHero.fillStyle = 'rgba(255, 255, 255, 0.8)';
+          ctxHero.beginPath(); 
+          ctxHero.ellipse(W/2, H/2, W, 2, 0, 0, Math.PI*2); 
+          ctxHero.fill();
           flashAlpha -= 0.015; 
+        }
+        
+        // This brings back the beautifully spaced, gently rotating white stars behind the typewriter text
+        for(const s of stars){
+          s.angle += s.orbitSpeed * 0.5; 
+          let px = W/2 + Math.cos(s.angle) * s.dist; 
+          let py = H/2 + Math.sin(s.angle) * s.dist;
+          ctxHero.globalAlpha = Math.max(0, 0.6 - flashAlpha); 
+          ctxHero.fillStyle = '#fff'; // Pure white as requested
+          ctxHero.beginPath(); 
+          ctxHero.arc(px, py, s.r, 0, Math.PI*2); 
+          ctxHero.fill();
         }
       }
     }
@@ -1424,7 +1428,14 @@ document.addEventListener("DOMContentLoaded", () => {
     makeRipple(); setTimeout(makeRipple, 1200);
 
     setTimeout(() => { 
-      document.getElementById('intro-flash').style.opacity = '1'; introMode = 'flash'; flashAlpha = 1;
+      document.getElementById('intro-flash').style.opacity = '1'; 
+      introMode = 'flash'; 
+      flashAlpha = 1;
+      
+      // THIS IS THE FIX FOR THE STARS IN THE CENTER!
+      // Re-scatter the stars to fill the whole screen right as the flash hits
+      buildStars(); 
+      
       setTimeout(() => { document.getElementById('intro-flash').style.opacity = '0'; }, 800); 
     }, 2500); 
   };
@@ -1881,7 +1892,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* ══════════════════════════════════════
-     CHAPTER 11: CONSTELLATION REVEAL
+     CHAPTER 11: CONSTELLATION REVEAL 
   ══════════════════════════════════════ */
   const constCanvas = document.getElementById('constellation-canvas');
   if(constCanvas) {
@@ -1894,11 +1905,10 @@ document.addEventListener("DOMContentLoaded", () => {
     const totalNodes = isMobile ? 60 : 100;
     const baseScale = isMobile ? 8 : 12;
     
-    // Generate heart target points
     function getHeartPoint(t, scale) {
       const x = 16 * Math.pow(Math.sin(t), 3);
       const y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
-      return { x: cw/2 + x * scale, y: ch/2 + y * scale };
+      return { x: cw/2 + x * scale, y: ch/2 + 60 + y * scale };
     }
 
     for(let i=0; i<totalNodes; i++) {
@@ -1909,23 +1919,21 @@ document.addEventListener("DOMContentLoaded", () => {
         vx: (Math.random() - 0.5) * 1.5, vy: (Math.random() - 0.5) * 1.5,
         targetX: target.x, targetY: target.y,
         size: Math.random() * 1.5 + 0.8,
-        t: t // Save the angle for recalculating the heartbeat
+        t: t 
       });
     }
 
     function animateConstellation() {
-      // Completely pauses all heavy canvas math when scrolled out of view
       if(!window.isConstellationVisible) { 
         requestAnimationFrame(animateConstellation); 
         return; 
       }
       ctx.clearRect(0,0,cw,ch);
       
-      // Heartbeat Math
       let currentScale = baseScale;
       if (state === 'forming') {
         const time = Date.now() / 300; 
-        const pulse = 1 + Math.sin(time) * 0.08; // Creates the beating effect
+        const pulse = 1 + Math.sin(time) * 0.08; 
         currentScale = baseScale * pulse;
       }
 
@@ -1935,7 +1943,6 @@ document.addEventListener("DOMContentLoaded", () => {
           if(n.x < 0 || n.x > cw) n.vx *= -1;
           if(n.y < 0 || n.y > ch) n.vy *= -1;
         } else if (state === 'forming') {
-          // Update targets dynamically so it beats
           const dynamicTarget = getHeartPoint(n.t, currentScale);
           n.x += (dynamicTarget.x - n.x) * 0.08;
           n.y += (dynamicTarget.y - n.y) * 0.08;
@@ -1948,7 +1955,6 @@ document.addEventListener("DOMContentLoaded", () => {
         ctx.shadowColor = '#EE9AB8';
         ctx.fill();
 
-        // Draw connections
         nodes.forEach((n2, j) => {
           if(i === j) return;
           const dx = n.x - n2.x, dy = n.y - n2.y;
@@ -1973,7 +1979,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ══════════════════════════════════════
-     CHAPTER 12: FIREFLY MEMORY JAR (DYNAMIC FIX)
+     CHAPTER 12: FIREFLY MEMORY JAR 
   ══════════════════════════════════════ */
   const jar = document.getElementById('the-jar');
   const fireflyContainer = document.getElementById('firefly-container');
@@ -1982,7 +1988,10 @@ document.addEventListener("DOMContentLoaded", () => {
     "The way you look at me", 
     "Your endless kindness", 
     "How safe I feel with you", 
-    "Because you are my best friend"
+    "Because you are my best friend",
+    "cause your one the best gf",
+    "your sooo cute",
+    "i loveeeeeee uhhhhhhh sooooo muchhh😚❤️"
   ];
   let jarOpened = false;
 
@@ -1996,14 +2005,17 @@ document.addEventListener("DOMContentLoaded", () => {
       const startX = rect.left + rect.width/2;
       const startY = rect.top + 20;
 
-      // Perfectly scaled for both mobile and desktop screens
-      const spreadX = Math.min(window.innerWidth * 0.35, 200); 
+      // Perfectly spaced absolute coordinates for a wide laptop screen 
+      // ensuring NO bubbles overlap!
       const positions = [
-        { dx: -spreadX * 0.8, dy: -150 }, // Top Left
-        { dx: spreadX * 0.8, dy: -140 },  // Top Right
-        { dx: -spreadX * 1.1, dy: -60 },  // Mid Left
-        { dx: spreadX * 1.1, dy: -50 },   // Mid Right
-        { dx: 0, dy: -220 }               // Top Center
+        { dx: -380, dy: -200 }, // 1. Far Left
+        { dx: -240, dy: -320 }, // 2. Mid-High Left
+        { dx: -100, dy: -420 }, // 3. Top Left
+        { dx: 100,  dy: -420 }, // 4. Top Right
+        { dx: 240,  dy: -320 }, // 5. Mid-High Right
+        { dx: 380,  dy: -200 }, // 6. Far Right
+        { dx: -200, dy: -90 },  // 7. Low Left
+        { dx: 200,  dy: -90 }   // 8. Low Right
       ];
 
       reasons.forEach((text, i) => {
@@ -2030,7 +2042,6 @@ document.addEventListener("DOMContentLoaded", () => {
             bubble.textContent = text;
             
             fireflyContainer.appendChild(bubble);
-            // Re-calc after adding to DOM to center perfectly
             const bWidth = bubble.offsetWidth;
             bubble.style.left = (targetX - (bWidth / 2) + 3) + 'px';
             bubble.style.top = (targetY - 50) + 'px';
@@ -2038,13 +2049,13 @@ document.addEventListener("DOMContentLoaded", () => {
             setTimeout(() => bubble.classList.add('vis'), 50);
           }, 2200); 
 
-        }, i * 500);
+        }, i * 400); 
       });
     });
   }
 
   /* ══════════════════════════════════════
-     CHAPTER 13: PARALLAX POLAROIDS (OPTIMIZED)
+     CHAPTER 13: PARALLAX POLAROIDS 
   ══════════════════════════════════════ */
   const parallaxSec = document.getElementById('parallax-memories');
   const paraItems = document.querySelectorAll('.para-polaroid');
@@ -2072,7 +2083,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ══════════════════════════════════════
-     CHAPTER 14: SOLAR ECLIPSE DRAG LOGIC (WITH SHOCKWAVE)
+     CHAPTER 14: SOLAR ECLIPSE 
   ══════════════════════════════════════ */
   const moon = document.getElementById('e-moon');
   const sun = document.getElementById('e-sun');
@@ -2128,7 +2139,6 @@ document.addEventListener("DOMContentLoaded", () => {
         moon.style.left = '50%';
         moon.style.top = '50%';
         
-        // Create the Cosmic Shockwave!
         const shock = document.createElement('div');
         shock.className = 'eclipse-shockwave';
         document.querySelector('.eclipse-interactive').appendChild(shock);
