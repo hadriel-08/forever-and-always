@@ -36,22 +36,22 @@ body { background: var(--night); color: var(--champ); font-family: 'DM Sans', sa
 }
 
 /* ═══════════════════════════════════════
-   CUSTOM CURSOR
+   CUSTOM MAGICAL CURSOR
 ═══════════════════════════════════════ */
 @media (pointer: fine) {
-  body, a, button, .qcard, .magic-frame, .open-chat, .planet, .lantern, #chat-modal, .close-modal, .chat-box { cursor: none !important; }
+  body, a, button, .qcard, .magic-frame, .open-chat, .planet, .lantern, #chat-modal, .close-modal, .chat-box, .para-polaroid { cursor: none !important; }
 }
 #grain { position:fixed; inset:0; z-index:99998; pointer-events:none; opacity:.04; mix-blend-mode:overlay; width:100%; height:100%; }
 @media (max-width: 768px) { #grain { display: none; } } 
 
-#c-dot, #c-ring { position:fixed; border-radius:50%; pointer-events:none; z-index:9999999; transform:translate(-50%,-50%); opacity:0; }
-#c-dot { width:5px; height:5px; background:var(--champ); box-shadow: 0 0 12px 2px rgba(246,234,216,0.8); transition: opacity .3s ease; }
-#c-ring { 
-  width:36px; height:36px; border: 1px solid rgba(246,234,216,0.4); background: rgba(255,255,255,0.02);
-  backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);
-  transition: width .4s var(--trans), height .4s var(--trans), border-color .4s ease, background .4s ease; 
+#c-cursor, #c-trail { position:fixed; pointer-events:none; z-index:9999999; transform:translate(-50%,-50%); opacity:0; }
+#c-cursor { font-size: 16px; transition: transform 0.2s; text-shadow: 0 0 10px rgba(255,255,255,0.8); }
+#c-trail { 
+  width:28px; height:28px; border: 1px dashed rgba(238,154,184,0.5); border-radius: 50%;
+  transition: width .3s var(--trans), height .3s var(--trans), border-color .3s ease, background .3s ease; 
 }
-#c-ring.hover { width:65px; height:65px; border-color: rgba(238,154,184,0.6); background: rgba(196,128,106,0.08); backdrop-filter: blur(4px); }
+#c-trail.hover { width:55px; height:55px; border-color: rgba(238,154,184,0.9); background: rgba(196,128,106,0.1); backdrop-filter: blur(2px); }
+#c-cursor.hover { transform: translate(-50%, -50%) scale(1.4); }
 
 .fairy-dust { position: fixed; width: 4px; height: 4px; border-radius: 50%; pointer-events: none; z-index: 99996; animation: dustFall 1.2s ease-out forwards; mix-blend-mode: screen; }
 @keyframes dustFall { 0% { opacity: 1; transform: scale(1) translateY(0); } 100% { opacity: 0; transform: scale(0) translateY(80px); } }
@@ -92,7 +92,6 @@ section.content-sec { min-height:100vh; position:relative; display:flex; align-i
 .ch-tag .cl-l { background:linear-gradient(to right,transparent,rgba(196,128,106,.4)); }
 .ch-tag .cl-r { background:linear-gradient(to left, transparent,rgba(196,128,106,.4)); }
 .ch-tag span { font-family:'Cinzel',serif; font-size:.64rem; letter-spacing:.32em; text-transform:uppercase; color:rgba(196,128,106,.65); }
-.orb { position:absolute; border-radius:50%; pointer-events:none; }
 .rev { opacity:0; transform:translateY(44px); transition:opacity .9s ease, transform .9s var(--trans); }
 .rev.vis { opacity:1; transform:translateY(0); }
 .bd-title, .s-ttl, .w-ttl, .o-ttl { font-family:'Playfair Display',serif; font-weight:600; color:var(--champ); }
@@ -157,10 +156,20 @@ canvas#stars { position: absolute; inset: 0; z-index: 2; pointer-events: none; m
 @keyframes cosmicRipple { 0% { transform: translate(-50%, -50%) scale(1); opacity: 1; } 100% { transform: translate(-50%, -50%) scale(150); opacity: 0; } }
 
 /* ═══════════════════════════════════════
-   REST OF SITE CONTAINER
+   REST OF SITE CONTAINER (WITH SUBTLE DUST)
 ═══════════════════════════════════════ */
 #rest-of-site { position: relative; margin-top: 100vh; z-index: 10; background: var(--night); }
-.magnetic-wrap { position: relative; perspective: 1000px; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease; }
+#rest-of-site::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* Very subtle, beautiful static cosmic dust pattern */
+  background-image: url('data:image/svg+xml;utf8,<svg width="300" height="300" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="1" fill="rgba(255,255,255,0.15)"/><circle cx="150" cy="80" r="1.5" fill="rgba(238,154,184,0.1)"/><circle cx="250" cy="220" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="250" r="2" fill="rgba(246,234,216,0.05)"/></svg>');
+  background-size: 300px 300px;
+  z-index: 5;
+  pointer-events: none;
+}
+.magnetic-wrap { position: relative; perspective: 1000px; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease; z-index: 10; }
 .glare { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.15) 0%, transparent 60%); pointer-events: none; opacity: 0; transition: opacity 0.3s ease; z-index: 50; mix-blend-mode: overlay; border-radius: inherit; }
 
 /* ═══════════════════════════════════════
@@ -168,8 +177,6 @@ canvas#stars { position: absolute; inset: 0; z-index: 2; pointer-events: none; m
 ═══════════════════════════════════════ */
 #bday { background:linear-gradient(180deg,#000000 0%,#16091E 100%); position: relative; }
 .bday-particles { position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
-.b-orb { position: absolute; border-radius: 50%; background: radial-gradient(circle, rgba(238,154,184,0.15) 0%, transparent 70%); animation: floatOrb 20s infinite alternate ease-in-out; }
-@keyframes floatOrb { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(40px, -60px) scale(1.2); } }
 
 #balloon-c,#confetti-c { position:absolute; inset:0; pointer-events:none; overflow:hidden; z-index: 2; }
 .bl { position:absolute; bottom:-180px; animation:blRise linear infinite; }
@@ -462,11 +469,20 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
 /* Parallax Polaroids */
 #parallax-memories { background: #06020A; overflow: hidden; }
 .parallax-container { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
-.para-polaroid { position: absolute; background: rgba(246,234,216,0.03); border: 1px solid rgba(246,234,216,0.1); padding: 10px 10px 30px 10px; border-radius: 8px; box-shadow: 0 15px 35px rgba(0,0,0,0.5); width: 200px; height: 240px; pointer-events: auto; cursor: pointer; transition: filter 0.3s, border-color 0.3s; will-change: transform; backdrop-filter: blur(5px); }
+.para-polaroid { 
+  position: absolute; background: rgba(246,234,216,0.03); border: 1px solid rgba(246,234,216,0.1); 
+  padding: 10px 10px 15px 10px; border-radius: 8px; box-shadow: 0 15px 35px rgba(0,0,0,0.5); 
+  width: 220px; min-height: 260px; pointer-events: auto; cursor: pointer; 
+  transition: filter 0.3s, border-color 0.3s; will-change: transform; backdrop-filter: blur(5px);
+  display: flex; flex-direction: column; align-items: center;
+}
 .para-polaroid:hover { border-color: rgba(238,154,184,0.5); filter: drop-shadow(0 0 20px rgba(238,154,184,0.2)); z-index: 50; }
-.pp-img { width: 100%; height: 100%; background: #111; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-family: 'Cinzel', serif; font-size: 0.7rem; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.1em; }
+.pp-media { width: 100%; height: 200px; object-fit: cover; background: #111; border-radius: 4px; pointer-events: none; }
+.pp-cap { font-family: 'Dancing Script', cursive; font-size: 1.4rem; color: var(--champ); margin-top: 12px; text-align: center; pointer-events: none; line-height: 1.2; }
 @media(max-width: 768px){
-  .para-polaroid { width: 140px; height: 170px; padding: 6px 6px 20px 6px; }
+  .para-polaroid { width: 160px; min-height: 200px; padding: 6px 6px 10px 6px; }
+  .pp-media { height: 140px; }
+  .pp-cap { font-size: 1.1rem; margin-top: 8px; }
 }
 
 /* ═══════════════════════════════════════
@@ -535,6 +551,10 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
 
 <div id="parallax-fg"></div>
 
+<!-- MAGICAL CURSOR -->
+<div id="c-trail"></div>
+<div id="c-cursor">✨</div>
+
 <div id="loader">
   <div class="lc-mid">
     <p class="lt-small">aligning the stars for</p>
@@ -543,8 +563,6 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
   </div>
 </div>
 
-<div id="c-ring"></div>
-<div id="c-dot"></div>
 <div id="prog"></div>
 
 <div id="sec-ind">
@@ -605,7 +623,6 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
     <div class="bday-particles" id="bday-particles"></div>
     <div id="balloon-c"></div>
     <div id="confetti-c"></div>
-    <div class="orb" style="width:600px;height:600px;background:radial-gradient(circle,rgba(238,154,184,.07),transparent);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
 
     <div class="bday-c rev">
       <div class="ch-tag center">
@@ -679,8 +696,6 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
 
   <!-- TIMELINE WITH DOUBLE LIVE CHATS -->
   <section id="timeline" class="content-sec" data-name="Our Story" data-num="04">
-    <div class="orb" style="width:500px;height:500px;background:radial-gradient(circle,rgba(229,57,53,.05),transparent);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
-    
     <div style="width: 100%; position: relative; z-index: 10;">
       <div class="sect-head rev">
         <div class="ch-tag center">
@@ -696,7 +711,7 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
         <div class="tl-line-wrap"><div class="tl-line"></div></div>
 
         <div class="tl-item">
-          <div class="tl-content magnetic-wrap open-polaroid" data-img="timeline1.mp4" data-cap="The day my universe was born.">
+          <div class="tl-content magnetic-wrap open-polaroid" data-img="timeline1.jpg" data-cap="The day my universe was born.">
             <div class="tl-dot"></div>
             <p class="tl-date">July 26, 2009</p>
             <p class="tl-text">The day my universe was born. I didn't know you yet, but the world was already getting ready for us.</p>
@@ -781,7 +796,6 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
 
   <!-- WIPE-OFF LETTER -->
   <section id="letter" class="content-sec" data-name="Letter" data-num="06">
-    <div class="orb" style="width:700px;height:700px;background:radial-gradient(circle,rgba(124,26,72,.1),transparent);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
     <div class="letter-w">
       <div class="sect-head rev" style="margin-bottom:3rem;">
         <div class="ch-tag center">
@@ -824,7 +838,6 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
 
   <!-- PROMISES -->
   <section id="promises" class="content-sec" data-name="Promises" data-num="07">
-    <div class="orb" style="width:550px;height:550px;background:radial-gradient(circle,rgba(196,128,106,.09),transparent);top:20%;left:10%;"></div>
     <div class="sect-in">
       <div class="sect-head rev">
         <div class="ch-tag center">
@@ -849,7 +862,6 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
 
   <!-- VOICE NOTE -->
   <section id="voice-note" class="content-sec" data-name="My Voice" data-num="08">
-    <div class="orb" style="width:600px;height:600px;background:radial-gradient(circle,rgba(238,154,184,.08),transparent);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
     <div class="vn-wrap rev">
       <div class="ch-tag center">
         <div class="cl cl-l"></div>
@@ -859,7 +871,6 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
       <h2 class="s-ttl" style="margin-bottom: 0.5rem;">A Message For You</h2>
       <p class="vn-sub">Turn up your volume and tap to listen.</p>
 
-      <!-- Updated to .mp4 file -->
       <audio id="my-voice-audio" src="your-voice-message.mp4" preload="auto"></audio>
 
       <button class="vn-btn" id="playVoiceBtn" title="Play my message">
@@ -874,8 +885,6 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
 
   <!-- HEARTBEAT SCANNER & TUNNEL -->
   <section id="vault" class="content-sec" data-name="Time Capsule" data-num="09">
-    <div class="orb" style="width:600px;height:600px;background:radial-gradient(circle,rgba(196,128,106,.05),transparent);top:20%;left:50%;transform:translateX(-50%);"></div>
-    
     <div class="vault-c rev" id="vault-main-container">
       <div class="ch-tag center">
         <div class="cl cl-l"></div>
@@ -904,7 +913,6 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
   <!-- LANTERN WISHES -->
   <section id="wishes" class="content-sec" data-name="Wishes" data-num="10">
     <canvas id="fw"></canvas>
-    <div class="orb" style="width:550px;height:550px;background:radial-gradient(circle,rgba(196,128,106,.09),transparent);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
 
     <div id="lantern-container" class="rev">
       <p class="l-hint" id="shooting-hint">Close your eyes, make a wish, and tap the lantern ✨</p>
@@ -946,7 +954,6 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
 
   <!-- CHAPTER XII: FIREFLY MEMORY JAR -->
   <section id="memory-jar" class="content-sec" data-name="Memory Jar" data-num="12">
-    <div class="orb" style="width:500px;height:500px;background:radial-gradient(circle,rgba(255,215,0,0.08),transparent);top:50%;left:50%;transform:translate(-50%,-50%); pointer-events:none;"></div>
     <div class="jar-wrap rev">
       <div class="ch-tag center">
         <div class="cl cl-l"></div>
@@ -966,7 +973,7 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
     </div>
   </section>
 
-  <!-- CHAPTER XIII: PARALLAX MEMORIES -->
+  <!-- CHAPTER XIII: PARALLAX MEMORIES (JPEG PICS INLINE WITH CAPTIONS) -->
   <section id="parallax-memories" class="content-sec" data-name="Memories" data-num="13" style="min-height: 250vh; align-items: flex-start; padding-top: 10vh; position:relative;">
     <div style="position:relative; z-index: 10; width: 100%; text-align:center;">
       <div class="ch-tag center rev">
@@ -979,30 +986,35 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
     </div>
     
     <div class="parallax-container">
-      <div class="para-polaroid open-polaroid" data-speed="0.15" data-rotation="-5" style="top: 10%; left: 10%; transform: rotate(-5deg);" data-img="memory1.mp4" data-cap="Always laughing ✨">
-        <div class="pp-img">Click to view</div>
+      <div class="para-polaroid open-polaroid" data-speed="0.15" data-rotation="-5" style="top: 10%; left: 10%;" data-img="memory1.jpeg" data-cap="best moments ✨">
+        <img class="pp-media" src="memory1.jpeg" alt="Memory">
+        <p class="pp-cap">best moments ✨</p>
       </div>
-      <div class="para-polaroid open-polaroid" data-speed="0.4" data-rotation="6" style="top: 25%; right: 10%; transform: rotate(6deg);" data-img="memory2.mp4" data-cap="A perfect day 🌸">
-        <div class="pp-img">Click to view</div>
+      <div class="para-polaroid open-polaroid" data-speed="0.4" data-rotation="6" style="top: 25%; right: 10%;" data-img="memory2.jpeg" data-cap="OMG can't stop watching you 😍">
+        <img class="pp-media" src="memory2.jpeg" alt="Memory">
+        <p class="pp-cap">OMG can't stop watching you 😍</p>
       </div>
-      <div class="para-polaroid open-polaroid" data-speed="0.25" data-rotation="-3" style="top: 45%; left: 20%; transform: rotate(-3deg);" data-img="memory3.mp4" data-cap="My favourite smile 💕">
-        <div class="pp-img">Click to view</div>
+      <div class="para-polaroid open-polaroid" data-speed="0.25" data-rotation="-3" style="top: 45%; left: 20%;" data-img="memory3.jpeg" data-cap="My favorite place🫠">
+        <img class="pp-media" src="memory3.jpeg" alt="Memory">
+        <p class="pp-cap">My favorite place🫠</p>
       </div>
-      <div class="para-polaroid open-polaroid" data-speed="0.55" data-rotation="8" style="top: 60%; right: 20%; transform: rotate(8deg);" data-img="memory4.mp4" data-cap="Unforgettable">
-        <div class="pp-img">Click to view</div>
+      <div class="para-polaroid open-polaroid" data-speed="0.55" data-rotation="8" style="top: 60%; right: 20%;" data-img="memory4.jpeg" data-cap="Unforgettable 💫">
+        <img class="pp-media" src="memory4.jpeg" alt="Memory">
+        <p class="pp-cap">Unforgettable 💫</p>
       </div>
-      <div class="para-polaroid open-polaroid" data-speed="0.35" data-rotation="-7" style="top: 75%; left: 15%; transform: rotate(-7deg);" data-img="memory5.mp4" data-cap="Best memories 💫">
-        <div class="pp-img">Click to view</div>
+      <div class="para-polaroid open-polaroid" data-speed="0.35" data-rotation="-7" style="top: 75%; left: 15%;" data-img="memory5.jpeg" data-cap="woww that smile😳">
+        <img class="pp-media" src="memory5.jpeg" alt="Memory">
+        <p class="pp-cap">woww that smile😳</p>
       </div>
-      <div class="para-polaroid open-polaroid" data-speed="0.65" data-rotation="4" style="top: 85%; right: 15%; transform: rotate(4deg);" data-img="memory6.mp4" data-cap="Forever and always ❤️">
-        <div class="pp-img">Click to view</div>
+      <div class="para-polaroid open-polaroid" data-speed="0.65" data-rotation="4" style="top: 85%; right: 15%;" data-img="memory6.jpeg" data-cap="u and me forever ❤️">
+        <img class="pp-media" src="memory6.jpeg" alt="Memory">
+        <p class="pp-cap">u and me forever ❤️</p>
       </div>
     </div>
   </section>
 
   <!-- OUTRO -->
   <section id="outro" class="content-sec" data-name="The End" data-num="14">
-    <div class="orb" style="width:480px;height:480px;background:radial-gradient(circle,rgba(124,26,72,.12),transparent);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
     <div id="outro-hearts-container"></div>
     <div class="outro-c rev">
       <p class="o-script">forever &amp;</p>
@@ -1035,8 +1047,7 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
 <div id="polaroid-modal">
   <button class="close-modal">&times;</button>
   <div class="polaroid">
-    <!-- Replaced img with video for .mp4 files -->
-    <video id="polaroid-img" src="" autoplay loop muted playsinline style="width: 100%; border-radius: 8px; background: #1a1a24;"></video>
+    <img id="polaroid-img" src="" alt="Memory" style="width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 8px; background: #1a1a24;">
     <p class="polaroid-cap" id="polaroid-cap"></p>
   </div>
 </div>
@@ -1068,7 +1079,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.body.style.overflow = 'hidden';
 
   /* ══════════════════════════════════════
-     MASTER ANIMATION LOOP (NOW WITH SHOOTING STARS)
+     MASTER ANIMATION LOOP 
   ══════════════════════════════════════ */
   const cHero = document.getElementById('stars');
   const ctxHero = cHero ? cHero.getContext('2d') : null;
@@ -1411,18 +1422,32 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ══════════════════════════════════════
-     CURSOR & HOVER EFFECTS (Desktop)
+     CUSTOM MAGICAL CURSOR SCRIPT (Desktop)
   ══════════════════════════════════════ */
   if (!isMobile) {
-    const dot = document.getElementById('c-dot'), ring = document.getElementById('c-ring'); let rx=0, ry=0;
+    const cursor = document.getElementById('c-cursor'), trail = document.getElementById('c-trail');
+    let rx=0, ry=0;
+    
     document.addEventListener('mousemove', e => {
       globalMouseX = e.clientX; globalMouseY = e.clientY;
-      dot.style.left=globalMouseX+'px'; dot.style.top=globalMouseY+'px'; dot.style.opacity='1'; ring.style.opacity='1';
+      cursor.style.left=globalMouseX+'px'; cursor.style.top=globalMouseY+'px';
+      cursor.style.opacity='1'; trail.style.opacity='1';
     });
-    const hovEls = ()=>[...document.querySelectorAll('button,.qcard,.dot,a,.flip-card,.planet,#playVoiceBtn,.tl-content,.magic-frame,.lantern,#magic-paper,.secret-trigger,.cv, #heartbeat-scanner, .open-chat')];
-    document.addEventListener('mousemove', e => { ring.classList.toggle('hover', hovEls().some(el=>el.contains(e.target)||el===e.target)); });
     
-    function followRing(){ rx+=(globalMouseX-rx)*0.2; ry+=(globalMouseY-ry)*0.2; ring.style.left=rx+'px'; ring.style.top=ry+'px'; requestAnimationFrame(followRing); } followRing();
+    const hovEls = ()=>[...document.querySelectorAll('button,.qcard,.dot,a,.flip-card,.planet,#playVoiceBtn,.tl-content,.magic-frame,.lantern,#magic-paper,.secret-trigger,.cv, #heartbeat-scanner, .open-chat, .para-polaroid')];
+    
+    document.addEventListener('mousemove', e => { 
+      const isHovering = hovEls().some(el=>el.contains(e.target)||el===e.target);
+      trail.classList.toggle('hover', isHovering); 
+      cursor.classList.toggle('hover', isHovering);
+    });
+    
+    function followTrail(){ 
+      rx+=(globalMouseX-rx)*0.25; ry+=(globalMouseY-ry)*0.25; 
+      trail.style.left=rx+'px'; trail.style.top=ry+'px'; 
+      requestAnimationFrame(followTrail); 
+    } 
+    followTrail();
   }
 
   /* ══════════════════════════════════════
@@ -1581,7 +1606,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ══════════════════════════════════════
-     AUDIO & MODALS
+     AUDIO & MODALS 
   ══════════════════════════════════════ */
   const audio = document.getElementById('my-voice-audio'), playBtn = document.getElementById('playVoiceBtn');
   if(playBtn) {
@@ -1593,9 +1618,15 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const modal = document.getElementById('polaroid-modal'), mImg = document.getElementById('polaroid-img'), mCap = document.getElementById('polaroid-cap');
+  
   document.querySelectorAll('.open-polaroid').forEach(t => {
-    t.addEventListener('click', () => { mImg.src = t.dataset.img || ''; mCap.textContent = t.dataset.cap || ''; modal.classList.add('active'); });
+    t.addEventListener('click', () => { 
+      mImg.src = t.dataset.img || ''; 
+      mCap.textContent = t.dataset.cap || ''; 
+      modal.classList.add('active'); 
+    });
   });
+  
   document.querySelectorAll('.close-modal').forEach(btn => { if(btn.id !== 'close-chat') btn.addEventListener('click', () => modal.classList.remove('active')); });
   modal.addEventListener('click', (e) => { if(e.target === modal) modal.classList.remove('active'); });
 
