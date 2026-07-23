@@ -99,18 +99,33 @@ section.content-sec { min-height:100vh; position:relative; display:flex; align-i
 /* ═══════════════════════════════════════
    EPIC HERO INTRO (UPGRADED)
 ═══════════════════════════════════════ */
-#hero { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: #000; z-index: 1; perspective: 1000px; overflow: hidden; }
+#hero { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: #030108; z-index: 1; perspective: 1000px; overflow: hidden; }
 
-.cinematic-nebula { position: absolute; inset: -50%; z-index: 1; pointer-events: none; background: radial-gradient(circle at 50% 50%, rgba(124, 26, 72, 0.18) 0%, transparent 40%), radial-gradient(circle at 30% 60%, rgba(196, 128, 106, 0.12) 0%, transparent 50%), radial-gradient(circle at 70% 40%, rgba(3, 1, 8, 0.9) 0%, transparent 60%); animation: slowSpin 60s linear infinite, nebulaPulse 8s ease-in-out infinite alternate; transition: opacity 1.5s ease; }
+.cinematic-nebula { 
+  position: absolute; inset: -50%; z-index: 1; pointer-events: none; 
+  background: 
+    radial-gradient(circle at 50% 50%, rgba(124, 26, 72, 0.25) 0%, transparent 45%), 
+    radial-gradient(circle at 20% 70%, rgba(196, 128, 106, 0.15) 0%, transparent 55%), 
+    radial-gradient(circle at 80% 30%, rgba(13, 10, 32, 0.9) 0%, transparent 60%); 
+  animation: slowSpin 60s linear infinite, nebulaPulse 6s ease-in-out infinite alternate; 
+  transition: opacity 1.5s ease; 
+}
 @keyframes slowSpin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
 @keyframes nebulaPulse { 0% { opacity: 0.8; transform: scale(1); } 100% { opacity: 1; transform: scale(1.05); } }
 
-canvas#stars { position: absolute; inset: 0; z-index: 2; pointer-events: none; mix-blend-mode: screen; }
+canvas#stars { position: absolute; inset: 0; z-index: 2; pointer-events: none; mix-blend-mode: screen; filter: drop-shadow(0 0 4px rgba(255,255,255,0.3)); }
 
 #intro-flash { position: absolute; inset: 0; background: #FFF; z-index: 105; opacity: 0; transition: opacity 2s ease; pointer-events: none; }
 
-.title-sequence { position: relative; z-index: 10; text-align: center; margin-top: 25vh; display: flex; flex-direction: column; align-items: center; gap: 0.5rem; pointer-events: none; transition: transform 3s cubic-bezier(0.86, 0, 0.07, 1), filter 3s ease, opacity 2s ease; transform-origin: center center; }
+.title-sequence { 
+  position: relative; z-index: 10; text-align: center; margin-top: 25vh; 
+  display: flex; flex-direction: column; align-items: center; gap: 0.5rem; pointer-events: none; 
+  transition: transform 3s cubic-bezier(0.86, 0, 0.07, 1), filter 3s ease, opacity 2s ease; 
+  animation: floatSequence 6s ease-in-out infinite alternate;
+  transform-origin: center center;
+}
 .title-sequence.warp-out { transform: scale(3.5) translateY(20px); filter: blur(15px) brightness(4); opacity: 0; }
+@keyframes floatSequence { 0% { transform: translateY(0px); } 100% { transform: translateY(-15px); } }
 
 .t-sub { font-family: 'Cinzel', serif; font-size: clamp(0.7rem, 2vw, 0.9rem); letter-spacing: 0.5em; text-transform: uppercase; color: rgba(246,234,216,0.9); opacity: 0; transform: translateY(20px); animation: titleSubUp 2s ease 2s forwards; text-shadow: 0 0 15px rgba(246,234,216,0.5); }
 #hName { font-family: 'Playfair Display', serif; font-weight: 600; font-size: clamp(4.5rem, 15vw, 10rem); line-height: 1; margin: 0; background: linear-gradient(180deg, #FFF 0%, #F6EAD8 40%, #EE9AB8 100%); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 0 45px rgba(238,154,184,0.4)); opacity: 0; transform: translateY(30px) scale(0.95); animation: titleUp 2.5s cubic-bezier(0.2,0.8,0.2,1) 2.5s forwards, cinematicBreathe 4s ease-in-out infinite alternate 5s; }
@@ -1170,7 +1185,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const ctxFw = cFw ? cFw.getContext('2d') : null;
   
   let W = window.innerWidth, H = window.innerHeight;
-  let stars = [], shootingStars = [], fwParticles = [];
+  let stars = [], fwParticles = [];
   let introMode = 'orbit', warpSpeed = 1, flashAlpha = 0;
   let fireworksRunning = false;
 
@@ -1179,41 +1194,56 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function resize() { W = window.innerWidth; H = window.innerHeight; if(cHero){cHero.width=W; cHero.height=H;} if(cFw){cFw.width=W; cFw.height=H;} buildStars(); }
   
+  /* ══════════════════════════════════════
+     UPGRADED CINEMATIC STARS & WARP
+  ══════════════════════════════════════ */
   function buildStars() {
     stars = [];
-    for(let i=0; i< (isMobile ? 150 : 350); i++) {
+    // Create 3 distinct layers for parallax depth
+    for(let i=0; i< (isMobile ? 120 : 350); i++) {
+      let layer = Math.random() > 0.8 ? 3 : (Math.random() > 0.5 ? 2 : 1);
       stars.push({ 
-        angle: Math.random()*Math.PI*2, 
-        dist: Math.random()*Math.max(W,H), 
-        orbitSpeed: Math.random()*0.002+0.001, 
-        r: Math.random()*1.5+.5, 
-        color: '#FFFFFF'
+        angle: Math.random() * Math.PI * 2, 
+        dist: Math.random() * Math.max(W, H), 
+        orbitSpeed: (Math.random() * 0.001 + 0.0005) * layer, 
+        r: (Math.random() * 1.2 + 0.5) * (layer * 0.7), 
+        alpha: Math.random() * 0.5 + 0.3 + (layer * 0.1),
+        layer: layer,
+        // Add subtle colors to some stars
+        color: Math.random() > 0.85 ? PAL[Math.floor(Math.random()*3)] : '#FFFFFF'
       });
     }
   }
 
-  // Shooting Star Class
+  // Enhanced Shooting Star with comet head and fading tail
   class ShootingStar {
     constructor() {
-      this.x = Math.random() * W;
-      this.y = 0;
-      this.len = Math.random() * 80 + 30;
-      this.speed = Math.random() * 10 + 6;
-      this.size = Math.random() * 1.5 + 0.5;
-      this.waitTime = new Date().getTime() + (Math.random() * 3000 + 500);
+      this.reset();
       this.active = false;
-      this.color = Math.random() > 0.7 ? '#EE9AB8' : '#FFF';
+      this.waitTime = Date.now() + (Math.random() * 3000 + 500);
+    }
+    reset() {
+      this.x = Math.random() * W * 1.5;
+      this.y = -100;
+      this.len = Math.random() * 100 + 60;
+      this.speed = Math.random() * 15 + 10;
+      this.size = Math.random() * 2 + 1;
+      this.color = Math.random() > 0.6 ? '#EE9AB8' : '#FFFFFF';
+      this.active = true;
     }
     draw(ctx) {
       if(!this.active) {
-        if(new Date().getTime() > this.waitTime) this.active = true;
+        if(Date.now() > this.waitTime) this.reset();
         return;
       }
+      
       const endX = this.x - this.len;
       const endY = this.y + this.len;
       
+      // Comet tail gradient
       const grad = ctx.createLinearGradient(this.x, this.y, endX, endY);
       grad.addColorStop(0, this.color);
+      grad.addColorStop(0.2, this.color);
       grad.addColorStop(1, 'transparent');
       
       ctx.beginPath();
@@ -1221,23 +1251,30 @@ document.addEventListener("DOMContentLoaded", () => {
       ctx.lineTo(endX, endY);
       ctx.strokeStyle = grad;
       ctx.lineWidth = this.size;
+      ctx.lineCap = 'round';
       ctx.stroke();
+      
+      // Glowing head
+      ctx.beginPath();
+      ctx.arc(this.x, this.y, this.size * 1.5, 0, Math.PI * 2);
+      ctx.fillStyle = '#FFF';
+      ctx.shadowBlur = 15;
+      ctx.shadowColor = this.color;
+      ctx.fill();
+      ctx.shadowBlur = 0; // reset
       
       this.x -= this.speed;
       this.y += this.speed;
       
-      if(this.x < -100 || this.y > H + 100) {
-        this.x = Math.random() * W + W/2;
-        this.y = -50;
+      if(this.x < -200 || this.y > H + 200) {
         this.active = false;
-        this.waitTime = new Date().getTime() + (Math.random() * 5000 + 2000);
+        this.waitTime = Date.now() + (Math.random() * 4000 + 2000);
       }
     }
   }
 
-  for(let i=0; i< (isMobile ? 2 : 4); i++) {
-    shootingStars.push(new ShootingStar());
-  }
+  let shootingStars = [];
+  for(let i=0; i< (isMobile ? 2 : 4); i++) shootingStars.push(new ShootingStar());
 
   class P {
     constructor(x,y,col,spd){
@@ -1276,64 +1313,78 @@ document.addEventListener("DOMContentLoaded", () => {
   function masterLoop() {
     if (isCanvasVisible && ctxHero) {
       if (introMode === 'orbit') {
-        ctxHero.clearRect(0,0,W,H);
+        // Subtle trail effect
+        ctxHero.fillStyle = 'rgba(3, 1, 8, 0.3)';
+        ctxHero.fillRect(0, 0, W, H);
         
-        // Draw Stars
+        let mouseOffsetX = 0, mouseOffsetY = 0;
+        if (!isMobile) {
+          mouseOffsetX = (globalMouseX - W/2) * 0.05;
+          mouseOffsetY = (globalMouseY - H/2) * 0.05;
+        }
+
         for(const s of stars){
-          s.angle += s.orbitSpeed; s.x = W/2 + Math.cos(s.angle)*s.dist; s.y = H/2 + Math.sin(s.angle)*s.dist;
-          if (!isMobile) {
-            let dx = globalMouseX - s.x, dy = globalMouseY - s.y, distToMouse = Math.sqrt(dx*dx + dy*dy);
-            if (distToMouse < 200 && distToMouse > 0) { s.x += (dx/distToMouse)*1.5; s.y += (dy/distToMouse)*1.5; }
-          }
-          ctxHero.globalAlpha = 0.6; ctxHero.fillStyle = s.color;
-          ctxHero.beginPath(); ctxHero.arc(s.x,s.y,s.r,0,Math.PI*2); ctxHero.fill();
+          s.angle += s.orbitSpeed; 
+          
+          // Apply parallax based on layer
+          let px = W/2 + Math.cos(s.angle) * s.dist - (mouseOffsetX * s.layer);
+          let py = H/2 + Math.sin(s.angle) * s.dist - (mouseOffsetY * s.layer);
+          
+          // Twinkle effect
+          let currentAlpha = s.alpha + Math.sin(Date.now() * 0.003 * s.layer + s.dist) * 0.3;
+          
+          ctxHero.globalAlpha = Math.max(0.1, Math.min(1, currentAlpha)); 
+          ctxHero.fillStyle = s.color;
+          ctxHero.beginPath(); 
+          ctxHero.arc(px, py, s.r, 0, Math.PI*2); 
+          ctxHero.fill();
         }
         
-        // Draw Shooting Stars
+        ctxHero.globalAlpha = 1;
         shootingStars.forEach(ss => ss.draw(ctxHero));
 
       } else if (introMode === 'warp') {
-        if (warpSpeed < 30) warpSpeed += 0.5; 
-        ctxHero.fillStyle = `rgba(3,1,8,0.25)`; 
+        // Hyperspace stretch effect
+        warpSpeed *= 1.08; // Exponential acceleration
+        ctxHero.fillStyle = `rgba(3,1,8, ${Math.max(0.05, 0.3 - warpSpeed*0.01)})`; 
         ctxHero.fillRect(0,0,W,H);
         
+        let centerX = W/2;
+        let centerY = H/2;
+
         for(const s of stars){
-          let prevDist = s.dist;
-          s.dist += warpSpeed * (s.dist / 150 + 0.5); 
+          let prevX = centerX + Math.cos(s.angle) * s.dist;
+          let prevY = centerY + Math.sin(s.angle) * s.dist;
           
-          if (s.dist > Math.max(W,H) * 1.2) {
-             s.dist = Math.random() * 20 + 5; 
-             s.angle = Math.random() * Math.PI * 2;
-             prevDist = s.dist; 
-             s.color = WARP_PAL[Math.floor(Math.random() * WARP_PAL.length)];
-          }
+          s.dist += warpSpeed * (s.layer * 0.5); 
+          
+          let newX = centerX + Math.cos(s.angle) * s.dist;
+          let newY = centerY + Math.sin(s.angle) * s.dist;
 
-          let oldX = W/2 + Math.cos(s.angle) * prevDist;
-          let oldY = H/2 + Math.sin(s.angle) * prevDist;
-          let newX = W/2 + Math.cos(s.angle) * s.dist;
-          let newY = H/2 + Math.sin(s.angle) * s.dist;
-
-          ctxHero.globalAlpha = Math.min(1, s.dist / 100); 
+          ctxHero.globalAlpha = Math.min(1, warpSpeed / 20); 
           ctxHero.strokeStyle = s.color; 
-          ctxHero.lineWidth = s.r * (warpSpeed/8); 
+          
+          // Stars stretch into lines as they speed up
+          ctxHero.lineWidth = s.r * Math.min(3, (warpSpeed/5)); 
           ctxHero.lineCap = 'round';
+          
           ctxHero.beginPath();
-          ctxHero.moveTo(oldX, oldY);
+          ctxHero.moveTo(prevX, prevY);
           ctxHero.lineTo(newX, newY);
           ctxHero.stroke();
+          
+          // Reset star if it goes off screen to create infinite loop
+          if (s.dist > Math.max(W,H) * 1.5) {
+             s.dist = Math.random() * 50; 
+             s.angle = Math.random() * Math.PI * 2;
+          }
         }
       } else if (introMode === 'flash') {
         ctxHero.clearRect(0,0,W,H);
-        ctxHero.fillStyle = `rgba(255,255,255,${flashAlpha})`; ctxHero.fillRect(0,0,W,H);
+        ctxHero.fillStyle = `rgba(255,255,255,${flashAlpha})`; 
+        ctxHero.fillRect(0,0,W,H);
         if (flashAlpha > 0) {
-          ctxHero.globalAlpha = flashAlpha; ctxHero.fillStyle = 'rgba(255, 255, 255, 0.8)';
-          ctxHero.beginPath(); ctxHero.ellipse(W/2, H/2, W, 2, 0, 0, Math.PI*2); ctxHero.fill();
           flashAlpha -= 0.015; 
-        }
-        for(const s of stars){
-          s.angle += s.orbitSpeed * 0.5; s.x = W/2 + Math.cos(s.angle) * s.dist; s.y = H/2 + Math.sin(s.angle) * s.dist;
-          ctxHero.globalAlpha = Math.max(0, 0.6 - flashAlpha); ctxHero.fillStyle = '#fff';
-          ctxHero.beginPath(); ctxHero.arc(s.x,s.y,s.r,0,Math.PI*2); ctxHero.fill();
         }
       }
     }
