@@ -7,6 +7,8 @@
 <title>From my heart to yours💖</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Playfair+Display:wght@400;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Dancing+Script:wght@600;700&family=Great+Vibes&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500&display=swap" rel="stylesheet">
+<!-- Preload the voice note for instant playback -->
+<link rel="preload" href="your-voice-message.mp4" as="audio">
 <style>
 /* ═══════════════════════════════════════
    TOKENS & BASE RESET
@@ -24,6 +26,14 @@
 *,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
 html { scroll-behavior:smooth; }
 body { background: var(--night); color: var(--champ); font-family: 'DM Sans', sans-serif; overflow-x: hidden; }
+
+/* --- PERFORMANCE OPTIMIZATIONS --- */
+.para-polaroid, .planet, .lantern, .firefly-dot, .firefly-bubble, .tl-content, .magic-frame img {
+  will-change: transform;
+  -webkit-transform: translateZ(0);
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
 
 /* ═══════════════════════════════════════
    CUSTOM CURSOR
@@ -170,10 +180,8 @@ canvas#stars { position: absolute; inset: 0; z-index: 2; pointer-events: none; m
 .bd-title em { font-style:italic; color:var(--blush); font-weight:400; }
 .cake-wrap { margin:3.5rem auto 0; position:relative; width:220px; }
 .candles-row { position:absolute; top:-68px; left:0; right:0; display:flex; justify-content:center; gap:24px; }
-.cv { display:flex; flex-direction:column; align-items:center; position:relative; cursor: pointer; }
-.cv.out .flo, .cv.out .gw { display: none; }
+.cv { display:flex; flex-direction:column; align-items:center; position:relative; }
 .smoke { position: absolute; top: -10px; width: 8px; height: 8px; background: rgba(255,255,255,0.4); border-radius: 50%; opacity: 0; filter: blur(2px); pointer-events: none; }
-.cv.out .smoke { animation: smokeRise 2s ease-out forwards; }
 @keyframes smokeRise { 0% { opacity: 1; transform: translateY(0) scale(1); } 100% { opacity: 0; transform: translateY(-40px) scale(3); } }
 .gw { position:absolute; top:-12px; left:-14px; width:44px; height:46px; background:radial-gradient(ellipse,rgba(255,185,40,.45),transparent 70%); animation:flk .45s ease-in-out infinite alternate; pointer-events:none; }
 .flo { width:16px; height:25px; background:radial-gradient(ellipse at 50% 82%,#FFD700 0%,#FF6E00 55%,transparent 100%); border-radius:62% 62% 50% 50%; animation:flk .45s ease-in-out infinite alternate; position:relative; pointer-events:none; }
@@ -230,7 +238,6 @@ canvas#stars { position: absolute; inset: 0; z-index: 2; pointer-events: none; m
 #polaroid-modal.active { opacity: 1; pointer-events: auto; }
 .polaroid { background: rgba(246,234,216,0.05); border: 1px solid rgba(246,234,216,0.15); padding: 1.2rem 1.2rem 3.5rem 1.2rem; border-radius: 12px; box-shadow: 0 25px 60px rgba(0,0,0,0.6); width: 90%; max-width: 400px; transform: scale(0.9) translateY(30px) rotate(-3deg); transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1); }
 #polaroid-modal.active .polaroid { transform: scale(1) translateY(0) rotate(0deg); }
-.polaroid img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 8px; background: #1a1a24; }
 .polaroid-cap { font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: var(--champ); text-align: center; margin-top: 1.5rem; }
 .close-modal { position: absolute; top: 2rem; right: 2.5rem; color: rgba(255,255,255,0.6); font-size: 2.5rem; background: none; border: none; transition: color 0.3s ease; cursor: pointer; z-index: 10; }
 .close-modal:hover { color: #fff; transform: scale(1.1); }
@@ -506,6 +513,15 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
   .flip-card, .flip-inner { height:200px; min-height:200px; }
   #transition-message, #easter-egg-wrapper { width: 90%; }
   .secret-text { font-size: clamp(1.2rem, 5vw, 1.8rem); }
+  
+  /* REDUCE MOBILE LAG */
+  .vault-box, .chat-box, #polaroid-modal, .qcard, .flip-front, .tl-content {
+    backdrop-filter: blur(4px) !important;
+    -webkit-backdrop-filter: blur(4px) !important;
+  }
+  #nebula-reveal {
+    filter: blur(20px); 
+  }
 }
 @media(prefers-reduced-motion:reduce){ *,*::before,*::after { animation-duration:.01ms!important; transition-duration:.01ms!important; } }
 </style>
@@ -627,8 +643,9 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
         <div class="tier ta"><div class="drips"></div></div>
         <div class="tier tb"><div class="drips"></div></div>
       </div>
-      <p class="bd-note" id="candle-hint">Make a wish, and tap to blow out the candles 🌸</p>
-      <div id="wish-granted-msg">Wish Granted, Princess ✨</div>
+      <p class="bd-note" id="candle-hint" style="margin-bottom: 1.5rem;">Close your eyes and make a wish 🌸</p>
+      <button id="make-wish-btn" class="btn-fw" style="padding: 0.8rem 2.5rem; font-size: 1rem;">Make a Wish ✨</button>
+      <div id="wish-granted-msg" style="position: relative; margin-top: 1.5rem;">Wish Granted, Princess ✨</div>
     </div>
   </section>
 
@@ -679,7 +696,7 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
         <div class="tl-line-wrap"><div class="tl-line"></div></div>
 
         <div class="tl-item">
-          <div class="tl-content magnetic-wrap open-polaroid" data-img="timeline1.jpg" data-cap="The day my universe was born.">
+          <div class="tl-content magnetic-wrap open-polaroid" data-img="timeline1.mp4" data-cap="The day my universe was born.">
             <div class="tl-dot"></div>
             <p class="tl-date">July 26, 2009</p>
             <p class="tl-text">The day my universe was born. I didn't know you yet, but the world was already getting ready for us.</p>
@@ -842,7 +859,8 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
       <h2 class="s-ttl" style="margin-bottom: 0.5rem;">A Message For You</h2>
       <p class="vn-sub">Turn up your volume and tap to listen.</p>
 
-      <audio id="my-voice-audio" src="your-voice-message.mp3" preload="auto"></audio>
+      <!-- Updated to .mp4 file -->
+      <audio id="my-voice-audio" src="your-voice-message.mp4" preload="auto"></audio>
 
       <button class="vn-btn" id="playVoiceBtn" title="Play my message">
         <div class="vn-icon">▶</div>
@@ -961,22 +979,22 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
     </div>
     
     <div class="parallax-container">
-      <div class="para-polaroid open-polaroid" data-speed="0.15" data-rotation="-5" style="top: 10%; left: 10%; transform: rotate(-5deg);" data-img="memory1.jpeg" data-cap="Always laughing ✨">
+      <div class="para-polaroid open-polaroid" data-speed="0.15" data-rotation="-5" style="top: 10%; left: 10%; transform: rotate(-5deg);" data-img="memory1.mp4" data-cap="Always laughing ✨">
         <div class="pp-img">Click to view</div>
       </div>
-      <div class="para-polaroid open-polaroid" data-speed="0.4" data-rotation="6" style="top: 25%; right: 10%; transform: rotate(6deg);" data-img="memory2.jpeg" data-cap="A perfect day 🌸">
+      <div class="para-polaroid open-polaroid" data-speed="0.4" data-rotation="6" style="top: 25%; right: 10%; transform: rotate(6deg);" data-img="memory2.mp4" data-cap="A perfect day 🌸">
         <div class="pp-img">Click to view</div>
       </div>
-      <div class="para-polaroid open-polaroid" data-speed="0.25" data-rotation="-3" style="top: 45%; left: 20%; transform: rotate(-3deg);" data-img="memory3.jpeg" data-cap="My favourite smile 💕">
+      <div class="para-polaroid open-polaroid" data-speed="0.25" data-rotation="-3" style="top: 45%; left: 20%; transform: rotate(-3deg);" data-img="memory3.mp4" data-cap="My favourite smile 💕">
         <div class="pp-img">Click to view</div>
       </div>
-      <div class="para-polaroid open-polaroid" data-speed="0.55" data-rotation="8" style="top: 60%; right: 20%; transform: rotate(8deg);" data-img="memory4.jpeg" data-cap="Unforgettable">
+      <div class="para-polaroid open-polaroid" data-speed="0.55" data-rotation="8" style="top: 60%; right: 20%; transform: rotate(8deg);" data-img="memory4.mp4" data-cap="Unforgettable">
         <div class="pp-img">Click to view</div>
       </div>
-      <div class="para-polaroid open-polaroid" data-speed="0.35" data-rotation="-7" style="top: 75%; left: 15%; transform: rotate(-7deg);" data-img="memory5.jpeg" data-cap="Best memories 💫">
+      <div class="para-polaroid open-polaroid" data-speed="0.35" data-rotation="-7" style="top: 75%; left: 15%; transform: rotate(-7deg);" data-img="memory5.mp4" data-cap="Best memories 💫">
         <div class="pp-img">Click to view</div>
       </div>
-      <div class="para-polaroid open-polaroid" data-speed="0.65" data-rotation="4" style="top: 85%; right: 15%; transform: rotate(4deg);" data-img="memory6.jpeg" data-cap="Forever and always ❤️">
+      <div class="para-polaroid open-polaroid" data-speed="0.65" data-rotation="4" style="top: 85%; right: 15%; transform: rotate(4deg);" data-img="memory6.mp4" data-cap="Forever and always ❤️">
         <div class="pp-img">Click to view</div>
       </div>
     </div>
@@ -1017,7 +1035,8 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
 <div id="polaroid-modal">
   <button class="close-modal">&times;</button>
   <div class="polaroid">
-    <img id="polaroid-img" src="" alt="Memory">
+    <!-- Replaced img with video for .mp4 files -->
+    <video id="polaroid-img" src="" autoplay loop muted playsinline style="width: 100%; border-radius: 8px; background: #1a1a24;"></video>
     <p class="polaroid-cap" id="polaroid-cap"></p>
   </div>
 </div>
@@ -1338,27 +1357,29 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ══════════════════════════════════════
-     INTERACTIVE BIRTHDAY CANDLES
+     INTERACTIVE BIRTHDAY WISH (LAPTOP OPTIMIZED)
   ══════════════════════════════════════ */
-  let candlesOut = 0;
-  document.querySelectorAll('.cv').forEach(candle => {
-    candle.addEventListener('click', function() {
-      if(!this.classList.contains('out')) {
-        this.classList.add('out'); candlesOut++;
-        if(candlesOut === 3) {
-          document.getElementById('candle-hint').style.opacity = '0'; document.getElementById('wish-granted-msg').style.opacity = '1';
-          const wrapC = document.getElementById('confetti-c'); const cols=['#F9A2BE','#A8D8FA','#FAE4A0','#C8A8FA','#A8FAD4','#F9C6A0','#FFD700','#FF94C0'];
-          for(let i=0; i<60; i++){
-            setTimeout(() => {
-              const el = document.createElement('div'); el.className = 'cf';
-              el.style.cssText = `left:${30+Math.random()*40}%; top:${30+Math.random()*20}%; background:${cols[Math.floor(Math.random()*cols.length)]}; width:${6+Math.random()*8}px; height:${6+Math.random()*8}px; --r:${Math.random()*720-360}deg; animation-duration:${2+Math.random()*3}s; z-index: 100; box-shadow: 0 0 10px rgba(255,215,0,0.5); border-radius: 50%;`;
-              wrapC.appendChild(el); setTimeout(()=>el.remove(), 5000);
-            }, i * 30);
-          }
-        }
+  const wishBtn = document.getElementById('make-wish-btn');
+  if (wishBtn) {
+    wishBtn.addEventListener('click', function() {
+      // Hide button and hint, show success message
+      this.style.display = 'none';
+      document.getElementById('candle-hint').style.display = 'none';
+      document.getElementById('wish-granted-msg').style.opacity = '1';
+
+      // Massive confetti drop for laptop screens
+      const wrapC = document.getElementById('confetti-c'); 
+      const cols=['#F9A2BE','#A8D8FA','#FAE4A0','#C8A8FA','#A8FAD4','#F9C6A0','#FFD700','#FF94C0'];
+      for(let i = 0; i < 90; i++) {
+        setTimeout(() => {
+          const el = document.createElement('div'); el.className = 'cf';
+          el.style.cssText = `left:${15 + Math.random()*70}%; top:${10 + Math.random()*20}%; background:${cols[Math.floor(Math.random()*cols.length)]}; width:${8+Math.random()*6}px; height:${8+Math.random()*6}px; --r:${Math.random()*720-360}deg; animation-duration:${2.5+Math.random()*3}s; z-index: 100; box-shadow: 0 0 10px rgba(255,215,0,0.5); border-radius: 5px;`;
+          wrapC.appendChild(el); 
+          setTimeout(() => el.remove(), 5500);
+        }, i * 20);
       }
     });
-  });
+  }
 
   /* ══════════════════════════════════════
      CANVAS WIPE-OFF LETTER
@@ -1435,6 +1456,7 @@ document.addEventListener("DOMContentLoaded", () => {
       const i=sections.indexOf(e.target);
       dots.forEach(d=>d.classList.remove('on')); if(dots[i])dots[i].classList.add('on');
       isCanvasVisible = (i === 0);
+      window.isConstellationVisible = (i === 10);
       document.getElementById('si-n').textContent = e.target.dataset.num||'01';
       document.getElementById('si-t').textContent = e.target.dataset.name||'';
       document.getElementById('sec-ind').style.opacity='1';
@@ -1694,7 +1716,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* ══════════════════════════════════════
-     CHAPTER XI: CONSTELLATION REVEAL (UPGRADED HEARTBEAT)
+     CHAPTER XI: CONSTELLATION REVEAL
   ══════════════════════════════════════ */
   const constCanvas = document.getElementById('constellation-canvas');
   if(constCanvas) {
@@ -1727,7 +1749,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function animateConstellation() {
-      if(!isCanvasVisible && state === 'wandering') { requestAnimationFrame(animateConstellation); return; }
+      if(!window.isConstellationVisible && state === 'wandering') { requestAnimationFrame(animateConstellation); return; }
       ctx.clearRect(0,0,cw,ch);
       
       // Heartbeat Math
@@ -1782,7 +1804,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ══════════════════════════════════════
-     CHAPTER XII: FIREFLY MEMORY JAR (PERFECT LAYOUT)
+     CHAPTER XII: FIREFLY MEMORY JAR (LAPTOP LAYOUT)
   ══════════════════════════════════════ */
   const jar = document.getElementById('the-jar');
   const fireflyContainer = document.getElementById('firefly-container');
@@ -1805,14 +1827,14 @@ document.addEventListener("DOMContentLoaded", () => {
       const startX = rect.left + rect.width/2;
       const startY = rect.top + 20;
 
-      // Perfectly mapped positions so they NEVER overlap (X offset, Y offset)
-      const spreadX = isMobile ? 110 : 250;
+      // Laptop-optimized mapping: Spread wide, keep them lower so they don't clip the top of the screen
+      const spreadX = 320; 
       const positions = [
-        { dx: -spreadX * 0.8, dy: -290 }, // Top Left
-        { dx: spreadX * 0.8, dy: -260 },  // Top Right
-        { dx: -spreadX * 1.1, dy: -140 }, // Mid Left
-        { dx: spreadX * 1.1, dy: -120 },  // Mid Right
-        { dx: 0, dy: -360 }               // Top Center
+        { dx: -spreadX * 0.9, dy: -200 }, // Top Left
+        { dx: spreadX * 0.9, dy: -180 },  // Top Right
+        { dx: -spreadX * 1.2, dy: -70 },  // Mid Left (pushed wider)
+        { dx: spreadX * 1.2, dy: -60 },   // Mid Right (pushed wider)
+        { dx: 0, dy: -250 }               // Top Center (lowered significantly)
       ];
 
       reasons.forEach((text, i) => {
@@ -1854,24 +1876,32 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ══════════════════════════════════════
-     CHAPTER XIII: PARALLAX POLAROIDS
+     CHAPTER XIII: PARALLAX POLAROIDS (OPTIMIZED)
   ══════════════════════════════════════ */
   const parallaxSec = document.getElementById('parallax-memories');
   const paraItems = document.querySelectorAll('.para-polaroid');
   
   if(parallaxSec) {
+    // Only run math when the section is actually on screen
+    let isParallaxVisible = false;
+    const paraObserver = new IntersectionObserver(entries => {
+      isParallaxVisible = entries[0].isIntersecting;
+    });
+    paraObserver.observe(parallaxSec);
+
     window.addEventListener('scroll', () => {
+      if (!isParallaxVisible) return; // Skips heavy math if out of view
+
       const rect = parallaxSec.getBoundingClientRect();
-      if(rect.top < window.innerHeight && rect.bottom > 0) {
-        const scrollAmount = window.innerHeight - rect.top; 
-        
-        paraItems.forEach(item => {
-          const speed = parseFloat(item.getAttribute('data-speed'));
-          const angle = item.getAttribute('data-rotation') || 0;
-          const yPos = -(scrollAmount * speed);
-          item.style.transform = `translateY(${yPos}px) rotate(${angle}deg)`;
-        });
-      }
+      const scrollAmount = window.innerHeight - rect.top; 
+      
+      paraItems.forEach(item => {
+        const speed = parseFloat(item.getAttribute('data-speed'));
+        const angle = item.getAttribute('data-rotation') || 0;
+        const yPos = -(scrollAmount * speed);
+        // Use translate3d to force hardware acceleration
+        item.style.transform = `translate3d(0, ${yPos}px, 0) rotate(${angle}deg)`;
+      });
     }, { passive: true });
   }
 
