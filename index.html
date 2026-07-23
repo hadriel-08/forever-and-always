@@ -447,9 +447,10 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
 /* Fireflies */
 #firefly-container { position: absolute; inset: 0; pointer-events: none; z-index: 5; }
 .firefly-bubble { position: absolute; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,215,0,0.3); padding: 12px 20px; border-radius: 20px; backdrop-filter: blur(8px); box-shadow: 0 0 20px rgba(255,215,0,0.15); font-family: 'Playfair Display', serif; font-style: italic; color: var(--champ); font-size: 0.95rem; opacity: 0; transform: scale(0.5); transition: opacity 0.5s, transform 0.5s; white-space: nowrap; }
-.firefly-bubble.vis { opacity: 1; transform: scale(1); }
+.firefly-bubble.vis { opacity: 1; transform: scale(1); animation: bubbleFloat 4s ease-in-out infinite alternate; }
 .firefly-dot { position: absolute; width: 6px; height: 6px; background: #FFD700; border-radius: 50%; box-shadow: 0 0 15px 5px rgba(255,215,0,0.6); animation: fireflyWander 4s infinite alternate ease-in-out; }
 @keyframes fireflyWander { 0% { transform: translate(0,0) scale(1); opacity: 0.8; } 100% { transform: translate(15px, -15px) scale(1.3); opacity: 1; } }
+@keyframes bubbleFloat { 0% { transform: scale(1) translateY(0px); } 100% { transform: scale(1) translateY(-10px); } }
 
 /* Parallax Polaroids */
 #parallax-memories { background: #06020A; overflow: hidden; }
@@ -831,7 +832,7 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
 
   <!-- VOICE NOTE -->
   <section id="voice-note" class="content-sec" data-name="My Voice" data-num="08">
-    <div class="orb" style="width:600px;height:600px;background:radial-gradient(circle,rgba(238,154,184,.08),transparent);top:50%;left:50%;transform:translate(-50%,-50%);</div>
+    <div class="orb" style="width:600px;height:600px;background:radial-gradient(circle,rgba(238,154,184,.08),transparent);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
     <div class="vn-wrap rev">
       <div class="ch-tag center">
         <div class="cl cl-l"></div>
@@ -841,7 +842,7 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
       <h2 class="s-ttl" style="margin-bottom: 0.5rem;">A Message For You</h2>
       <p class="vn-sub">Turn up your volume and tap to listen.</p>
 
-      <audio id="my-voice-audio" src="your-voice-message.mp3"></audio>
+      <audio id="my-voice-audio" src="your-voice-message.mp3" preload="auto"></audio>
 
       <button class="vn-btn" id="playVoiceBtn" title="Play my message">
         <div class="vn-icon">▶</div>
@@ -1693,7 +1694,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* ══════════════════════════════════════
-     CHAPTER XI: CONSTELLATION REVEAL
+     CHAPTER XI: CONSTELLATION REVEAL (UPGRADED HEARTBEAT)
   ══════════════════════════════════════ */
   const constCanvas = document.getElementById('constellation-canvas');
   if(constCanvas) {
@@ -1704,6 +1705,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let nodes = [];
     let state = 'wandering'; // 'wandering' or 'forming'
     const totalNodes = isMobile ? 60 : 100;
+    const baseScale = isMobile ? 8 : 12;
     
     // Generate heart target points
     function getHeartPoint(t, scale) {
@@ -1712,15 +1714,15 @@ document.addEventListener("DOMContentLoaded", () => {
       return { x: cw/2 + x * scale, y: ch/2 + y * scale };
     }
 
-    const scale = isMobile ? 8 : 12;
     for(let i=0; i<totalNodes; i++) {
       const t = (i / totalNodes) * Math.PI * 2;
-      const target = getHeartPoint(t, scale);
+      const target = getHeartPoint(t, baseScale);
       nodes.push({
         x: Math.random() * cw, y: Math.random() * ch,
-        vx: (Math.random() - 0.5) * 1, vy: (Math.random() - 0.5) * 1,
+        vx: (Math.random() - 0.5) * 1.5, vy: (Math.random() - 0.5) * 1.5,
         targetX: target.x, targetY: target.y,
-        size: Math.random() * 1.5 + 0.5
+        size: Math.random() * 1.5 + 0.8,
+        t: t // Save the angle for recalculating the heartbeat
       });
     }
 
@@ -1728,19 +1730,31 @@ document.addEventListener("DOMContentLoaded", () => {
       if(!isCanvasVisible && state === 'wandering') { requestAnimationFrame(animateConstellation); return; }
       ctx.clearRect(0,0,cw,ch);
       
+      // Heartbeat Math
+      let currentScale = baseScale;
+      if (state === 'forming') {
+        const time = Date.now() / 300; 
+        const pulse = 1 + Math.sin(time) * 0.08; // Creates the beating effect
+        currentScale = baseScale * pulse;
+      }
+
       nodes.forEach((n, i) => {
         if(state === 'wandering') {
           n.x += n.vx; n.y += n.vy;
           if(n.x < 0 || n.x > cw) n.vx *= -1;
           if(n.y < 0 || n.y > ch) n.vy *= -1;
         } else if (state === 'forming') {
-          n.x += (n.targetX - n.x) * 0.05;
-          n.y += (n.targetY - n.y) * 0.05;
+          // Update targets dynamically so it beats
+          const dynamicTarget = getHeartPoint(n.t, currentScale);
+          n.x += (dynamicTarget.x - n.x) * 0.08;
+          n.y += (dynamicTarget.y - n.y) * 0.08;
         }
         
         ctx.beginPath();
-        ctx.arc(n.x, n.y, n.size, 0, Math.PI*2);
-        ctx.fillStyle = '#F6EAD8';
+        ctx.arc(n.x, n.y, n.size + (state === 'forming' ? 1 : 0), 0, Math.PI*2);
+        ctx.fillStyle = state === 'forming' ? '#EE9AB8' : '#F6EAD8';
+        ctx.shadowBlur = state === 'forming' ? 10 : 0;
+        ctx.shadowColor = '#EE9AB8';
         ctx.fill();
 
         // Draw connections
@@ -1748,13 +1762,13 @@ document.addEventListener("DOMContentLoaded", () => {
           if(i === j) return;
           const dx = n.x - n2.x, dy = n.y - n2.y;
           const dist = Math.sqrt(dx*dx + dy*dy);
-          const maxDist = state === 'forming' ? 45 : 80;
+          const maxDist = state === 'forming' ? 55 : 80;
           if(dist < maxDist) {
             ctx.beginPath();
             ctx.moveTo(n.x, n.y);
             ctx.lineTo(n2.x, n2.y);
-            ctx.strokeStyle = `rgba(238, 154, 184, ${1 - dist/maxDist})`;
-            ctx.lineWidth = 0.5;
+            ctx.strokeStyle = state === 'forming' ? `rgba(238, 154, 184, ${1 - dist/maxDist})` : `rgba(246, 234, 216, ${(1 - dist/maxDist) * 0.5})`;
+            ctx.lineWidth = state === 'forming' ? 1 : 0.5;
             ctx.stroke();
           }
         });
@@ -1768,7 +1782,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ══════════════════════════════════════
-     CHAPTER XII: FIREFLY MEMORY JAR
+     CHAPTER XII: FIREFLY MEMORY JAR (PERFECT LAYOUT)
   ══════════════════════════════════════ */
   const jar = document.getElementById('the-jar');
   const fireflyContainer = document.getElementById('firefly-container');
@@ -1791,6 +1805,16 @@ document.addEventListener("DOMContentLoaded", () => {
       const startX = rect.left + rect.width/2;
       const startY = rect.top + 20;
 
+      // Perfectly mapped positions so they NEVER overlap (X offset, Y offset)
+      const spreadX = isMobile ? 110 : 250;
+      const positions = [
+        { dx: -spreadX * 0.8, dy: -290 }, // Top Left
+        { dx: spreadX * 0.8, dy: -260 },  // Top Right
+        { dx: -spreadX * 1.1, dy: -140 }, // Mid Left
+        { dx: spreadX * 1.1, dy: -120 },  // Mid Right
+        { dx: 0, dy: -360 }               // Top Center
+      ];
+
       reasons.forEach((text, i) => {
         setTimeout(() => {
           const fly = document.createElement('div');
@@ -1798,10 +1822,11 @@ document.addEventListener("DOMContentLoaded", () => {
           fly.style.left = startX + 'px';
           fly.style.top = startY + 'px';
           
-          const targetX = startX + (Math.random() * 400 - 200);
-          const targetY = startY - (Math.random() * 300 + 100);
+          // Use our perfectly mapped coordinates
+          const targetX = startX + positions[i].dx;
+          const targetY = startY + positions[i].dy;
           
-          fly.style.transition = 'all 2s cubic-bezier(0.25, 1, 0.5, 1)';
+          fly.style.transition = 'all 2.5s cubic-bezier(0.2, 0.8, 0.2, 1)';
           fireflyContainer.appendChild(fly);
           
           setTimeout(() => {
@@ -1813,14 +1838,17 @@ document.addEventListener("DOMContentLoaded", () => {
             const bubble = document.createElement('div');
             bubble.className = 'firefly-bubble';
             bubble.textContent = text;
-            bubble.style.left = (targetX - 50) + 'px';
-            bubble.style.top = (targetY - 40) + 'px';
+            
+            // Wait for DOM to render bubble to center it perfectly on the firefly
             fireflyContainer.appendChild(bubble);
+            const bWidth = bubble.offsetWidth;
+            bubble.style.left = (targetX - (bWidth / 2) + 3) + 'px';
+            bubble.style.top = (targetY - 50) + 'px';
             
             setTimeout(() => bubble.classList.add('vis'), 50);
-          }, 1800);
+          }, 2200); // Wait for flight to finish before popping text
 
-        }, i * 400);
+        }, i * 500); // Wait half a second between each fly launching
       });
     });
   }
