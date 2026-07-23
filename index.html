@@ -85,7 +85,7 @@ body { background: var(--night); color: var(--champ); font-family: 'DM Sans', sa
 /* ═══════════════════════════════════════
    GLOBAL SECTION STYLES
 ═══════════════════════════════════════ */
-section.content-sec { min-height:100vh; position:relative; display:flex; align-items:center; justify-content:center; overflow:hidden; background: var(--night); }
+section.content-sec { min-height:100vh; position:relative; display:flex; align-items:center; justify-content:center; overflow:hidden; background: transparent; }
 .ch-tag { display:flex; align-items:center; gap:1rem; margin-bottom:1.6rem; }
 .ch-tag.center { justify-content:center; }
 .ch-tag .cl { height:1px; width:38px; }
@@ -156,19 +156,33 @@ canvas#stars { position: absolute; inset: 0; z-index: 2; pointer-events: none; m
 @keyframes cosmicRipple { 0% { transform: translate(-50%, -50%) scale(1); opacity: 1; } 100% { transform: translate(-50%, -50%) scale(150); opacity: 0; } }
 
 /* ═══════════════════════════════════════
-   REST OF SITE CONTAINER (WITH SUBTLE DUST)
+   REST OF SITE CONTAINER (WITH VISIBLE STARDUST)
 ═══════════════════════════════════════ */
 #rest-of-site { position: relative; margin-top: 100vh; z-index: 10; background: var(--night); }
-#rest-of-site::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  /* Very subtle, beautiful static cosmic dust pattern */
-  background-image: url('data:image/svg+xml;utf8,<svg width="300" height="300" xmlns="http://www.w3.org/2000/svg"><circle cx="20" cy="20" r="1" fill="rgba(255,255,255,0.15)"/><circle cx="150" cy="80" r="1.5" fill="rgba(238,154,184,0.1)"/><circle cx="250" cy="220" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="250" r="2" fill="rgba(246,234,216,0.05)"/></svg>');
-  background-size: 300px 300px;
-  z-index: 5;
-  pointer-events: none;
+#rest-of-site::before, #rest-of-site::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 5;
 }
+#rest-of-site::before {
+  background-image: 
+    radial-gradient(2px 2px at 40px 60px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
+    radial-gradient(2.5px 2.5px at 120px 150px, rgba(238,154,184,0.8), rgba(0,0,0,0)),
+    radial-gradient(1.5px 1.5px at 260px 40px, rgba(255,255,255,0.7), rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 190px 220px, rgba(246,234,216,0.9), rgba(0,0,0,0)),
+    radial-gradient(3px 3px at 50px 280px, rgba(238,154,184,0.6), rgba(0,0,0,0));
+  background-size: 350px 350px;
+  animation: stardustTwinkle 4s ease-in-out infinite alternate;
+}
+#rest-of-site::after {
+  background-image: 
+    radial-gradient(1.5px 1.5px at 20px 30px, rgba(255,255,255,0.8), rgba(0,0,0,0)),
+    radial-gradient(2px 2px at 200px 80px, rgba(246,234,216,0.9), rgba(0,0,0,0)),
+    radial-gradient(2.5px 2.5px at 90px 180px, rgba(238,154,184,0.7), rgba(0,0,0,0)),
+    radial-gradient(1.5px 1.5px at 280px 260px, rgba(255,255,255,0.8), rgba(0,0,0,0));
+  background-size: 250px 250px;
+  animation: stardustTwinkle 5s ease-in-out infinite alternate-reverse;
+}
+@keyframes stardustTwinkle { 0% { opacity: 0.2; } 100% { opacity: 1; } }
+
 .magnetic-wrap { position: relative; perspective: 1000px; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease; z-index: 10; }
 .glare { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.15) 0%, transparent 60%); pointer-events: none; opacity: 0; transition: opacity 0.3s ease; z-index: 50; mix-blend-mode: overlay; border-radius: inherit; }
 
@@ -208,7 +222,6 @@ canvas#stars { position: absolute; inset: 0; z-index: 2; pointer-events: none; m
    CHAPTER 3: INTERACTIVE PLANETS
 ═══════════════════════════════════════ */
 #cosmos { background:linear-gradient(180deg,#16091E 0%,#0C0A20 100%); position: relative; }
-#cosmos::before { content:''; position:absolute; inset:0; background: radial-gradient(ellipse at 20% 55%,rgba(100,60,160,.14),transparent 50%), radial-gradient(ellipse at 80% 45%,rgba(196,128,106,.1),transparent 50%); pointer-events:none; }
 .cosmos-c { display:grid; grid-template-columns:1fr auto; gap:5rem; align-items:center; max-width:1080px; width:100%; padding:2rem; position:relative; z-index:15; }
 .c-pre { font-family:'Dancing Script',cursive; font-size:1.5rem; color:var(--rose); margin-bottom:.5rem; }
 .c-title { font-family:'Playfair Display',serif; font-weight:600; font-style:italic; font-size:clamp(2rem,5vw,3.6rem); color:var(--champ); line-height:1.18; margin-bottom:1.5rem; }
@@ -278,7 +291,7 @@ canvas#stars { position: absolute; inset: 0; z-index: 2; pointer-events: none; m
 /* ═══════════════════════════════════════
    RED THREAD TIMELINE
 ═══════════════════════════════════════ */
-#timeline { background: #0C0A20; padding: 7rem 2rem; position: relative; transition: background-color 1s ease; }
+#timeline { background: transparent; padding: 7rem 2rem; position: relative; }
 .tl-wrap { max-width: 900px; margin: 0 auto; position: relative; padding: 2rem 0; }
 .tl-line-wrap { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; transform: translateX(-50%); background: rgba(255,255,255,0.05); }
 @keyframes threadBreathe { 0%, 100% { box-shadow: 0 0 10px var(--fate-red); } 50% { box-shadow: 0 0 25px var(--fate-red), 0 0 10px var(--rose); } }
@@ -313,7 +326,7 @@ canvas#stars { position: absolute; inset: 0; z-index: 2; pointer-events: none; m
 /* ═══════════════════════════════════════
    ABOUT YOU 
 ═══════════════════════════════════════ */
-#special { background:linear-gradient(180deg,#080614 0%,#0E0D24 100%); padding:7rem 2rem; min-height:unset; align-items:flex-start; }
+#special { background:transparent; padding:7rem 2rem; min-height:unset; align-items:flex-start; }
 .sect-in { max-width:1080px; margin:0 auto; width:100%; }
 .sect-head { text-align:center; margin-bottom:4rem; }
 .s-eye { font-family:'Dancing Script',cursive; font-size:1.6rem; color:var(--rose); margin-bottom:.4rem; }
@@ -344,7 +357,7 @@ canvas#stars { position: absolute; inset: 0; z-index: 2; pointer-events: none; m
 /* ═══════════════════════════════════════
    PERMANENT CANVAS WIPE-OFF LETTER
 ═══════════════════════════════════════ */
-#letter { background:linear-gradient(135deg,#0E0D24 0%,#180A2C 55%,#030108 100%); padding:7rem 2rem; }
+#letter { background:transparent; padding:7rem 2rem; }
 .letter-w { max-width:760px; margin:0 auto; position:relative; z-index:10; }
 .paper { 
   background:rgba(246,234,216,0.03); border:1px solid rgba(246,234,216,0.08); border-radius:30px; 
@@ -365,7 +378,7 @@ canvas#stars { position: absolute; inset: 0; z-index: 2; pointer-events: none; m
 .wax-seal::after { content:''; position:absolute; inset:20%; border-radius:50%; background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.5),transparent 60%); animation:waxShine 4s ease-in-out infinite; }
 
 /* Promises */
-#promises { background:linear-gradient(180deg,#030108 0%,#130A22 100%); padding:7rem 2rem; min-height:unset; align-items:flex-start; }
+#promises { background:transparent; padding:7rem 2rem; min-height:unset; align-items:flex-start; }
 .prom-hint { text-align:center; font-family:'Playfair Display',serif; font-style:italic; font-size:1.05rem; color:rgba(246,234,216,.5); margin-bottom:2.6rem; letter-spacing:.05em; }
 .promises-grid { grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); }
 .flip-card { min-height:230px; opacity:0; transform:translateY(50px); cursor: pointer; }
@@ -382,7 +395,7 @@ canvas#stars { position: absolute; inset: 0; z-index: 2; pointer-events: none; m
 .fb-en { font-size:.85rem; line-height:1.65; color:rgba(246,234,216,.85); }
 
 /* Voice Note */
-#voice-note { background: linear-gradient(180deg, #130A22 0%, var(--night) 100%); padding: 6rem 2rem; }
+#voice-note { background: transparent; padding: 6rem 2rem; }
 .vn-wrap { text-align: center; position: relative; z-index: 10; max-width: 600px; margin: 0 auto; }
 .vn-btn { width: 90px; height: 90px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); background: rgba(238,154,184,0.05); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; margin: 2rem auto; transition: all 0.4s var(--trans); box-shadow: 0 0 30px rgba(196,128,106,0.1); cursor: pointer; }
 .vn-btn:hover { transform: scale(1.1); border-color: rgba(238,154,184,0.4); box-shadow: 0 0 40px rgba(238,154,184,0.3); }
@@ -401,10 +414,9 @@ canvas#stars { position: absolute; inset: 0; z-index: 2; pointer-events: none; m
 /* ═══════════════════════════════════════
    CHAPTER 9: HEARTBEAT SCANNER
 ═══════════════════════════════════════ */
-#vault { background: linear-gradient(180deg, var(--night) 0%, #06020A 100%); padding: 7rem 2rem; position: relative; overflow: hidden; }
+#vault { background: transparent; padding: 7rem 2rem; position: relative; overflow: hidden; }
 .vault-c { max-width: 700px; margin: 0 auto; position: relative; z-index: 10; text-align: center; }
 .vault-box { background: rgba(246,234,216,0.02); border: 1px solid rgba(246,234,216,0.1); border-radius: 24px; padding: 3.5rem 2rem; backdrop-filter: blur(15px); box-shadow: 0 20px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05); position: relative; overflow: hidden; transition: opacity 1s ease; }
-.vault-box::before { content:''; position:absolute; inset:0; background:radial-gradient(circle at 50% -20%,rgba(196,128,106,.15),transparent 70%); pointer-events:none; }
 .v-icon { font-size: 3rem; margin-bottom: 1rem; filter: drop-shadow(0 0 15px rgba(246,234,216,0.3)); }
 .v-hint { font-family: 'Playfair Display', serif; font-style: italic; color: rgba(246,234,216,0.85); font-size: 1.25rem; line-height: 1.6; margin-bottom: 2.5rem; transition: color 0.3s ease; }
 #vault-lock-overlay { position: absolute; inset: 0; background: rgba(3,1,8,0.85); backdrop-filter: blur(8px); z-index: 20; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 24px; transition: opacity 1s ease; }
@@ -424,7 +436,7 @@ canvas#stars { position: absolute; inset: 0; z-index: 2; pointer-events: none; m
 /* ═══════════════════════════════════════
    LANTERN WISHES
 ═══════════════════════════════════════ */
-#wishes { background:var(--night); position: relative; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden;}
+#wishes { background:transparent; position: relative; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden;}
 canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index: 1; }
 #lantern-container { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; z-index: 20; transition: opacity 1s ease; }
 .l-hint { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(1rem, 3vw, 1.4rem); color: rgba(246,234,216,0.9); margin-bottom: 3.5rem; text-align: center; text-shadow: 0 0 20px rgba(246,234,216,0.4); transition: opacity 0.8s ease; }
@@ -443,10 +455,10 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
 /* ═══════════════════════════════════════
    NEW SECTIONS: CONSTELLATION, JAR, PARALLAX
 ═══════════════════════════════════════ */
-#constellation { background: var(--night); position: relative; overflow: hidden; }
+#constellation { background: transparent; position: relative; overflow: hidden; }
 
 /* Firefly Jar */
-#memory-jar { background: linear-gradient(180deg, var(--night) 0%, #16091E 100%); position: relative; }
+#memory-jar { background: transparent; position: relative; }
 .jar-wrap { display: flex; flex-direction: column; align-items: center; position: relative; z-index: 10; width: 100%; }
 .the-jar { width: 140px; height: 180px; position: relative; margin: 0 auto; cursor: pointer; transition: transform 0.3s ease; }
 .the-jar:hover { transform: scale(1.05); }
@@ -467,7 +479,7 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
 @keyframes bubbleFloat { 0% { transform: scale(1) translateY(0px); } 100% { transform: scale(1) translateY(-10px); } }
 
 /* Parallax Polaroids */
-#parallax-memories { background: #06020A; overflow: hidden; }
+#parallax-memories { background: transparent; overflow: hidden; }
 .parallax-container { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 .para-polaroid { 
   position: absolute; background: rgba(246,234,216,0.03); border: 1px solid rgba(246,234,216,0.1); 
@@ -488,7 +500,7 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
 /* ═══════════════════════════════════════
    OUTRO 
 ═══════════════════════════════════════ */
-#outro { background:#06020A; position: relative; overflow: hidden; }
+#outro { background:transparent; position: relative; overflow: hidden; }
 .outro-c { text-align:center; position:relative; z-index:10; padding:2rem; }
 .o-script { font-family:'Great Vibes',cursive; font-size:clamp(1.6rem,3.5vw,2.3rem); color:var(--rose); margin-bottom:.3rem; }
 .o-ttl { font-size:clamp(2.4rem,6vw,4rem); margin-bottom:1.6rem; font-style: italic; }
@@ -499,11 +511,6 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
 .btn-fw:hover::before { transform:translateX(100%); }
 .btn-fw:active { transform:scale(.97); }
 .o-credit { margin-top:3rem; font-family:'Cinzel',serif; font-size:.65rem; letter-spacing:.25em; text-transform:uppercase; color:rgba(246,234,216,.3); }
-
-.outro-heart { position: absolute; bottom: -50px; font-size: 2rem; color: rgba(229,57,53,0.15); animation: floatUpHeart 15s linear infinite; pointer-events: none; z-index: 1; }
-@keyframes floatUpHeart { 0% { transform: translateY(0) scale(0.8) rotate(0deg); opacity: 0; } 10% { opacity: 1; } 100% { transform: translateY(-120vh) scale(1.5) rotate(360deg); opacity: 0; } }
-.click-heart { position: absolute; font-size: 2.2rem; color: rgba(229,57,53,0.8); pointer-events: none; z-index: 50; animation: clickHeartFly 1.5s ease-out forwards; filter: drop-shadow(0 0 10px rgba(229,57,53,0.4)); }
-@keyframes clickHeartFly { 0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; } 100% { transform: translate(-50%, -150px) scale(1.5); opacity: 0; } }
 
 /* Animations & Media Queries */
 @keyframes flk { from{transform:scaleX(1) scaleY(1) skewX(-4deg)} to{transform:scaleX(.80) scaleY(1.16) skewX(4deg)} }
@@ -535,9 +542,7 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
     backdrop-filter: blur(4px) !important;
     -webkit-backdrop-filter: blur(4px) !important;
   }
-  #nebula-reveal {
-    filter: blur(20px); 
-  }
+  #nebula-reveal { filter: blur(20px); }
 }
 @media(prefers-reduced-motion:reduce){ *,*::before,*::after { animation-duration:.01ms!important; transition-duration:.01ms!important; } }
 </style>
@@ -550,6 +555,9 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
 </svg>
 
 <div id="parallax-fg"></div>
+
+<!-- GLOBAL DRIFTING STARS OVERLAY (Only visible after intro) -->
+<div id="global-stars-bg"></div>
 
 <!-- MAGICAL CURSOR -->
 <div id="c-trail"></div>
@@ -1198,10 +1206,6 @@ document.addEventListener("DOMContentLoaded", () => {
         // Draw Stars
         for(const s of stars){
           s.angle += s.orbitSpeed; s.x = W/2 + Math.cos(s.angle)*s.dist; s.y = H/2 + Math.sin(s.angle)*s.dist;
-          if (!isMobile) {
-            let dx = globalMouseX - s.x, dy = globalMouseY - s.y, distToMouse = Math.sqrt(dx*dx + dy*dy);
-            if (distToMouse < 200 && distToMouse > 0) { s.x += (dx/distToMouse)*1.5; s.y += (dy/distToMouse)*1.5; }
-          }
           ctxHero.globalAlpha = 0.6; ctxHero.fillStyle = s.color;
           ctxHero.beginPath(); ctxHero.arc(s.x,s.y,s.r,0,Math.PI*2); ctxHero.fill();
         }
@@ -1275,6 +1279,12 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   
   requestAnimationFrame(masterLoop);
+
+  /* ══════════════════════════════════════
+     GLOBAL FLOATING STARS & HEARTS SCRIPT
+  ══════════════════════════════════════ */
+  // The global starry background has been replaced by the high-performance CSS radial-gradients.
+  // We keep this block empty to remove the drifting objects you disliked.
 
   /* ══════════════════════════════════════
      WARP JUMP TRIGGER 
@@ -1491,7 +1501,7 @@ document.addEventListener("DOMContentLoaded", () => {
   dots.forEach(d=>d.addEventListener('click',()=>{ document.querySelector(d.getAttribute('data-target')).scrollIntoView({behavior:'smooth'}); }));
 
   const tlSec = document.getElementById('timeline'), tlItems = document.querySelectorAll('.tl-item'), tlLine = document.querySelector('.tl-line'), tlWrap = document.querySelector('.tl-wrap');
-  const bgColors = ['#0C0A20', '#130514', '#1c0413', '#250311', '#2e020e', '#3a010d']; 
+  const bgColors = ['transparent', 'transparent', 'transparent', 'transparent', 'transparent', 'transparent']; 
   window.addEventListener('scroll',()=>{
     const pct = window.scrollY/(document.body.scrollHeight-window.innerHeight);
     document.getElementById('prog').style.width=(pct*100)+'%';
