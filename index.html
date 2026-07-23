@@ -1749,7 +1749,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function animateConstellation() {
-      if(!window.isConstellationVisible && state === 'wandering') { requestAnimationFrame(animateConstellation); return; }
+      // Completely pauses all heavy canvas math when scrolled out of view
+      if(!window.isConstellationVisible) { 
+        requestAnimationFrame(animateConstellation); 
+        return; 
+      }
       ctx.clearRect(0,0,cw,ch);
       
       // Heartbeat Math
