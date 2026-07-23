@@ -39,7 +39,7 @@ body { background: var(--night); color: var(--champ); font-family: 'DM Sans', sa
    CUSTOM MAGICAL CURSOR
 ═══════════════════════════════════════ */
 @media (pointer: fine) {
-  body, a, button, .qcard, .magic-frame, .open-chat, .planet, .lantern, #chat-modal, .close-modal, .chat-box, .para-polaroid { cursor: none !important; }
+  body, a, button, .qcard, .magic-frame, .open-chat, .planet, .lantern, #chat-modal, .close-modal, .chat-box, .para-polaroid, .e-moon { cursor: none !important; }
 }
 #grain { position:fixed; inset:0; z-index:99998; pointer-events:none; opacity:.04; mix-blend-mode:overlay; width:100%; height:100%; }
 @media (max-width: 768px) { #grain { display: none; } } 
@@ -85,7 +85,7 @@ body { background: var(--night); color: var(--champ); font-family: 'DM Sans', sa
 /* ═══════════════════════════════════════
    GLOBAL SECTION STYLES
 ═══════════════════════════════════════ */
-section.content-sec { min-height:100vh; position:relative; display:flex; align-items:center; justify-content:center; overflow:hidden; background: transparent; }
+section.content-sec { min-height:100vh; position:relative; display:flex; align-items:center; justify-content:center; overflow:hidden; background: var(--night); }
 .ch-tag { display:flex; align-items:center; gap:1rem; margin-bottom:1.6rem; }
 .ch-tag.center { justify-content:center; }
 .ch-tag .cl { height:1px; width:38px; }
@@ -156,41 +156,43 @@ canvas#stars { position: absolute; inset: 0; z-index: 2; pointer-events: none; m
 @keyframes cosmicRipple { 0% { transform: translate(-50%, -50%) scale(1); opacity: 1; } 100% { transform: translate(-50%, -50%) scale(150); opacity: 0; } }
 
 /* ═══════════════════════════════════════
-   REST OF SITE CONTAINER (WITH VISIBLE STARDUST)
+   REST OF SITE CONTAINER (WITH BRIGHTER DUST)
 ═══════════════════════════════════════ */
 #rest-of-site { position: relative; margin-top: 100vh; z-index: 10; background: var(--night); }
-#rest-of-site::before, #rest-of-site::after {
-  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 5;
-}
-#rest-of-site::before {
-  background-image: 
-    radial-gradient(2px 2px at 40px 60px, rgba(255,255,255,0.9), rgba(0,0,0,0)),
-    radial-gradient(2.5px 2.5px at 120px 150px, rgba(238,154,184,0.8), rgba(0,0,0,0)),
-    radial-gradient(1.5px 1.5px at 260px 40px, rgba(255,255,255,0.7), rgba(0,0,0,0)),
-    radial-gradient(2px 2px at 190px 220px, rgba(246,234,216,0.9), rgba(0,0,0,0)),
-    radial-gradient(3px 3px at 50px 280px, rgba(238,154,184,0.6), rgba(0,0,0,0));
-  background-size: 350px 350px;
-  animation: stardustTwinkle 4s ease-in-out infinite alternate;
-}
 #rest-of-site::after {
-  background-image: 
-    radial-gradient(1.5px 1.5px at 20px 30px, rgba(255,255,255,0.8), rgba(0,0,0,0)),
-    radial-gradient(2px 2px at 200px 80px, rgba(246,234,216,0.9), rgba(0,0,0,0)),
-    radial-gradient(2.5px 2.5px at 90px 180px, rgba(238,154,184,0.7), rgba(0,0,0,0)),
-    radial-gradient(1.5px 1.5px at 280px 260px, rgba(255,255,255,0.8), rgba(0,0,0,0));
-  background-size: 250px 250px;
-  animation: stardustTwinkle 5s ease-in-out infinite alternate-reverse;
+  content: "";
+  position: absolute;
+  inset: 0;
+  /* UPDATED: Brighter, more visible static cosmic dust pattern */
+  background-image: url('data:image/svg+xml;utf8,<svg width="400" height="400" xmlns="http://www.w3.org/2000/svg"><circle cx="40" cy="40" r="2" fill="rgba(255,255,255,0.4)"/><circle cx="200" cy="120" r="3" fill="rgba(238,154,184,0.3)"/><circle cx="320" cy="280" r="2" fill="rgba(255,255,255,0.3)"/><circle cx="100" cy="320" r="3.5" fill="rgba(246,234,216,0.2)"/><circle cx="350" cy="50" r="1.5" fill="rgba(255,215,0,0.3)"/></svg>');
+  background-size: 400px 400px;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0.8;
 }
-@keyframes stardustTwinkle { 0% { opacity: 0.2; } 100% { opacity: 1; } }
-
 .magnetic-wrap { position: relative; perspective: 1000px; transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease; z-index: 10; }
 .glare { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.15) 0%, transparent 60%); pointer-events: none; opacity: 0; transition: opacity 0.3s ease; z-index: 50; mix-blend-mode: overlay; border-radius: inherit; }
 
 /* ═══════════════════════════════════════
-   CHAPTER 2: BIRTHDAY CAKE
+   CHAPTER 2: BIRTHDAY CAKE (WITH ORBS)
 ═══════════════════════════════════════ */
 #bday { background:linear-gradient(180deg,#000000 0%,#16091E 100%); position: relative; }
 .bday-particles { position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
+
+/* CSS For floating orbs in the background */
+.b-orb {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.8) 0%, rgba(238,154,184,0.4) 40%, transparent 70%);
+  animation: floatOrb linear infinite;
+  pointer-events: none;
+}
+@keyframes floatOrb {
+  0% { transform: translateY(100px) scale(0.8); opacity: 0; }
+  20% { opacity: 0.6; }
+  80% { opacity: 0.6; }
+  100% { transform: translateY(-200px) scale(1.2); opacity: 0; }
+}
 
 #balloon-c,#confetti-c { position:absolute; inset:0; pointer-events:none; overflow:hidden; z-index: 2; }
 .bl { position:absolute; bottom:-180px; animation:blRise linear infinite; }
@@ -222,6 +224,7 @@ canvas#stars { position: absolute; inset: 0; z-index: 2; pointer-events: none; m
    CHAPTER 3: INTERACTIVE PLANETS
 ═══════════════════════════════════════ */
 #cosmos { background:linear-gradient(180deg,#16091E 0%,#0C0A20 100%); position: relative; }
+#cosmos::before { content:''; position:absolute; inset:0; background: radial-gradient(ellipse at 20% 55%,rgba(100,60,160,.14),transparent 50%), radial-gradient(ellipse at 80% 45%,rgba(196,128,106,.1),transparent 50%); pointer-events:none; }
 .cosmos-c { display:grid; grid-template-columns:1fr auto; gap:5rem; align-items:center; max-width:1080px; width:100%; padding:2rem; position:relative; z-index:15; }
 .c-pre { font-family:'Dancing Script',cursive; font-size:1.5rem; color:var(--rose); margin-bottom:.5rem; }
 .c-title { font-family:'Playfair Display',serif; font-weight:600; font-style:italic; font-size:clamp(2rem,5vw,3.6rem); color:var(--champ); line-height:1.18; margin-bottom:1.5rem; }
@@ -289,13 +292,19 @@ canvas#stars { position: absolute; inset: 0; z-index: 2; pointer-events: none; m
 @keyframes tiBounce { 0%, 80%, 100% { transform: scale(0); } 40% { transform: scale(1); } }
 
 /* ═══════════════════════════════════════
-   RED THREAD TIMELINE
+   RED THREAD TIMELINE 
 ═══════════════════════════════════════ */
-#timeline { background: transparent; padding: 7rem 2rem; position: relative; }
+#timeline { background: #0C0A20; padding: 7rem 2rem; position: relative; transition: background-color 1s ease; }
 .tl-wrap { max-width: 900px; margin: 0 auto; position: relative; padding: 2rem 0; }
 .tl-line-wrap { position: absolute; left: 50%; top: 0; bottom: 0; width: 2px; transform: translateX(-50%); background: rgba(255,255,255,0.05); }
 @keyframes threadBreathe { 0%, 100% { box-shadow: 0 0 10px var(--fate-red); } 50% { box-shadow: 0 0 25px var(--fate-red), 0 0 10px var(--rose); } }
-.tl-line { position: absolute; top: 0; left: 0; width: 100%; height: 0%; background: linear-gradient(to bottom, var(--fate-red), var(--rose)); animation: threadBreathe 3s ease-in-out infinite; transition: height 0.1s ease-out; }
+
+.tl-line { 
+  position: absolute; top: 0; left: 0; width: 100%; height: 0%; 
+  background: linear-gradient(to bottom, #ff758f 0%, #ff4d6d 50%, #c9184a 80%, #590d22 100%);
+  animation: threadBreathe 3s ease-in-out infinite; 
+  transition: height 0.1s ease-out; 
+}
 
 .tl-item { width: 100%; display: flex; justify-content: flex-end; padding-right: 50%; position: relative; margin-bottom: 4rem; opacity: 0; transform: translateY(40px); transition: all 0.8s var(--trans); }
 .tl-item:nth-child(even) { justify-content: flex-start; padding-right: 0; padding-left: 50%; }
@@ -326,7 +335,7 @@ canvas#stars { position: absolute; inset: 0; z-index: 2; pointer-events: none; m
 /* ═══════════════════════════════════════
    ABOUT YOU 
 ═══════════════════════════════════════ */
-#special { background:transparent; padding:7rem 2rem; min-height:unset; align-items:flex-start; }
+#special { background:linear-gradient(180deg,#080614 0%,#0E0D24 100%); padding:7rem 2rem; min-height:unset; align-items:flex-start; }
 .sect-in { max-width:1080px; margin:0 auto; width:100%; }
 .sect-head { text-align:center; margin-bottom:4rem; }
 .s-eye { font-family:'Dancing Script',cursive; font-size:1.6rem; color:var(--rose); margin-bottom:.4rem; }
@@ -357,7 +366,7 @@ canvas#stars { position: absolute; inset: 0; z-index: 2; pointer-events: none; m
 /* ═══════════════════════════════════════
    PERMANENT CANVAS WIPE-OFF LETTER
 ═══════════════════════════════════════ */
-#letter { background:transparent; padding:7rem 2rem; }
+#letter { background:linear-gradient(135deg,#0E0D24 0%,#180A2C 55%,#030108 100%); padding:7rem 2rem; }
 .letter-w { max-width:760px; margin:0 auto; position:relative; z-index:10; }
 .paper { 
   background:rgba(246,234,216,0.03); border:1px solid rgba(246,234,216,0.08); border-radius:30px; 
@@ -378,7 +387,7 @@ canvas#stars { position: absolute; inset: 0; z-index: 2; pointer-events: none; m
 .wax-seal::after { content:''; position:absolute; inset:20%; border-radius:50%; background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.5),transparent 60%); animation:waxShine 4s ease-in-out infinite; }
 
 /* Promises */
-#promises { background:transparent; padding:7rem 2rem; min-height:unset; align-items:flex-start; }
+#promises { background:linear-gradient(180deg,#030108 0%,#130A22 100%); padding:7rem 2rem; min-height:unset; align-items:flex-start; }
 .prom-hint { text-align:center; font-family:'Playfair Display',serif; font-style:italic; font-size:1.05rem; color:rgba(246,234,216,.5); margin-bottom:2.6rem; letter-spacing:.05em; }
 .promises-grid { grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); }
 .flip-card { min-height:230px; opacity:0; transform:translateY(50px); cursor: pointer; }
@@ -395,7 +404,7 @@ canvas#stars { position: absolute; inset: 0; z-index: 2; pointer-events: none; m
 .fb-en { font-size:.85rem; line-height:1.65; color:rgba(246,234,216,.85); }
 
 /* Voice Note */
-#voice-note { background: transparent; padding: 6rem 2rem; }
+#voice-note { background: linear-gradient(180deg, #130A22 0%, var(--night) 100%); padding: 6rem 2rem; }
 .vn-wrap { text-align: center; position: relative; z-index: 10; max-width: 600px; margin: 0 auto; }
 .vn-btn { width: 90px; height: 90px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); background: rgba(238,154,184,0.05); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; margin: 2rem auto; transition: all 0.4s var(--trans); box-shadow: 0 0 30px rgba(196,128,106,0.1); cursor: pointer; }
 .vn-btn:hover { transform: scale(1.1); border-color: rgba(238,154,184,0.4); box-shadow: 0 0 40px rgba(238,154,184,0.3); }
@@ -414,9 +423,10 @@ canvas#stars { position: absolute; inset: 0; z-index: 2; pointer-events: none; m
 /* ═══════════════════════════════════════
    CHAPTER 9: HEARTBEAT SCANNER
 ═══════════════════════════════════════ */
-#vault { background: transparent; padding: 7rem 2rem; position: relative; overflow: hidden; }
+#vault { background: linear-gradient(180deg, var(--night) 0%, #06020A 100%); padding: 7rem 2rem; position: relative; overflow: hidden; }
 .vault-c { max-width: 700px; margin: 0 auto; position: relative; z-index: 10; text-align: center; }
 .vault-box { background: rgba(246,234,216,0.02); border: 1px solid rgba(246,234,216,0.1); border-radius: 24px; padding: 3.5rem 2rem; backdrop-filter: blur(15px); box-shadow: 0 20px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.05); position: relative; overflow: hidden; transition: opacity 1s ease; }
+.vault-box::before { content:''; position:absolute; inset:0; background:radial-gradient(circle at 50% -20%,rgba(196,128,106,.15),transparent 70%); pointer-events:none; }
 .v-icon { font-size: 3rem; margin-bottom: 1rem; filter: drop-shadow(0 0 15px rgba(246,234,216,0.3)); }
 .v-hint { font-family: 'Playfair Display', serif; font-style: italic; color: rgba(246,234,216,0.85); font-size: 1.25rem; line-height: 1.6; margin-bottom: 2.5rem; transition: color 0.3s ease; }
 #vault-lock-overlay { position: absolute; inset: 0; background: rgba(3,1,8,0.85); backdrop-filter: blur(8px); z-index: 20; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 24px; transition: opacity 1s ease; }
@@ -436,7 +446,7 @@ canvas#stars { position: absolute; inset: 0; z-index: 2; pointer-events: none; m
 /* ═══════════════════════════════════════
    LANTERN WISHES
 ═══════════════════════════════════════ */
-#wishes { background:transparent; position: relative; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden;}
+#wishes { background:var(--night); position: relative; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden;}
 canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index: 1; }
 #lantern-container { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); display: flex; flex-direction: column; align-items: center; z-index: 20; transition: opacity 1s ease; }
 .l-hint { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(1rem, 3vw, 1.4rem); color: rgba(246,234,216,0.9); margin-bottom: 3.5rem; text-align: center; text-shadow: 0 0 20px rgba(246,234,216,0.4); transition: opacity 0.8s ease; }
@@ -455,11 +465,11 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
 /* ═══════════════════════════════════════
    NEW SECTIONS: CONSTELLATION, JAR, PARALLAX
 ═══════════════════════════════════════ */
-#constellation { background: transparent; position: relative; overflow: hidden; }
+#constellation { background: var(--night); position: relative; overflow: hidden; }
 
-/* Firefly Jar */
-#memory-jar { background: transparent; position: relative; }
-.jar-wrap { display: flex; flex-direction: column; align-items: center; position: relative; z-index: 10; width: 100%; }
+/* Firefly Jar (UPDATED FOR RESPONSIVENESS) */
+#memory-jar { background: linear-gradient(180deg, var(--night) 0%, #16091E 100%); position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+.jar-wrap { display: flex; flex-direction: column; align-items: center; position: relative; z-index: 10; width: 100%; margin-top: 10vh; }
 .the-jar { width: 140px; height: 180px; position: relative; margin: 0 auto; cursor: pointer; transition: transform 0.3s ease; }
 .the-jar:hover { transform: scale(1.05); }
 .jar-lid { width: 100px; height: 25px; background: linear-gradient(90deg, #8B5A2B, #D2B48C, #8B5A2B); border-radius: 5px 5px 2px 2px; position: absolute; top: -15px; left: 20px; z-index: 2; transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.8s; box-shadow: 0 -2px 5px rgba(0,0,0,0.5); }
@@ -470,16 +480,26 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
 .the-jar.opened .jar-hint { opacity: 0; }
 @keyframes jarPulse { 0% { opacity: 0.6; transform: translateX(-50%) scale(0.9); } 100% { opacity: 1; transform: translateX(-50%) scale(1.1); } }
 
-/* Fireflies */
+/* Fireflies (UPDATED FOR RESPONSIVENESS) */
 #firefly-container { position: absolute; inset: 0; pointer-events: none; z-index: 5; }
-.firefly-bubble { position: absolute; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,215,0,0.3); padding: 12px 20px; border-radius: 20px; backdrop-filter: blur(8px); box-shadow: 0 0 20px rgba(255,215,0,0.15); font-family: 'Playfair Display', serif; font-style: italic; color: var(--champ); font-size: 0.95rem; opacity: 0; transform: scale(0.5); transition: opacity 0.5s, transform 0.5s; white-space: nowrap; }
+.firefly-bubble { 
+  position: absolute; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,215,0,0.3); 
+  padding: 12px 20px; border-radius: 20px; backdrop-filter: blur(8px); box-shadow: 0 0 20px rgba(255,215,0,0.15); 
+  font-family: 'Playfair Display', serif; font-style: italic; color: var(--champ); font-size: 0.95rem; 
+  opacity: 0; transform: scale(0.5); transition: opacity 0.5s, transform 0.5s; 
+  white-space: normal; /* Fixed wrapping issue */
+  max-width: 140px; 
+  text-align: center;
+  line-height: 1.3;
+  z-index: 20;
+}
 .firefly-bubble.vis { opacity: 1; transform: scale(1); animation: bubbleFloat 4s ease-in-out infinite alternate; }
 .firefly-dot { position: absolute; width: 6px; height: 6px; background: #FFD700; border-radius: 50%; box-shadow: 0 0 15px 5px rgba(255,215,0,0.6); animation: fireflyWander 4s infinite alternate ease-in-out; }
 @keyframes fireflyWander { 0% { transform: translate(0,0) scale(1); opacity: 0.8; } 100% { transform: translate(15px, -15px) scale(1.3); opacity: 1; } }
 @keyframes bubbleFloat { 0% { transform: scale(1) translateY(0px); } 100% { transform: scale(1) translateY(-10px); } }
 
 /* Parallax Polaroids */
-#parallax-memories { background: transparent; overflow: hidden; }
+#parallax-memories { background: #06020A; overflow: hidden; }
 .parallax-container { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 .para-polaroid { 
   position: absolute; background: rgba(246,234,216,0.03); border: 1px solid rgba(246,234,216,0.1); 
@@ -498,9 +518,34 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
 }
 
 /* ═══════════════════════════════════════
+   CHAPTER 14: SOLAR ECLIPSE (UPDATED EFFECTS)
+═══════════════════════════════════════ */
+#eclipse { background: var(--night); position: relative; overflow: hidden; transition: background 2.5s ease; min-height: 100vh; }
+.eclipse-container { text-align: center; position: relative; z-index: 10; width: 100%; max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; }
+.e-hint { font-family: 'Playfair Display', serif; font-style: italic; color: rgba(246,234,216,0.6); margin-bottom: 3rem; pointer-events: none; }
+.eclipse-interactive { position: relative; width: 100%; height: 300px; margin: 0 auto; }
+.e-sun { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 120px; height: 120px; background: radial-gradient(circle, #fff, #f9d71c); border-radius: 50%; box-shadow: 0 0 40px rgba(249, 215, 28, 0.8), 0 0 80px rgba(249, 160, 27, 0.6); transition: box-shadow 2.5s ease, background 2.5s ease; }
+.e-moon { position: absolute; top: 50%; left: 20%; transform: translate(-50%, -50%); width: 120px; height: 120px; background: #0c0a20; border-radius: 50%; box-shadow: inset -10px 0 20px rgba(255,255,255,0.1); cursor: grab; z-index: 5; touch-action: none; transition: box-shadow 0.3s ease; }
+.e-moon:active { cursor: grabbing; box-shadow: inset -10px 0 20px rgba(255,255,255,0.1), 0 0 20px rgba(238, 154, 184, 0.3); }
+
+/* The text before and during eclipse */
+.e-quote { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(1.5rem, 4vw, 2.5rem); color: var(--champ); opacity: 0; margin-top: 3rem; max-width: 90%; text-align: center; text-shadow: 0 0 20px rgba(255,255,255,0.5), 0 0 40px rgba(238, 154, 184, 0.8); transform: scale(0.8); }
+
+/* Cosmic Shockwave Effect */
+.eclipse-shockwave { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0); width: 120px; height: 120px; border-radius: 50%; box-shadow: 0 0 0 20px rgba(255, 215, 0, 0.8), 0 0 40px 40px rgba(255, 255, 255, 0.6); animation: eclipseBurst 1.5s cubic-bezier(0.1, 0.8, 0.2, 1) forwards; pointer-events: none; }
+@keyframes eclipseBurst { 0% { transform: translate(-50%, -50%) scale(1); opacity: 1; } 100% { transform: translate(-50%, -50%) scale(8); opacity: 0; } }
+
+/* Total Eclipse State */
+#eclipse.total-eclipse { background: #000; }
+#eclipse.total-eclipse .e-moon { background: #000; box-shadow: none; pointer-events: none; }
+#eclipse.total-eclipse .e-sun { background: #000; box-shadow: 0 0 40px 10px rgba(255,255,255,0.9), 0 0 100px 30px rgba(255,215,0,0.6), 0 0 200px 80px rgba(238, 154, 184, 0.5), inset 0 0 20px rgba(0,0,0,1); }
+#eclipse.total-eclipse .e-hint, #eclipse.total-eclipse .s-ttl, #eclipse.total-eclipse .ch-tag { opacity: 0; transition: opacity 1s ease; pointer-events: none; }
+#eclipse.total-eclipse .e-quote { opacity: 1; transform: scale(1); transition: opacity 2.5s ease 1s, transform 2.5s cubic-bezier(0.2, 0.8, 0.2, 1) 1s; }
+
+/* ═══════════════════════════════════════
    OUTRO 
 ═══════════════════════════════════════ */
-#outro { background:transparent; position: relative; overflow: hidden; }
+#outro { background:#06020A; position: relative; overflow: hidden; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; }
 .outro-c { text-align:center; position:relative; z-index:10; padding:2rem; }
 .o-script { font-family:'Great Vibes',cursive; font-size:clamp(1.6rem,3.5vw,2.3rem); color:var(--rose); margin-bottom:.3rem; }
 .o-ttl { font-size:clamp(2.4rem,6vw,4rem); margin-bottom:1.6rem; font-style: italic; }
@@ -511,6 +556,14 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
 .btn-fw:hover::before { transform:translateX(100%); }
 .btn-fw:active { transform:scale(.97); }
 .o-credit { margin-top:3rem; font-family:'Cinzel',serif; font-size:.65rem; letter-spacing:.25em; text-transform:uppercase; color:rgba(246,234,216,.3); }
+
+/* FLOATING HEARTS FIX */
+#outro-hearts-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 1; overflow: hidden; }
+.outro-heart { position: absolute; bottom: -50px; font-size: 2rem; animation: floatUpHeart 15s linear infinite; pointer-events: none; }
+@keyframes floatUpHeart { 0% { transform: translateY(0) scale(0.8) rotate(0deg); opacity: 0; } 10% { opacity: 1; } 100% { transform: translateY(-120vh) scale(1.5) rotate(360deg); opacity: 0; } }
+
+.click-heart { position: absolute; font-size: 2.2rem; color: rgba(229,57,53,0.8); pointer-events: none; z-index: 50; animation: clickHeartFly 1.5s ease-out forwards; filter: drop-shadow(0 0 10px rgba(229,57,53,0.4)); }
+@keyframes clickHeartFly { 0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; } 100% { transform: translate(-50%, -150px) scale(1.5); opacity: 0; } }
 
 /* Animations & Media Queries */
 @keyframes flk { from{transform:scaleX(1) scaleY(1) skewX(-4deg)} to{transform:scaleX(.80) scaleY(1.16) skewX(4deg)} }
@@ -542,7 +595,9 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
     backdrop-filter: blur(4px) !important;
     -webkit-backdrop-filter: blur(4px) !important;
   }
-  #nebula-reveal { filter: blur(20px); }
+  #nebula-reveal {
+    filter: blur(20px); 
+  }
 }
 @media(prefers-reduced-motion:reduce){ *,*::before,*::after { animation-duration:.01ms!important; transition-duration:.01ms!important; } }
 </style>
@@ -555,9 +610,6 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
 </svg>
 
 <div id="parallax-fg"></div>
-
-<!-- GLOBAL DRIFTING STARS OVERLAY (Only visible after intro) -->
-<div id="global-stars-bg"></div>
 
 <!-- MAGICAL CURSOR -->
 <div id="c-trail"></div>
@@ -593,6 +645,7 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
   <div class="dot"     data-target="#constellation" title="Constellation"></div>
   <div class="dot"     data-target="#memory-jar" title="Memory Jar"></div>
   <div class="dot"     data-target="#parallax-memories" title="Memories"></div>
+  <div class="dot"     data-target="#eclipse" title="Eclipse"></div>
   <div class="dot"     data-target="#outro" title="The End"></div>
 </nav>
 
@@ -981,7 +1034,7 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
     </div>
   </section>
 
-  <!-- CHAPTER XIII: PARALLAX MEMORIES (JPEG PICS INLINE WITH CAPTIONS) -->
+  <!-- CHAPTER XIII: PARALLAX MEMORIES -->
   <section id="parallax-memories" class="content-sec" data-name="Memories" data-num="13" style="min-height: 250vh; align-items: flex-start; padding-top: 10vh; position:relative;">
     <div style="position:relative; z-index: 10; width: 100%; text-align:center;">
       <div class="ch-tag center rev">
@@ -1021,8 +1074,30 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
     </div>
   </section>
 
+  <!-- CHAPTER XIV: SOLAR ECLIPSE -->
+  <section id="eclipse" class="content-sec" data-name="Eclipse" data-num="14">
+    <div class="eclipse-container">
+      <div class="ch-tag center rev">
+        <div class="cl cl-l"></div>
+        <span>Chapter XIV</span>
+        <div class="cl cl-r"></div>
+      </div>
+      <h2 class="s-ttl rev" style="margin-bottom: 0.5rem;">Align our stars</h2>
+      <p class="e-hint rev">Drag the moon over the sun</p>
+
+      <div class="eclipse-interactive">
+        <div class="e-sun" id="e-sun"></div>
+        <div class="e-moon" id="e-moon"></div>
+      </div>
+
+      <div class="e-quote" id="e-quote">
+        "You are my eclipse — the rare, beautiful moment that makes my whole world stop. 🥺💖✨"
+      </div>
+    </div>
+  </section>
+
   <!-- OUTRO -->
-  <section id="outro" class="content-sec" data-name="The End" data-num="14">
+  <section id="outro" class="content-sec" data-name="The End" data-num="15">
     <div id="outro-hearts-container"></div>
     <div class="outro-c rev">
       <p class="o-script">forever &amp;</p>
@@ -1206,6 +1281,10 @@ document.addEventListener("DOMContentLoaded", () => {
         // Draw Stars
         for(const s of stars){
           s.angle += s.orbitSpeed; s.x = W/2 + Math.cos(s.angle)*s.dist; s.y = H/2 + Math.sin(s.angle)*s.dist;
+          if (!isMobile) {
+            let dx = globalMouseX - s.x, dy = globalMouseY - s.y, distToMouse = Math.sqrt(dx*dx + dy*dy);
+            if (distToMouse < 200 && distToMouse > 0) { s.x += (dx/distToMouse)*1.5; s.y += (dy/distToMouse)*1.5; }
+          }
           ctxHero.globalAlpha = 0.6; ctxHero.fillStyle = s.color;
           ctxHero.beginPath(); ctxHero.arc(s.x,s.y,s.r,0,Math.PI*2); ctxHero.fill();
         }
@@ -1279,12 +1358,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   
   requestAnimationFrame(masterLoop);
-
-  /* ══════════════════════════════════════
-     GLOBAL FLOATING STARS & HEARTS SCRIPT
-  ══════════════════════════════════════ */
-  // The global starry background has been replaced by the high-performance CSS radial-gradients.
-  // We keep this block empty to remove the drifting objects you disliked.
 
   /* ══════════════════════════════════════
      WARP JUMP TRIGGER 
@@ -1444,7 +1517,7 @@ document.addEventListener("DOMContentLoaded", () => {
       cursor.style.opacity='1'; trail.style.opacity='1';
     });
     
-    const hovEls = ()=>[...document.querySelectorAll('button,.qcard,.dot,a,.flip-card,.planet,#playVoiceBtn,.tl-content,.magic-frame,.lantern,#magic-paper,.secret-trigger,.cv, #heartbeat-scanner, .open-chat, .para-polaroid')];
+    const hovEls = ()=>[...document.querySelectorAll('button,.qcard,.dot,a,.flip-card,.planet,#playVoiceBtn,.tl-content,.magic-frame,.lantern,#magic-paper,.secret-trigger,.cv, #heartbeat-scanner, .open-chat, .para-polaroid, .e-moon')];
     
     document.addEventListener('mousemove', e => { 
       const isHovering = hovEls().some(el=>el.contains(e.target)||el===e.target);
@@ -1501,7 +1574,7 @@ document.addEventListener("DOMContentLoaded", () => {
   dots.forEach(d=>d.addEventListener('click',()=>{ document.querySelector(d.getAttribute('data-target')).scrollIntoView({behavior:'smooth'}); }));
 
   const tlSec = document.getElementById('timeline'), tlItems = document.querySelectorAll('.tl-item'), tlLine = document.querySelector('.tl-line'), tlWrap = document.querySelector('.tl-wrap');
-  const bgColors = ['transparent', 'transparent', 'transparent', 'transparent', 'transparent', 'transparent']; 
+  const bgColors = ['#0C0A20', '#130514', '#1c0413', '#250311', '#2e020e', '#3a010d']; 
   window.addEventListener('scroll',()=>{
     const pct = window.scrollY/(document.body.scrollHeight-window.innerHeight);
     document.getElementById('prog').style.width=(pct*100)+'%';
@@ -1757,7 +1830,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* ══════════════════════════════════════
-     CHAPTER XI: CONSTELLATION REVEAL
+     CHAPTER 11: CONSTELLATION REVEAL
   ══════════════════════════════════════ */
   const constCanvas = document.getElementById('constellation-canvas');
   if(constCanvas) {
@@ -1849,7 +1922,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ══════════════════════════════════════
-     CHAPTER XII: FIREFLY MEMORY JAR (LAPTOP LAYOUT)
+     CHAPTER 12: FIREFLY MEMORY JAR (DYNAMIC FIX)
   ══════════════════════════════════════ */
   const jar = document.getElementById('the-jar');
   const fireflyContainer = document.getElementById('firefly-container');
@@ -1872,14 +1945,14 @@ document.addEventListener("DOMContentLoaded", () => {
       const startX = rect.left + rect.width/2;
       const startY = rect.top + 20;
 
-      // Laptop-optimized mapping: Spread wide, keep them lower so they don't clip the top of the screen
-      const spreadX = 320; 
+      // Perfectly scaled for both mobile and desktop screens
+      const spreadX = Math.min(window.innerWidth * 0.35, 200); 
       const positions = [
-        { dx: -spreadX * 0.9, dy: -200 }, // Top Left
-        { dx: spreadX * 0.9, dy: -180 },  // Top Right
-        { dx: -spreadX * 1.2, dy: -70 },  // Mid Left (pushed wider)
-        { dx: spreadX * 1.2, dy: -60 },   // Mid Right (pushed wider)
-        { dx: 0, dy: -250 }               // Top Center (lowered significantly)
+        { dx: -spreadX * 0.8, dy: -150 }, // Top Left
+        { dx: spreadX * 0.8, dy: -140 },  // Top Right
+        { dx: -spreadX * 1.1, dy: -60 },  // Mid Left
+        { dx: spreadX * 1.1, dy: -50 },   // Mid Right
+        { dx: 0, dy: -220 }               // Top Center
       ];
 
       reasons.forEach((text, i) => {
@@ -1889,7 +1962,6 @@ document.addEventListener("DOMContentLoaded", () => {
           fly.style.left = startX + 'px';
           fly.style.top = startY + 'px';
           
-          // Use our perfectly mapped coordinates
           const targetX = startX + positions[i].dx;
           const targetY = startY + positions[i].dy;
           
@@ -1906,28 +1978,27 @@ document.addEventListener("DOMContentLoaded", () => {
             bubble.className = 'firefly-bubble';
             bubble.textContent = text;
             
-            // Wait for DOM to render bubble to center it perfectly on the firefly
             fireflyContainer.appendChild(bubble);
+            // Re-calc after adding to DOM to center perfectly
             const bWidth = bubble.offsetWidth;
             bubble.style.left = (targetX - (bWidth / 2) + 3) + 'px';
             bubble.style.top = (targetY - 50) + 'px';
             
             setTimeout(() => bubble.classList.add('vis'), 50);
-          }, 2200); // Wait for flight to finish before popping text
+          }, 2200); 
 
-        }, i * 500); // Wait half a second between each fly launching
+        }, i * 500);
       });
     });
   }
 
   /* ══════════════════════════════════════
-     CHAPTER XIII: PARALLAX POLAROIDS (OPTIMIZED)
+     CHAPTER 13: PARALLAX POLAROIDS (OPTIMIZED)
   ══════════════════════════════════════ */
   const parallaxSec = document.getElementById('parallax-memories');
   const paraItems = document.querySelectorAll('.para-polaroid');
   
   if(parallaxSec) {
-    // Only run math when the section is actually on screen
     let isParallaxVisible = false;
     const paraObserver = new IntersectionObserver(entries => {
       isParallaxVisible = entries[0].isIntersecting;
@@ -1935,7 +2006,7 @@ document.addEventListener("DOMContentLoaded", () => {
     paraObserver.observe(parallaxSec);
 
     window.addEventListener('scroll', () => {
-      if (!isParallaxVisible) return; // Skips heavy math if out of view
+      if (!isParallaxVisible) return; 
 
       const rect = parallaxSec.getBoundingClientRect();
       const scrollAmount = window.innerHeight - rect.top; 
@@ -1944,10 +2015,87 @@ document.addEventListener("DOMContentLoaded", () => {
         const speed = parseFloat(item.getAttribute('data-speed'));
         const angle = item.getAttribute('data-rotation') || 0;
         const yPos = -(scrollAmount * speed);
-        // Use translate3d to force hardware acceleration
         item.style.transform = `translate3d(0, ${yPos}px, 0) rotate(${angle}deg)`;
       });
     }, { passive: true });
+  }
+
+  /* ══════════════════════════════════════
+     CHAPTER 14: SOLAR ECLIPSE DRAG LOGIC (WITH SHOCKWAVE)
+  ══════════════════════════════════════ */
+  const moon = document.getElementById('e-moon');
+  const sun = document.getElementById('e-sun');
+  const eclipseSec = document.getElementById('eclipse');
+  const eQuote = document.getElementById('e-quote');
+  let isDraggingMoon = false;
+  let eclipseTriggered = false;
+
+  if (moon && sun) {
+    let offsetX, offsetY;
+
+    const startDrag = (e) => {
+      if(eclipseTriggered) return;
+      isDraggingMoon = true;
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      const rect = moon.getBoundingClientRect();
+      offsetX = clientX - (rect.left + rect.width/2);
+      offsetY = clientY - (rect.top + rect.height/2);
+      moon.style.transition = 'none';
+    };
+
+    const drag = (e) => {
+      if(!isDraggingMoon || eclipseTriggered) return;
+      
+      if(e.cancelable) e.preventDefault();
+      
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      
+      const interactiveRect = document.querySelector('.eclipse-interactive').getBoundingClientRect();
+      
+      let newX = clientX - interactiveRect.left - offsetX;
+      let newY = clientY - interactiveRect.top - offsetY;
+
+      moon.style.left = `${newX}px`;
+      moon.style.top = `${newY}px`;
+      moon.style.transform = `translate(-50%, -50%)`;
+
+      const sunRect = sun.getBoundingClientRect();
+      const moonRect = moon.getBoundingClientRect();
+      const sunCx = sunRect.left + sunRect.width/2;
+      const sunCy = sunRect.top + sunRect.height/2;
+      const moonCx = moonRect.left + moonRect.width/2;
+      const moonCy = moonRect.top + moonRect.height/2;
+
+      const dist = Math.sqrt(Math.pow(sunCx - moonCx, 2) + Math.pow(sunCy - moonCy, 2));
+      
+      if (dist < 25) {
+        eclipseTriggered = true;
+        isDraggingMoon = false;
+        moon.style.transition = 'all 1s cubic-bezier(0.2, 0.8, 0.2, 1)';
+        moon.style.left = '50%';
+        moon.style.top = '50%';
+        
+        // Create the Cosmic Shockwave!
+        const shock = document.createElement('div');
+        shock.className = 'eclipse-shockwave';
+        document.querySelector('.eclipse-interactive').appendChild(shock);
+
+        setTimeout(() => {
+          eclipseSec.classList.add('total-eclipse');
+        }, 800);
+      }
+    };
+
+    const stopDrag = () => { isDraggingMoon = false; };
+
+    moon.addEventListener('mousedown', startDrag);
+    moon.addEventListener('touchstart', startDrag, {passive: false});
+    window.addEventListener('mousemove', drag, {passive: false});
+    window.addEventListener('touchmove', drag, {passive: false});
+    window.addEventListener('mouseup', stopDrag);
+    window.addEventListener('touchend', stopDrag);
   }
 
   /* ══════════════════════════════════════
