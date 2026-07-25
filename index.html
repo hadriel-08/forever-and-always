@@ -97,7 +97,7 @@ section.content-sec { min-height:100vh; position:relative; display:flex; align-i
 .bd-title, .s-ttl, .w-ttl, .o-ttl { font-family:'Playfair Display',serif; font-weight:600; color:var(--champ); }
 
 /* ═══════════════════════════════════════
-   EPIC HERO INTRO 
+   EPIC HERO INTRO (UPGRADED)
 ═══════════════════════════════════════ */
 #hero { position: fixed; top: 0; left: 0; width: 100%; height: 100vh; background: #030108; z-index: 1; perspective: 1000px; overflow: hidden; }
 
@@ -484,7 +484,7 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
 @keyframes bubbleFloat { 0% { transform: scale(1) translateY(0px); } 100% { transform: scale(1) translateY(-10px); } }
 
 /* Parallax Polaroids (EXTENDED SPREAD & BUTTERSMOOTH LERP) */
-#parallax-memories { background: #06020A; overflow: hidden; min-height: 600vh; position: relative; }
+#parallax-memories { background: #06020A; overflow: hidden; min-height: 800vh; position: relative; }
 .parallax-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
 .para-polaroid { 
   position: absolute; background: rgba(246,234,216,0.03); border: 1px solid rgba(246,234,216,0.1); 
@@ -726,7 +726,8 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
         <div class="tl-line-wrap"><div class="tl-line"></div></div>
 
         <div class="tl-item">
-          <div class="tl-content magnetic-wrap open-polaroid" data-img="timeline1.jpg" data-cap="The day my universe was born.">
+          <!-- FIXED TIMELINE1.JPEG HERE -->
+          <div class="tl-content magnetic-wrap open-polaroid" data-img="timeline1.jpeg" data-cap="The day my universe was born.">
             <div class="tl-dot"></div>
             <p class="tl-date">July 26, 2009</p>
             <p class="tl-text">The day my universe was born. I didn't know you yet, but the world was already getting ready for us.</p>
@@ -988,7 +989,7 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
   </section>
 
   <!-- CHAPTER XIII: PARALLAX MEMORIES -->
-  <section id="parallax-memories" class="content-sec" data-name="Memories" data-num="13" style="min-height: 600vh; position:relative; align-items: flex-start;">
+  <section id="parallax-memories" class="content-sec" data-name="Memories" data-num="13" style="min-height: 800vh; position:relative; align-items: flex-start;">
     <!-- Moved heading to the top and made it sticky so it stays visible -->
     <div style="position:sticky; top: 10vh; z-index: 10; width: 100%; text-align:center; height: fit-content; pointer-events: none;">
       <div class="ch-tag center rev">
@@ -1001,70 +1002,96 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
     </div>
     
     <div class="parallax-container" id="parallax-container">
-      <!-- 12 NEW IMAGES -->
-      <div class="para-polaroid open-polaroid" data-speed="0.2" data-rotation="-4" style="top: 2%; left: 15%;" data-img="j1.jpeg" data-cap="💖">
+      <!-- 6 NEWEST IMAGES -->
+      <div class="para-polaroid open-polaroid" data-speed="0.2" data-rotation="-5" style="top: 2%; left: 18%;" data-img="l1.jpeg" data-cap="🫶🏻">
+        <img class="pp-media" src="l1.jpeg" alt="Memory">
+        <p class="pp-cap">🫶🏻</p>
+      </div>
+      <div class="para-polaroid open-polaroid" data-speed="0.35" data-rotation="4" style="top: 6%; right: 20%;" data-img="l2.jpeg" data-cap="🤗">
+        <img class="pp-media" src="l2.jpeg" alt="Memory">
+        <p class="pp-cap">🤗</p>
+      </div>
+      <div class="para-polaroid open-polaroid" data-speed="0.15" data-rotation="-3" style="top: 10%; left: 25%;" data-img="l3.jpeg" data-cap="hayeee hello jeshuu 😁">
+        <img class="pp-media" src="l3.jpeg" alt="Memory">
+        <p class="pp-cap">hayeee hello jeshuu 😁</p>
+      </div>
+      <div class="para-polaroid open-polaroid" data-speed="0.45" data-rotation="7" style="top: 14%; right: 15%;" data-img="l4.jpeg" data-cap="😊">
+        <img class="pp-media" src="l4.jpeg" alt="Memory">
+        <p class="pp-cap">😊</p>
+      </div>
+      <div class="para-polaroid open-polaroid" data-speed="0.28" data-rotation="-6" style="top: 18%; left: 12%;" data-img="l5.jpeg" data-cap="😚">
+        <img class="pp-media" src="l5.jpeg" alt="Memory">
+        <p class="pp-cap">😚</p>
+      </div>
+      <div class="para-polaroid open-polaroid" data-speed="0.38" data-rotation="5" style="top: 22%; right: 28%;" data-img="l6.jpeg" data-cap="💌">
+        <img class="pp-media" src="l6.jpeg" alt="Memory">
+        <p class="pp-cap">💌</p>
+      </div>
+
+      <!-- 12 MIDDLE IMAGES -->
+      <div class="para-polaroid open-polaroid" data-speed="0.25" data-rotation="-4" style="top: 26%; left: 15%;" data-img="j1.jpeg" data-cap="💖">
         <img class="pp-media" src="j1.jpeg" alt="Memory">
         <p class="pp-cap">💖</p>
       </div>
-      <div class="para-polaroid open-polaroid" data-speed="0.3" data-rotation="6" style="top: 7%; right: 15%;" data-img="j2.jpeg" data-cap="💕">
+      <div class="para-polaroid open-polaroid" data-speed="0.4" data-rotation="6" style="top: 30%; right: 15%;" data-img="j2.jpeg" data-cap="💕">
         <img class="pp-media" src="j2.jpeg" alt="Memory">
         <p class="pp-cap">💕</p>
       </div>
-      <div class="para-polaroid open-polaroid" data-speed="0.15" data-rotation="-3" style="top: 13%; left: 20%;" data-img="j3.jpeg" data-cap="💗">
+      <div class="para-polaroid open-polaroid" data-speed="0.15" data-rotation="-3" style="top: 34%; left: 25%;" data-img="j3.jpeg" data-cap="💗">
         <img class="pp-media" src="j3.jpeg" alt="Memory">
         <p class="pp-cap">💗</p>
       </div>
-      <div class="para-polaroid open-polaroid" data-speed="0.35" data-rotation="8" style="top: 18%; right: 20%;" data-img="j4.jpeg" data-cap="💓">
+      <div class="para-polaroid open-polaroid" data-speed="0.35" data-rotation="8" style="top: 38%; right: 20%;" data-img="j4.jpeg" data-cap="💓">
         <img class="pp-media" src="j4.jpeg" alt="Memory">
         <p class="pp-cap">💓</p>
       </div>
-      <div class="para-polaroid open-polaroid" data-speed="0.25" data-rotation="-7" style="top: 24%; left: 15%;" data-img="j5.jpeg" data-cap="💞">
+      <div class="para-polaroid open-polaroid" data-speed="0.25" data-rotation="-7" style="top: 42%; left: 10%;" data-img="j5.jpeg" data-cap="💞">
         <img class="pp-media" src="j5.jpeg" alt="Memory">
         <p class="pp-cap">💞</p>
       </div>
-      <div class="para-polaroid open-polaroid" data-speed="0.4" data-rotation="4" style="top: 29%; right: 25%;" data-img="j6.jpeg" data-cap="💝">
+      <div class="para-polaroid open-polaroid" data-speed="0.45" data-rotation="4" style="top: 46%; right: 25%;" data-img="j6.jpeg" data-cap="💝">
         <img class="pp-media" src="j6.jpeg" alt="Memory">
         <p class="pp-cap">💝</p>
       </div>
-      <div class="para-polaroid open-polaroid" data-speed="0.18" data-rotation="-5" style="top: 35%; left: 25%;" data-img="j7.jpeg" data-cap="🥰">
+      <div class="para-polaroid open-polaroid" data-speed="0.2" data-rotation="-5" style="top: 50%; left: 20%;" data-img="j7.jpeg" data-cap="🥰">
         <img class="pp-media" src="j7.jpeg" alt="Memory">
         <p class="pp-cap">🥰</p>
       </div>
-      <div class="para-polaroid open-polaroid" data-speed="0.32" data-rotation="7" style="top: 40%; right: 10%;" data-img="j8.jpeg" data-cap="💌">
+      <div class="para-polaroid open-polaroid" data-speed="0.38" data-rotation="7" style="top: 54%; right: 10%;" data-img="j8.jpeg" data-cap="💌">
         <img class="pp-media" src="j8.jpeg" alt="Memory">
         <p class="pp-cap">💌</p>
       </div>
-      <div class="para-polaroid open-polaroid" data-speed="0.22" data-rotation="-2" style="top: 46%; left: 12%;" data-img="j9.jpeg" data-cap="😘">
+      <div class="para-polaroid open-polaroid" data-speed="0.15" data-rotation="-2" style="top: 58%; left: 30%;" data-img="j9.jpeg" data-cap="😘">
         <img class="pp-media" src="j9.jpeg" alt="Memory">
         <p class="pp-cap">😘</p>
       </div>
-      <div class="para-polaroid open-polaroid" data-speed="0.38" data-rotation="5" style="top: 51%; right: 18%;" data-img="j10.jpeg" data-cap="🤗">
+      <div class="para-polaroid open-polaroid" data-speed="0.5" data-rotation="5" style="top: 62%; right: 15%;" data-img="j10.jpeg" data-cap="🤗">
         <img class="pp-media" src="j10.jpeg" alt="Memory">
         <p class="pp-cap">🤗</p>
       </div>
-      <div class="para-polaroid open-polaroid" data-speed="0.15" data-rotation="-6" style="top: 57%; left: 22%;" data-img="j11.jpeg" data-cap="🫀">
+      <div class="para-polaroid open-polaroid" data-speed="0.28" data-rotation="-6" style="top: 66%; left: 15%;" data-img="j11.jpeg" data-cap="🫀">
         <img class="pp-media" src="j11.jpeg" alt="Memory">
         <p class="pp-cap">🫀</p>
       </div>
-      <div class="para-polaroid open-polaroid" data-speed="0.42" data-rotation="3" style="top: 62%; right: 12%;" data-img="j12.jpeg" data-cap="🫶🏻">
+      <div class="para-polaroid open-polaroid" data-speed="0.42" data-rotation="3" style="top: 70%; right: 20%;" data-img="j12.jpeg" data-cap="🫶🏻">
         <img class="pp-media" src="j12.jpeg" alt="Memory">
         <p class="pp-cap">🫶🏻</p>
       </div>
 
       <!-- ORIGINAL 6 IMAGES -->
-      <div class="para-polaroid open-polaroid" data-speed="0.2" data-rotation="-5" style="top: 68%; left: 18%;" data-img="memory1.jpeg" data-cap="best moments ✨">
+      <div class="para-polaroid open-polaroid" data-speed="0.2" data-rotation="-5" style="top: 74%; left: 18%;" data-img="memory1.jpeg" data-cap="best moments ✨">
         <img class="pp-media" src="memory1.jpeg" alt="Memory">
         <p class="pp-cap">best moments ✨</p>
       </div>
-      <div class="para-polaroid open-polaroid" data-speed="0.35" data-rotation="6" style="top: 73%; right: 22%;" data-img="memory2.jpeg" data-cap="OMG can't stop watching you 😍">
+      <div class="para-polaroid open-polaroid" data-speed="0.45" data-rotation="6" style="top: 78%; right: 25%;" data-img="memory2.jpeg" data-cap="OMG can't stop watching you 😍">
         <img class="pp-media" src="memory2.jpeg" alt="Memory">
         <p class="pp-cap">OMG can't stop watching you 😍</p>
       </div>
-      <div class="para-polaroid open-polaroid" data-speed="0.18" data-rotation="-3" style="top: 79%; left: 15%;" data-img="memory3.jpeg" data-cap="My favorite place🫠">
+      <div class="para-polaroid open-polaroid" data-speed="0.18" data-rotation="-3" style="top: 82%; left: 22%;" data-img="memory3.jpeg" data-cap="My favorite place🫠">
         <img class="pp-media" src="memory3.jpeg" alt="Memory">
         <p class="pp-cap">My favorite place🫠</p>
       </div>
-      <div class="para-polaroid open-polaroid" data-speed="0.4" data-rotation="8" style="top: 84%; right: 20%;" data-img="memory4.jpeg" data-cap="Unforgettable 💫">
+      <div class="para-polaroid open-polaroid" data-speed="0.4" data-rotation="8" style="top: 86%; right: 10%;" data-img="memory4.jpeg" data-cap="Unforgettable 💫">
         <img class="pp-media" src="memory4.jpeg" alt="Memory">
         <p class="pp-cap">Unforgettable 💫</p>
       </div>
@@ -1072,7 +1099,7 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
         <img class="pp-media" src="memory5.jpeg" alt="Memory">
         <p class="pp-cap">woww that smile😳</p>
       </div>
-      <div class="para-polaroid open-polaroid" data-speed="0.3" data-rotation="4" style="top: 95%; right: 15%;" data-img="memory6.jpeg" data-cap="u and me forever ❤️">
+      <div class="para-polaroid open-polaroid" data-speed="0.35" data-rotation="4" style="top: 94%; right: 20%;" data-img="memory6.jpeg" data-cap="u and me forever ❤️">
         <img class="pp-media" src="memory6.jpeg" alt="Memory">
         <p class="pp-cap">u and me forever ❤️</p>
       </div>
@@ -1971,7 +1998,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const startX = rect.left + rect.width/2;
       const startY = rect.top + 20;
 
-      // PERFECTED LAPTOP COORDINATES: A huge, wide arch so NO bubbles overlap
       const spreadX = Math.min(window.innerWidth * 0.4, 450); 
       
       const positions = [
@@ -2036,14 +2062,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }, { passive: true });
     
     function smoothParallax() {
-        // Linear Interpolation for butter-smooth gliding
         currentY += (targetY - currentY) * 0.08; 
         
         const secTop = parallaxSec.offsetTop;
         const secHeight = parallaxSec.offsetHeight;
         const winH = window.innerHeight;
         
-        // Only run math if the section is currently in view
         if (currentY + winH > secTop && currentY < secTop + secHeight) {
             const scrollAmount = (currentY + winH) - secTop;
             
@@ -2148,7 +2172,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const timeElapsed = currentTime - startTime;
       const progress = Math.min(timeElapsed / duration, 1);
       
-      // easeInOutCubic transition
       const ease = progress < 0.5 ? 4 * progress * progress * progress : 1 - Math.pow(-2 * progress + 2, 3) / 2;
       
       window.scrollTo(0, startPosition + distance * ease);
@@ -2295,13 +2318,11 @@ document.addEventListener("DOMContentLoaded", () => {
             firstPlanted = true;
             document.getElementById('tulip-hint').style.opacity = '0';
             
-            // Instantly start the full garden bloom without delay!
             let bloomInterval = setInterval(() => {
                 tulips.push(new Tulip(Math.random() * tW));
                 if (tulips.length > 50) {
                     clearInterval(bloomInterval);
                     
-                    // GENTLE, 3-SECOND CINEMATIC SLIDE DOWN
                     setTimeout(() => {
                         const targetOutro = document.getElementById('outro');
                         smoothScrollTo(targetOutro.offsetTop, 3000); 
