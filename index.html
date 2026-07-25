@@ -548,15 +548,34 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
 .tulip-msg { font-family: 'Playfair Display', serif; font-style: italic; color: var(--champ); font-size: 1.4rem; line-height: 1.6; text-shadow: 0 0 20px rgba(0,0,0,0.9); }
 
 /* ═══════════════════════════════════════
-   ONE LAST THING (NEW SECTION)
+   ONE LAST THING (CINEMATIC REVEAL)
 ═══════════════════════════════════════ */
-#one-last-thing { background:#06020A; position: relative; overflow: hidden; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
-.olt-btn { display:inline-block; background:linear-gradient(135deg,var(--magenta),var(--rose)); color:white; font-family:'Playfair Display',serif; font-style:italic; font-size:1.2rem; padding:1.2rem 2.5rem; border-radius:50px; border:none; letter-spacing:.06em; box-shadow:0 4px 36px rgba(124,26,72,.55); transition:all .35s ease; cursor: pointer; z-index: 20; position: relative; }
-.olt-btn:hover { transform:scale(1.05); box-shadow:0 8px 55px rgba(124,26,72,.75); }
-.olt-fade-layer { position: absolute; inset: 0; background: rgba(3,1,8,0); z-index: 25; pointer-events: none; transition: background 2s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; }
-.olt-final-text { opacity: 0; transform: translateY(20px); transition: all 2s ease 1s; font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(1.4rem, 4vw, 2.2rem); color: var(--champ); line-height: 1.8; text-shadow: 0 0 30px rgba(238,154,184,0.6); max-width: 700px; text-align: center; }
-.olt-fade-layer.active { background: rgba(3,1,8,1); pointer-events: auto; }
-.olt-fade-layer.active .olt-final-text { opacity: 1; transform: translateY(0); }
+#one-last-thing { background:#000; position: relative; overflow: hidden; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+#olt-stars { position: absolute; inset: 0; background-image: radial-gradient(2px 2px at 20px 30px, #fff, rgba(0,0,0,0)), radial-gradient(2px 2px at 150px 100px, #fff, rgba(0,0,0,0)), radial-gradient(2px 2px at 80px 180px, #fff, rgba(0,0,0,0)), radial-gradient(2px 2px at 250px 80px, #fff, rgba(0,0,0,0)), radial-gradient(2px 2px at 300px 220px, #fff, rgba(0,0,0,0)); background-size: 350px 350px; opacity: 0; transition: opacity 3s ease 0.5s; z-index: 1; }
+#olt-stars.vis { opacity: 0.7; }
+.olt-seq { position: relative; z-index: 10; display: flex; align-items: center; justify-content: center; width: 100%; height: 100vh; }
+.seq-text { position: absolute; font-family: 'Playfair Display', serif; font-style: italic; color: var(--champ); font-size: clamp(1.4rem, 4vw, 2.5rem); opacity: 0; text-shadow: 0 0 20px rgba(255,255,255,0.4); max-width: 800px; padding: 0 2rem; pointer-events: none; }
+.seq-text.st-6 { color: var(--blush); font-size: clamp(1.6rem, 5vw, 3rem); line-height: 1.6; text-shadow: 0 0 30px rgba(238,154,184,0.5); }
+
+/* Animation triggers when section is visible */
+.olt-seq.vis .st-1 { animation: cinFade 2.5s ease forwards 1s; }
+.olt-seq.vis .st-2 { animation: cinFade 2.5s ease forwards 3.5s; }
+.olt-seq.vis .st-3 { animation: cinFade 2.5s ease forwards 6s; }
+.olt-seq.vis .st-4 { animation: cinFade 2.5s ease forwards 8.5s; }
+.olt-seq.vis .st-5 { animation: cinFade 3.5s ease forwards 11s; }
+.olt-seq.vis .st-6 { animation: cinFadeHold 3s ease forwards 14.5s; }
+
+@keyframes cinFade {
+   0% { opacity: 0; filter: blur(10px); transform: scale(0.9); }
+   20% { opacity: 1; filter: blur(0px); transform: scale(1); }
+   80% { opacity: 1; filter: blur(0px); transform: scale(1); }
+   100% { opacity: 0; filter: blur(10px); transform: scale(1.1); }
+}
+@keyframes cinFadeHold {
+   0% { opacity: 0; filter: blur(10px); transform: scale(0.9); }
+   20% { opacity: 1; filter: blur(0px); transform: scale(1); }
+   100% { opacity: 1; filter: blur(0px); transform: scale(1); }
+}
 
 /* ═══════════════════════════════════════
    CHAPTER 16: OUTRO
@@ -789,7 +808,7 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
           <div class="tl-content magnetic-wrap open-chat" data-chat="chat2">
             <div class="tl-dot"></div>
             <p class="tl-date">January 4, 2026</p>
-            <p class="tl-text">The moment your hand found mine😁😁 actually it felt like where i belonged.. idk if u noticed but my heart definitely did🫀 started to beat fastttttttt</p>
+            <p class="tl-text">The day we confessed our feelings, and the day you officially became my Princess.</p>
             <p style="font-size:0.75rem; color:var(--rose); margin-top:10px; font-family:'DM Sans',sans-serif; text-transform:uppercase; letter-spacing:0.1em;">(Tap to read how it started ✨)</p>
           </div>
         </div>
@@ -798,7 +817,7 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
           <div class="tl-content magnetic-wrap">
             <div class="tl-dot"></div>
             <p class="tl-date">June 10, 2026 • 3:51 PM</p>
-            <p class="tl-text">The exact moment we first held hands. A spark I will absolutely never forget.</p>
+            <p class="tl-text">The moment your hand found mine😁😁 actually it felt like where i belonged.. idk if u noticed but my heart definitely did🫀 started to beat fastttttttt</p>
           </div>
         </div>
 
@@ -860,7 +879,7 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
           <span>Chapter VI</span>
           <div class="cl cl-r"></div>
         </div>
-        <p class="s-eye">Drag to reveal my heart forever</p>
+        <p class="s-eye">Drag your mouse over the paper to reveal my letter ✨</p>
         <h2 class="s-ttl">A letter, with love</h2>
       </div>
 
@@ -917,7 +936,7 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
     </div>
   </section>
 
-  <!-- WARNING (NEW SECTION) -->
+  <!-- WARNING -->
   <section id="warning" class="content-sec" data-name="Warning" data-num="08">
     <div class="sect-in rev">
       <div class="ch-tag center">
@@ -1222,24 +1241,16 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
     </div>
   </section>
 
-  <!-- ONE LAST THING (NEW) -->
+  <!-- ONE LAST THING (CINEMATIC REVEAL) -->
   <section id="one-last-thing" class="content-sec" data-name="One Last Thing" data-num="17">
-    <div class="ch-tag center rev" style="position: absolute; top: 15%;">
-        <div class="cl cl-l"></div>
-        <span>Chapter XVII</span>
-        <div class="cl cl-r"></div>
-    </div>
-    <h2 class="s-ttl rev" style="margin-bottom: 3rem; position: absolute; top: 20%;">One lasttt thing.....</h2>
-    
-    <button class="olt-btn rev" id="olt-btn">Click mee!!</button>
-    
-    <div class="olt-fade-layer" id="olt-fade-layer">
-      <div class="olt-final-text">
-        happiest birthday dearrrr jeshuuuuuu<br>
-        now imagine i am giving you the biggest hug right nowwww🤗<br>
-        thank you yaar for exciting in my lifeeee!!<br>
-        i loveee youuu moreeee thannn thiss website could ever explainnn🫶🏻💖
-      </div>
+    <div id="olt-stars" class="rev"></div>
+    <div class="olt-seq rev">
+      <div class="seq-text st-1">wait.......</div>
+      <div class="seq-text st-2">before you gooo......</div>
+      <div class="seq-text st-3">i wanted to telll you somethinggg jeshuuu....</div>
+      <div class="seq-text st-4">which i never said you.....</div>
+      <div class="seq-text st-5">if u ask me what my favorite memory is?</div>
+      <div class="seq-text st-6">But what nah the truth is... my favorite memory is never one moment.<br>It's every moment that has you in it🫶🏻🤭💖🥹</div>
     </div>
   </section>
 
@@ -1757,7 +1768,7 @@ document.addEventListener("DOMContentLoaded", () => {
       cursor.style.opacity='1'; trail.style.opacity='1';
     });
     
-    const hovEls = ()=>[...document.querySelectorAll('button,.qcard,.dot,a,.flip-card,.planet,#playVoiceBtn,.tl-content,.magic-frame,.lantern,#magic-paper,.secret-trigger,.cv, #heartbeat-scanner, .open-chat, .para-polaroid, .e-moon, #warning-box, .olt-btn')];
+    const hovEls = ()=>[...document.querySelectorAll('button,.qcard,.dot,a,.flip-card,.planet,#playVoiceBtn,.tl-content,.magic-frame,.lantern,#magic-paper,.secret-trigger,.cv, #heartbeat-scanner, .open-chat, .para-polaroid, .e-moon, #warning-box')];
     
     document.addEventListener('mousemove', e => { 
       const isHovering = hovEls().some(el=>el.contains(e.target)||el===e.target);
@@ -2510,29 +2521,6 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             tulips.push(new Tulip(e.clientX));
         }
-    });
-  }
-
-  /* ══════════════════════════════════════
-     ONE LAST THING BUTTON LOGIC
-  ══════════════════════════════════════ */
-  const oltBtn = document.getElementById('olt-btn');
-  const oltFadeLayer = document.getElementById('olt-fade-layer');
-  if(oltBtn) {
-    let clickCount = 0;
-    oltBtn.addEventListener('click', () => {
-      clickCount++;
-      if (clickCount === 1) {
-        oltBtn.textContent = "ahh what, nah nah come here press again nahhh";
-      } else if (clickCount === 2) {
-        oltBtn.textContent = "noooooo closer🤭";
-      } else if (clickCount === 3) {
-        oltBtn.textContent = "nahhhh stilll not enough reee... closerrrrr";
-      } else if (clickCount >= 4) {
-        oltBtn.style.opacity = '0';
-        oltBtn.style.pointerEvents = 'none';
-        oltFadeLayer.classList.add('active');
-      }
     });
   }
 
