@@ -135,7 +135,7 @@ canvas#stars { position: absolute; inset: 0; z-index: 2; pointer-events: none; m
 @keyframes titleSubUp { to { opacity: 1; transform: translateY(0); } }
 
 /* Holographic Typewriter */
-#transition-message { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 85%; max-width: 900px; text-align: center; font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(1.4rem, 4vw, 2.5rem); color: var(--champ); line-height: 1.6; z-index: 100; pointer-events: none; }
+#transition-message { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 85%; max-width: 900px; text-align: center; font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(1.2rem, 3.5vw, 2.2rem); color: var(--champ); line-height: 1.6; z-index: 100; pointer-events: none; }
 .word { display: inline-block; white-space: nowrap; }
 .char { display: inline-block; opacity: 0; filter: blur(8px); transform: translateY(10px); }
 .char.revealed { animation: typeGlow 0.8s ease-out forwards; }
@@ -183,7 +183,7 @@ canvas#stars { position: absolute; inset: 0; z-index: 2; pointer-events: none; m
 .glare { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.15) 0%, transparent 60%); pointer-events: none; opacity: 0; transition: opacity 0.3s ease; z-index: 50; mix-blend-mode: overlay; border-radius: inherit; }
 
 /* ═══════════════════════════════════════
-   CHAPTER 2: BIRTHDAY CAKE (WITH ORBS)
+   CHAPTER 2: BIRTHDAY CAKE & WISH CHAT
 ═══════════════════════════════════════ */
 #bday { background:linear-gradient(180deg,#000000 0%,#16091E 100%); position: relative; }
 .bday-particles { position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
@@ -193,12 +193,13 @@ canvas#stars { position: absolute; inset: 0; z-index: 2; pointer-events: none; m
 #balloon-c,#confetti-c { position:absolute; inset:0; pointer-events:none; overflow:hidden; z-index: 2; }
 .bl { position:absolute; bottom:-180px; animation:blRise linear infinite; }
 .cf { position:absolute; top:-20px; border-radius:2px; animation:cfFall linear forwards; z-index: 50; }
-.bday-c { text-align:center; position:relative; z-index:10; padding:2rem; }
+.bday-c { text-align:center; position:relative; z-index:10; padding:2rem; width: 100%; }
 .bd-pre { font-family:'Dancing Script',cursive; font-size:clamp(1.3rem,3vw,2rem); color:var(--rose); margin-bottom:.5rem; }
 .bd-title { font-size:clamp(3rem,10vw,7rem); line-height:1.02; }
 .bd-title em { font-style:italic; color:var(--blush); font-weight:400; }
 .cake-wrap { margin:3.5rem auto 0; position:relative; width:220px; }
-.candles-row { position:absolute; top:-68px; left:0; right:0; display:flex; justify-content:center; gap:24px; }
+.candles-row { position:absolute; top:-68px; left:0; right:0; display:flex; justify-content:center; gap:24px; transition: opacity 0.5s ease; }
+.candles-row.extinguished .flo, .candles-row.extinguished .fli, .candles-row.extinguished .gw, .candles-row.extinguished .smoke { opacity: 0 !important; animation: none !important; }
 .cv { display:flex; flex-direction:column; align-items:center; position:relative; }
 .smoke { position: absolute; top: -10px; width: 8px; height: 8px; background: rgba(255,255,255,0.4); border-radius: 50%; opacity: 0; filter: blur(2px); pointer-events: none; }
 @keyframes smokeRise { 0% { opacity: 1; transform: translateY(0) scale(1); } 100% { opacity: 0; transform: translateY(-40px) scale(3); } }
@@ -214,7 +215,10 @@ canvas#stars { position: absolute; inset: 0; z-index: 2; pointer-events: none; m
 .drips { position:absolute; top:0; left:0; right:0; height:15px; overflow:hidden; }
 .drips::before { content:''; display:block; height:22px; background: radial-gradient(circle at 7% 0,rgba(255,255,255,.88) 10px,transparent 10px), radial-gradient(circle at 21% 0,rgba(255,255,255,.88) 10px,transparent 10px), radial-gradient(circle at 35% 0,rgba(255,255,255,.88) 10px,transparent 10px), radial-gradient(circle at 50% 0,rgba(255,255,255,.88) 10px,transparent 10px), radial-gradient(circle at 65% 0,rgba(255,255,255,.88) 10px,transparent 10px), radial-gradient(circle at 80% 0,rgba(255,255,255,.88) 10px,transparent 10px), radial-gradient(circle at 94% 0,rgba(255,255,255,.88) 10px,transparent 10px); }
 .bd-note { font-family:'Playfair Display',serif; font-style:italic; font-size:1.05rem; color:rgba(246,234,216,.5); margin-top:2.5rem; transition: opacity 0.5s ease; }
-#wish-granted-msg { font-family: 'Great Vibes', cursive; font-size: 2.5rem; color: var(--rose); position: absolute; left: 50%; transform: translateX(-50%); margin-top: 1rem; opacity: 0; transition: opacity 1.5s ease; text-shadow: 0 0 20px rgba(196,128,106,0.6); pointer-events: none; }
+
+/* Inline Wish Chatbox */
+#wish-chatbox { display: none; margin: 2rem auto 0; width: 90%; max-width: 400px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; flex-direction: column; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.5); opacity: 0; transition: opacity 1s ease; text-align: left; }
+.wish-chat-content { padding: 1.5rem; display: flex; flex-direction: column; gap: 1rem; }
 
 /* ═══════════════════════════════════════
    CHAPTER 3: INTERACTIVE PLANETS
@@ -223,7 +227,7 @@ canvas#stars { position: absolute; inset: 0; z-index: 2; pointer-events: none; m
 #cosmos::before { content:''; position:absolute; inset:0; background: radial-gradient(ellipse at 20% 55%,rgba(100,60,160,.14),transparent 50%), radial-gradient(ellipse at 80% 45%,rgba(196,128,106,.1),transparent 50%); pointer-events:none; }
 .cosmos-c { display:grid; grid-template-columns:1fr auto; gap:5rem; align-items:center; max-width:1080px; width:100%; padding:2rem; position:relative; z-index:15; }
 .c-pre { font-family:'Dancing Script',cursive; font-size:1.5rem; color:var(--rose); margin-bottom:.5rem; }
-.c-title { font-family:'Playfair Display',serif; font-weight:600; font-style:italic; font-size:clamp(2rem,5vw,3.6rem); color:var(--champ); line-height:1.18; margin-bottom:1.5rem; }
+.c-title { font-family:'Playfair Display',serif; font-weight:600; font-style:italic; font-size:clamp(1.8rem,4.5vw,3.2rem); color:var(--champ); line-height:1.18; margin-bottom:1.5rem; }
 .c-body { font-size:.95rem; line-height:1.9; color:rgba(246,234,216,.65); max-width:460px; transition: opacity 0.5s ease; }
 .c-stats { display:flex; flex-direction:column; gap:1.2rem; margin-top:2.5rem; }
 .c-stat { display:flex; align-items:center; gap:1rem; }
@@ -384,11 +388,22 @@ canvas#stars { position: absolute; inset: 0; z-index: 2; pointer-events: none; m
 .flip-front .q-ico { margin-bottom:.7rem; }
 .flip-front p { font-family:'Cinzel',serif; color:rgba(246,234,216,.5); font-size:.75rem; letter-spacing:.15em; text-transform:uppercase; }
 .flip-back { background:linear-gradient(135deg,rgba(124,26,72,.6),rgba(196,128,106,.4)); transform:rotateY(180deg); }
-.fb-hi { font-family:'Playfair Display',serif; font-style:italic; font-weight:600; color:var(--champ); font-size:1.1rem; margin-bottom:.6rem; line-height:1.5; }
-.fb-en { font-size:.85rem; line-height:1.65; color:rgba(246,234,216,.85); }
+.fb-en { font-family:'Playfair Display',serif; font-style:italic; font-weight:600; color:var(--champ); font-size:1.1rem; margin-bottom:.6rem; line-height:1.5; }
+
+/* Warning Section */
+#warning { background:linear-gradient(180deg,#130A22 0%,#0C0A20 100%); padding:7rem 2rem; min-height:unset; align-items:flex-start; }
+.warning-box { background: rgba(229,57,53,0.05); border: 1px solid rgba(229,57,53,0.3); border-radius: 20px; padding: 3rem 2rem; max-width: 600px; margin: 0 auto; text-align: center; box-shadow: 0 20px 50px rgba(229,57,53,0.1); position: relative; cursor: pointer; transition: all 0.4s ease; overflow: hidden; }
+.warning-box:hover { border-color: rgba(229,57,53,0.6); box-shadow: 0 20px 60px rgba(229,57,53,0.2); }
+.warning-ico { font-size: 3rem; margin-bottom: 1rem; animation: pulseGlow 2s infinite alternate; }
+.warning-ttl { font-family: 'Cinzel', serif; font-size: 1.8rem; color: var(--fate-red); letter-spacing: 0.1em; margin-bottom: 0.5rem; text-transform: uppercase; }
+.warning-sub { font-family: 'Playfair Display', serif; font-style: italic; color: rgba(246,234,216,0.6); }
+.warning-content { max-height: 0; opacity: 0; transition: all 0.8s ease; overflow: hidden; text-align: left; margin-top: 0; font-family: 'DM Sans', sans-serif; color: rgba(246,234,216,0.9); line-height: 1.8; }
+.warning-box.expanded .warning-content { max-height: 500px; opacity: 1; margin-top: 2rem; }
+.warning-content ol { padding-left: 1.5rem; }
+.warning-content li { margin-bottom: 1rem; }
 
 /* Voice Note */
-#voice-note { background: linear-gradient(180deg, #130A22 0%, var(--night) 100%); padding: 6rem 2rem; }
+#voice-note { background: linear-gradient(180deg, #0C0A20 0%, var(--night) 100%); padding: 6rem 2rem; }
 .vn-wrap { text-align: center; position: relative; z-index: 10; max-width: 600px; margin: 0 auto; }
 .vn-btn { width: 90px; height: 90px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.1); background: rgba(238,154,184,0.05); backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; margin: 2rem auto; transition: all 0.4s var(--trans); box-shadow: 0 0 30px rgba(196,128,106,0.1); cursor: pointer; }
 .vn-btn:hover { transform: scale(1.1); border-color: rgba(238,154,184,0.4); box-shadow: 0 0 40px rgba(238,154,184,0.3); }
@@ -415,7 +430,7 @@ canvas#stars { position: absolute; inset: 0; z-index: 2; pointer-events: none; m
 .v-hint { font-family: 'Playfair Display', serif; font-style: italic; color: rgba(246,234,216,0.85); font-size: 1.25rem; line-height: 1.6; margin-bottom: 2.5rem; transition: color 0.3s ease; }
 #vault-lock-overlay { position: absolute; inset: 0; background: rgba(3,1,8,0.85); backdrop-filter: blur(8px); z-index: 20; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 24px; transition: opacity 1s ease; }
 .lock-icon { font-size: 3rem; margin-bottom: 1rem; text-shadow: 0 0 20px rgba(196,128,106,0.4); }
-.lock-title { font-family:'Playfair Display',serif; color:var(--champ); font-size: 1.5rem; font-style: italic; margin-bottom: 1.2rem; }
+.lock-title { font-family:'Playfair Display',serif; color:var(--champ); font-size: 1.5rem; font-style: italic; margin-bottom: 1.2rem; padding: 0 1rem; }
 #countdown-timer { font-family:'Cinzel',serif; font-size: 1.3rem; color: var(--rose); letter-spacing: 0.1em; background: rgba(255,255,255,0.05); padding: 10px 20px; border-radius: 8px; border: 1px solid rgba(196,128,106,0.3); }
 #heartbeat-scanner { margin: 2rem auto; width: 120px; height: 120px; border-radius: 50%; border: 2px solid rgba(238,154,184,0.3); position: relative; cursor: pointer; display: flex; align-items: center; justify-content: center; overflow: hidden; box-shadow: 0 0 30px rgba(196,128,106,0.1); user-select: none; -webkit-user-select: none; touch-action: none; z-index: 10; }
 #scanner-progress { position: absolute; bottom: 0; left: 0; width: 100%; height: 0%; background: rgba(238,154,184,0.4); transition: height 0.08s linear; box-shadow: 0 0 20px rgba(238,154,184,0.8); }
@@ -451,6 +466,7 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
    NEW SECTIONS: CONSTELLATION, JAR, PARALLAX
 ═══════════════════════════════════════ */
 #constellation { background: var(--night); position: relative; overflow: hidden; }
+#constellation-post-text { opacity: 0; transition: opacity 1.5s ease; position: relative; z-index: 10; max-width: 600px; margin: 3rem auto 0; text-align: center; }
 
 /* Firefly Jar (LAPTOP PERFECT POSITIONING) */
 #memory-jar { background: linear-gradient(180deg, var(--night) 0%, #16091E 100%); position: relative; min-height: 120vh; padding-top: 10vh; display: flex; flex-direction: column; align-items: center; overflow: hidden; }
@@ -483,7 +499,7 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
 @keyframes fireflyWander { 0% { transform: translate(0,0) scale(1); opacity: 0.8; } 100% { transform: translate(15px, -15px) scale(1.3); opacity: 1; } }
 @keyframes bubbleFloat { 0% { transform: scale(1) translateY(0px); } 100% { transform: scale(1) translateY(-10px); } }
 
-/* Parallax Polaroids (EXTENDED SPREAD & BUTTERSMOOTH LERP) */
+/* Parallax Polaroids */
 #parallax-memories { background: #06020A; overflow: hidden; min-height: 800vh; position: relative; }
 .parallax-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; }
 .para-polaroid { 
@@ -513,7 +529,7 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
 .e-moon { position: absolute; top: 50%; left: 20%; transform: translate(-50%, -50%); width: 120px; height: 120px; background: #0c0a20; border-radius: 50%; box-shadow: inset -10px 0 20px rgba(255,255,255,0.1); cursor: grab; z-index: 5; touch-action: none; transition: box-shadow 0.3s ease; }
 .e-moon:active { cursor: grabbing; box-shadow: inset -10px 0 20px rgba(255,255,255,0.1), 0 0 20px rgba(238, 154, 184, 0.3); }
 
-.e-quote { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(1.5rem, 4vw, 2.5rem); color: var(--champ); opacity: 0; margin-top: 3rem; max-width: 90%; text-align: center; text-shadow: 0 0 20px rgba(255,255,255,0.5), 0 0 40px rgba(238, 154, 184, 0.8); transform: scale(0.8); }
+.e-quote { font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(1.2rem, 3vw, 1.8rem); color: var(--champ); opacity: 0; margin-top: 3rem; max-width: 90%; text-align: center; text-shadow: 0 0 20px rgba(255,255,255,0.5), 0 0 40px rgba(238, 154, 184, 0.8); transform: scale(0.8); }
 
 .eclipse-shockwave { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0); width: 120px; height: 120px; border-radius: 50%; box-shadow: 0 0 0 20px rgba(255, 215, 0, 0.8), 0 0 40px 40px rgba(255, 255, 255, 0.6); animation: eclipseBurst 1.5s cubic-bezier(0.1, 0.8, 0.2, 1) forwards; pointer-events: none; }
 @keyframes eclipseBurst { 0% { transform: translate(-50%, -50%) scale(1); opacity: 1; } 100% { transform: translate(-50%, -50%) scale(8); opacity: 0; } }
@@ -528,11 +544,24 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
    CHAPTER 15: THE TULIP GARDEN
 ═══════════════════════════════════════ */
 #tulips-sec { background:#06020A; position: relative; overflow: hidden; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+#tulip-post-text { opacity: 0; transition: opacity 1.5s ease; position: absolute; top: 40%; left: 50%; transform: translateX(-50%); z-index: 5; text-align: center; max-width: 600px; pointer-events: none; }
+.tulip-msg { font-family: 'Playfair Display', serif; font-style: italic; color: var(--champ); font-size: 1.4rem; line-height: 1.6; text-shadow: 0 0 20px rgba(0,0,0,0.9); }
+
+/* ═══════════════════════════════════════
+   ONE LAST THING (NEW SECTION)
+═══════════════════════════════════════ */
+#one-last-thing { background:#06020A; position: relative; overflow: hidden; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+.olt-btn { display:inline-block; background:linear-gradient(135deg,var(--magenta),var(--rose)); color:white; font-family:'Playfair Display',serif; font-style:italic; font-size:1.2rem; padding:1.2rem 2.5rem; border-radius:50px; border:none; letter-spacing:.06em; box-shadow:0 4px 36px rgba(124,26,72,.55); transition:all .35s ease; cursor: pointer; z-index: 20; position: relative; }
+.olt-btn:hover { transform:scale(1.05); box-shadow:0 8px 55px rgba(124,26,72,.75); }
+.olt-fade-layer { position: absolute; inset: 0; background: rgba(3,1,8,0); z-index: 25; pointer-events: none; transition: background 2s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 2rem; }
+.olt-final-text { opacity: 0; transform: translateY(20px); transition: all 2s ease 1s; font-family: 'Playfair Display', serif; font-style: italic; font-size: clamp(1.4rem, 4vw, 2.2rem); color: var(--champ); line-height: 1.8; text-shadow: 0 0 30px rgba(238,154,184,0.6); max-width: 700px; text-align: center; }
+.olt-fade-layer.active { background: rgba(3,1,8,1); pointer-events: auto; }
+.olt-fade-layer.active .olt-final-text { opacity: 1; transform: translateY(0); }
 
 /* ═══════════════════════════════════════
    CHAPTER 16: OUTRO
 ═══════════════════════════════════════ */
-#outro { background:#06020A; position: relative; overflow: hidden; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+#outro { background:#030108; position: relative; overflow: hidden; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; }
 .outro-c { text-align:center; position:relative; z-index:10; padding:2rem; }
 .o-script { font-family:'Great Vibes',cursive; font-size:clamp(1.6rem,3.5vw,2.3rem); color:var(--rose); margin-bottom:.3rem; text-shadow: 0 0 10px rgba(0,0,0,0.8); }
 .o-ttl { font-size:clamp(2.4rem,6vw,4rem); margin-bottom:1.6rem; font-style: italic; text-shadow: 0 0 10px rgba(0,0,0,0.8); }
@@ -592,6 +621,7 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
   <div class="dot"     data-target="#special" title="About You"></div>
   <div class="dot"     data-target="#letter" title="Letter"></div>
   <div class="dot"     data-target="#promises" title="Promises"></div>
+  <div class="dot"     data-target="#warning" title="Warning"></div>
   <div class="dot"     data-target="#voice-note" title="My Voice"></div>
   <div class="dot"     data-target="#vault" title="Time Capsule"></div>
   <div class="dot"     data-target="#wishes" title="Wishes"></div>
@@ -600,6 +630,7 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
   <div class="dot"     data-target="#parallax-memories" title="Memories"></div>
   <div class="dot"     data-target="#eclipse" title="Eclipse"></div>
   <div class="dot"     data-target="#tulips-sec" title="The Garden"></div>
+  <div class="dot"     data-target="#one-last-thing" title="One Last Thing"></div>
   <div class="dot"     data-target="#outro" title="The End"></div>
 </nav>
 
@@ -649,7 +680,7 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
       <h2 class="bd-title">Happy<br><em>Birthday,</em><br>Jeshuu</h2>
 
       <div class="cake-wrap">
-        <div class="candles-row">
+        <div class="candles-row" id="candles-container">
           <div class="cv">
             <div class="gw"></div>
             <div class="flo" style="animation-delay:0s"><div class="fli"></div></div>
@@ -675,9 +706,19 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
         <div class="tier ta"><div class="drips"></div></div>
         <div class="tier tb"><div class="drips"></div></div>
       </div>
+      
       <p class="bd-note" id="candle-hint" style="margin-bottom: 1.5rem;">Close your eyes and make a wish 🌸</p>
       <button id="make-wish-btn" class="btn-fw" style="padding: 0.8rem 2.5rem; font-size: 1rem;">Make a Wish ✨</button>
-      <div id="wish-granted-msg" style="position: relative; margin-top: 1.5rem;">Wish Granted, Princess ✨</div>
+      
+      <!-- Inline Chatbox for Wish sequence -->
+      <div id="wish-chatbox">
+        <div class="wish-chat-content" id="wish-chat-content">
+           <div class="typing-indicator" id="wish-typing-indicator" style="align-self: flex-start;">
+             <div class="ti-dot"></div><div class="ti-dot"></div><div class="ti-dot"></div>
+           </div>
+        </div>
+      </div>
+      
     </div>
   </section>
 
@@ -690,8 +731,8 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
           <span>Chapter III</span>
         </div>
         <p class="c-pre">My entire universe</p>
-        <h2 class="c-title">In a sky full of stars,<br>you're the one I found</h2>
-        <p class="c-body">Every constellation has a story. Mine starts and ends with you. You are the gravity that holds my entire world together — beautiful, constant, and completely irreplaceable.</p>
+        <h2 class="c-title">in the sky filled with billions of stars....</h2>
+        <p class="c-body">i somehow found the one that feels like home and uk it's you🫠😳 and ever since i found you the universe has never looked the same yaar if i had to live this life all over again .... then i would still search every star...... just to find you again😊🫶🏻..</p>
         <div class="c-stats">
           <div class="c-stat rev"><div class="c-stat-line"></div><p class="c-stat-text">You are my favourite reason to smile.</p></div>
           <div class="c-stat rev"><div class="c-stat-line"></div><p class="c-stat-text">Loving you feels like the universe's best idea.</p></div>
@@ -748,7 +789,7 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
           <div class="tl-content magnetic-wrap open-chat" data-chat="chat2">
             <div class="tl-dot"></div>
             <p class="tl-date">January 4, 2026</p>
-            <p class="tl-text">The day we confessed our feelings, and the day you officially became my Princess.</p>
+            <p class="tl-text">The moment your hand found mine😁😁 actually it felt like where i belonged.. idk if u noticed but my heart definitely did🫀 started to beat fastttttttt</p>
             <p style="font-size:0.75rem; color:var(--rose); margin-top:10px; font-family:'DM Sans',sans-serif; text-transform:uppercase; letter-spacing:0.1em;">(Tap to read how it started ✨)</p>
           </div>
         </div>
@@ -765,7 +806,7 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
           <div class="tl-content magnetic-wrap">
             <div class="tl-dot"></div>
             <p class="tl-date">July 26, 2026</p>
-            <p class="tl-text">Celebrating your birthday together for the very first time. To many, many more. 🌸</p>
+            <p class="tl-text">yeahhh yaa the very first birthday that u are celebrating with mee... but today isn't just your birthday..... it's the day the world received the person who changed mine😉💝</p>
           </div>
         </div>
 
@@ -773,7 +814,7 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
           <div class="tl-content magnetic-wrap">
             <div class="tl-dot"></div>
             <p class="tl-date">The Future</p>
-            <p class="tl-text">Still many more imp memories yet to make..... ✨</p>
+            <p class="tl-text">The best chapters of our story........... haven't even been written yet....🫠✨</p>
           </div>
         </div>
       </div>
@@ -800,12 +841,12 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
         <h2 class="s-ttl">You are everything, Jeshuu</h2>
       </div>
       <div class="grid-3">
-        <div class="qcard magnetic-wrap"><div class="q-ico">🌟</div><h3 class="q-t">Your Smile is Everything</h3><p class="q-d">You just light up everything reee. Whenever u come around, my mood just instantly fixes. It's magic.</p></div>
-        <div class="qcard magnetic-wrap"><div class="q-ico">🌸</div><h3 class="q-t">You're so Caring</h3><p class="q-d">Your heart is so pure yaar... The way u care about small things, it just makes me fall harder for u dear.</p></div>
-        <div class="qcard magnetic-wrap"><div class="q-ico">💫</div><h3 class="q-t">Best Laugh Ever</h3><p class="q-d">Your laugh is literally my fav sound in the whole world. I can just listen to it all day without getting bored.</p></div>
-        <div class="qcard magnetic-wrap"><div class="q-ico">🧠</div><h3 class="q-t">You're so Smart</h3><p class="q-d">You are just so smart and beautiful at the same time. The way u talk and think... just wow.</p></div>
-        <div class="qcard magnetic-wrap"><div class="q-ico">🤍</div><h3 class="q-t">My Safe Space</h3><p class="q-d">U are my safe space reee. Whenever I'm stressed, just talking to u makes everything feel okay again.</p></div>
-        <div class="qcard magnetic-wrap"><div class="q-ico">✨</div><h3 class="q-t">My Everything</h3><p class="q-d">Before u came, I didn't even know what I was missing. Now u are literally my everything.</p></div>
+        <div class="qcard magnetic-wrap"><div class="q-ico">🌟</div><h3 class="q-t">u make ordinary days feel special</h3><p class="q-d">somehow, one smile from u can fix a day that nothing else could jeshuu..</p></div>
+        <div class="qcard magnetic-wrap"><div class="q-ico">🌸</div><h3 class="q-t">you make me feel understood</h3><p class="q-d">you notice the every little things about me some which even i forgot 😅 but your the one my heart tells yess she lovessss u soooo muchhh!!🫠😳</p></div>
+        <div class="qcard magnetic-wrap"><div class="q-ico">🎶</div><h3 class="q-t">my fav sound</h3><p class="q-d">if happiness had a sound ....... it would be your voice and laugh omgggg i loveeee yourrr voiceeee😉😁</p></div>
+        <div class="qcard magnetic-wrap"><div class="q-ico">✨</div><h3 class="q-t">you inspire meee.</h3><p class="q-d">you make me want to become a better version of myselff that's why your special baba😊🫶🏻</p></div>
+        <div class="qcard magnetic-wrap"><div class="q-ico">🏡</div><h3 class="q-t">my safe place</h3><p class="q-d">whenever life feels loud .... your the one who always made it quit and nice like u made everything sooo better jeshuu💝💌</p></div>
+        <div class="qcard magnetic-wrap"><div class="q-ico">💖</div><h3 class="q-t">my home</h3><p class="q-d">no matter where life takes me.... if you're there then it will already be home..💗</p></div>
       </div>
     </div>
   </section>
@@ -828,11 +869,12 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
 
         <p class="l-dear">My dearest Jeshuu,</p>
         <div class="l-body">
-          <p>Honestly yaar, writing this feels so surreal. Do u even know how much u mean to me? From that very first day, u just completely changed my life.</p>
-          <p>Everything just feels so right when u are with me. Maza aata hai jab tu paas hoti hai. Your smile, your voice, even when u get annoyed at me... I love all of it.</p>
-          <p>I know I don't say this enough, but u are the absolute best thing that ever happened to me reee. You're not just my girlfriend, you're my safe place.</p>
-          <p>Happy Birthday, my love. I promise to keep annoying u, caring for u, and loving u forever. Let's make this year amazing together.</p>
-          <p><span class="l-hi">I love u sooooo muchhh dear.</span> 💕</p>
+          <p>happyyyyyyyy birthdayyyyyy babeeeeeee🥳🥳💝🫶🏻</p>
+          <p>if there's one thing i hope you feel after reading all of this .... iss there is a ya ya a boy but he loves you soooo deeply ree..<br><br>thank you for walking into my life and turning simple ordinary days into one the best and memorable days in my lifeee!!!</p>
+          <p>idk what tommorow holds but ik one think reee<br>if life let's me,<br>i will keep choosing you.....<br>again<br>and again</p>
+          <p>i hope this is first of many birthdays we will celebrate together creating memories we will one day look back on with the biggest smilessss😁😁😉</p>
+          <p>happyyyyy birthdayyyy my gf,my future wife , my bestest friend, and mom of our future childrens🫣😏😉💖</p>
+          <p><span class="l-hi">i loveeeeeee uhhhhhhhh today tommorow and alwaysssssssss jeshuuuu 😘❤️</span></p>
         </div>
         <div class="l-hearts">💕 &nbsp; 🌸 &nbsp; 💕</div>
         <p class="l-sig">Forever yours, Deon</p>
@@ -865,22 +907,48 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
       </div>
       <p class="prom-hint rev">tap each card to reveal ✨</p>
       <div class="grid-3 promises-grid">
-        <div class="flip-card rev magnetic-wrap"><div class="flip-inner"><div class="flip-front"><div class="q-ico">🤝</div><p>Tap to reveal</p></div><div class="flip-back"><p class="fb-hi">Hamesha tere saath rahunga.</p><p class="fb-en">I'll always be by your side, no matter what happens.</p></div></div></div>
-        <div class="flip-card rev magnetic-wrap"><div class="flip-inner"><div class="flip-front"><div class="q-ico">🌷</div><p>Tap to reveal</p></div><div class="flip-back"><p class="fb-hi">Teri har choti khushi mere liye important hai.</p><p class="fb-en">I'll always try to be the reason behind your smile, dear.</p></div></div></div>
-        <div class="flip-card rev magnetic-wrap"><div class="flip-inner"><div class="flip-front"><div class="q-ico">🌙</div><p>Tap to reveal</p></div><div class="flip-back"><p class="fb-hi">Tujhe kabhi akela nahi chodunga.</p><p class="fb-en">I promise to never let you feel alone in anything yaar.</p></div></div></div>
-        <div class="flip-card rev magnetic-wrap"><div class="flip-inner"><div class="flip-front"><div class="q-ico">🍃</div><p>Tap to reveal</p></div><div class="flip-back"><p class="fb-hi">Tere saath hi life bitani hai.</p><p class="fb-en">I honestly just want to grow old with u.</p></div></div></div>
-        <div class="flip-card rev magnetic-wrap"><div class="flip-inner"><div class="flip-front"><div class="q-ico">♾️</div><p>Tap to reveal</p></div><div class="flip-back"><p class="fb-hi">Har din aur zyada pyar karunga.</p><p class="fb-en">I'll love u more today than I did yesterday, I promise.</p></div></div></div>
-        <div class="flip-card rev magnetic-wrap"><div class="flip-inner"><div class="flip-front"><div class="q-ico">🦋</div><p>Tap to reveal</p></div><div class="flip-back"><p class="fb-hi">Hamesha tera sabse bada fan rahunga.</p><p class="fb-en">I'll always support u in everything u do, my princess.</p></div></div></div>
+        <div class="flip-card rev magnetic-wrap"><div class="flip-inner"><div class="flip-front"><div class="q-ico">🤝</div><p>Tap to reveal</p></div><div class="flip-back"><p class="fb-en">i will keep choosing you yar.. not just on easy days.... but on the ordinary days toooo🫶🏻</p></div></div></div>
+        <div class="flip-card rev magnetic-wrap"><div class="flip-inner"><div class="flip-front"><div class="q-ico">🌷</div><p>Tap to reveal</p></div><div class="flip-back"><p class="fb-en">i will always listen yaar😁 even when i like if i don't have the correct answer or anything but still i willl listen i will make sure you never feel alone!!</p></div></div></div>
+        <div class="flip-card rev magnetic-wrap"><div class="flip-inner"><div class="flip-front"><div class="q-ico">🌱</div><p>Tap to reveal</p></div><div class="flip-back"><p class="fb-en">i will keep growing baba uk why?? cause loving you makes me become a better version or i can tell it as a deon that will always caree you like a bestt boy</p></div></div></div>
+        <div class="flip-card rev magnetic-wrap"><div class="flip-inner"><div class="flip-front"><div class="q-ico">😊</div><p>Tap to reveal</p></div><div class="flip-back"><p class="fb-en">i will protect your smile😊 not because i can magically erace and make everything proper but because i will always be one of your reasons to smile jeshuuu😁🫶🏻</p></div></div></div>
+        <div class="flip-card rev magnetic-wrap"><div class="flip-inner"><div class="flip-front"><div class="q-ico">♾️</div><p>Tap to reveal</p></div><div class="flip-back"><p class="fb-en">i will never stop choosing usss!! no matter how busy life becomes , i will always make time for what matters most i mean obviously you ..💖</p></div></div></div>
+        <div class="flip-card rev magnetic-wrap"><div class="flip-inner"><div class="flip-front"><div class="q-ico">🦋</div><p>Tap to reveal</p></div><div class="flip-back"><p class="fb-en">i will never stop reminding you how loved , appreciated and special you are to meee!!😁💝</p></div></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WARNING (NEW SECTION) -->
+  <section id="warning" class="content-sec" data-name="Warning" data-num="08">
+    <div class="sect-in rev">
+      <div class="ch-tag center">
+        <div class="cl cl-l"></div>
+        <span>Chapter VIII</span>
+        <div class="cl cl-r"></div>
+      </div>
+      <div class="warning-box" id="warning-box">
+        <div class="warning-ico">⚠</div>
+        <h2 class="warning-ttl">Warning</h2>
+        <p class="warning-sub">Tap to reveal side effects ✨</p>
+        <div class="warning-content">
+          <p style="margin-bottom: 1rem; font-family:'Playfair Display',serif; font-style:italic; font-size:1.2rem; color:var(--champ);">spending tooo much time with jeshuuuuu may causeeeee...</p>
+          <ol>
+            <li>random smiling.... i mean for just thinking abt you</li>
+            <li>constant checking of phoneeee........😏😂</li>
+            <li>missing you every 5 mins .... i misss youuu soooo muchhhh🫠</li>
+            <li>even after speaking for hours that one byeee message always makes me sad🥲</li>
+            <li>Permanent butterflies 🦋</li>
+          </ol>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- VOICE NOTE -->
-  <section id="voice-note" class="content-sec" data-name="My Voice" data-num="08">
+  <section id="voice-note" class="content-sec" data-name="My Voice" data-num="09">
     <div class="vn-wrap rev">
       <div class="ch-tag center">
         <div class="cl cl-l"></div>
-        <span>Chapter VIII</span>
+        <span>Chapter IX</span>
         <div class="cl cl-r"></div>
       </div>
       <h2 class="s-ttl" style="margin-bottom: 0.5rem;">A Message For You</h2>
@@ -899,18 +967,18 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
   </section>
 
   <!-- HEARTBEAT SCANNER & TUNNEL -->
-  <section id="vault" class="content-sec" data-name="Time Capsule" data-num="09">
+  <section id="vault" class="content-sec" data-name="Time Capsule" data-num="10">
     <div class="vault-c rev" id="vault-main-container">
       <div class="ch-tag center">
         <div class="cl cl-l"></div>
-        <span>Chapter IX</span>
+        <span>Chapter X</span>
         <div class="cl cl-r"></div>
       </div>
       
       <div class="vault-box magnetic-wrap" id="vault-box-ui">
         <div id="vault-lock-overlay">
           <div class="lock-icon">🔒</div>
-          <h3 class="lock-title">Unlocks on our Anniversary</h3>
+          <h3 class="lock-title">some memories are cllosed for nowwww!!<br>this one's waiting for the next chapter of our story...<br>seee you on our anniversary</h3>
           <div id="countdown-timer">Calculating time...</div>
         </div>
 
@@ -926,7 +994,7 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
   </section>
 
   <!-- LANTERN WISHES -->
-  <section id="wishes" class="content-sec" data-name="Wishes" data-num="10">
+  <section id="wishes" class="content-sec" data-name="Wishes" data-num="11">
     <canvas id="fw"></canvas>
 
     <div id="lantern-container" class="rev">
@@ -940,7 +1008,7 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
     <div class="wish-c" id="wish-text-container" style="display: none; opacity: 0; transition: opacity 2s ease;">
       <div class="ch-tag center">
         <div class="cl cl-l"></div>
-        <span>Chapter X</span>
+        <span>Chapter XI</span>
         <div class="cl cl-r"></div>
       </div>
       <h2 class="w-ttl">Happy Birthday<br><em>Jeshuu</em> 🎂</h2>
@@ -953,26 +1021,35 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
     </div>
   </section>
 
-  <!-- CHAPTER XI: CONSTELLATION REVEAL -->
-  <section id="constellation" class="content-sec" data-name="Constellation" data-num="11">
+  <!-- CONSTELLATION REVEAL -->
+  <section id="constellation" class="content-sec" data-name="Constellation" data-num="12">
     <div style="position:relative; z-index:10; width:100%; text-align:center; pointer-events:none;">
       <div class="ch-tag center rev">
         <div class="cl cl-l"></div>
-        <span>Chapter XI</span>
+        <span>Chapter XII</span>
         <div class="cl cl-r"></div>
       </div>
       <h2 class="s-ttl rev">Written in the Stars</h2>
       <p class="w-sub rev">Tap the sky to align our stars</p>
     </div>
+    
+    <div id="constellation-post-text">
+       <p style="font-family:'Playfair Display',serif; font-style:italic; font-size:1.4rem; color:var(--champ); line-height: 1.6; text-shadow: 0 0 20px rgba(0,0,0,0.8);">
+          even the stars couldn't stay far far...<br>
+          soo seee they came together to make my heart ....<br>
+          see keep it safely with you forever okayy😉💝
+       </p>
+    </div>
+    
     <canvas id="constellation-canvas" style="position:absolute; inset:0; width:100%; height:100%; z-index:1; cursor:pointer;"></canvas>
   </section>
 
-  <!-- CHAPTER XII: FIREFLY MEMORY JAR -->
-  <section id="memory-jar" class="content-sec" data-name="Memory Jar" data-num="12">
+  <!-- FIREFLY MEMORY JAR -->
+  <section id="memory-jar" class="content-sec" data-name="Memory Jar" data-num="13">
     <div class="jar-wrap rev">
       <div class="ch-tag center">
         <div class="cl cl-l"></div>
-        <span>Chapter XII</span>
+        <span>Chapter XIII</span>
         <div class="cl cl-r"></div>
       </div>
       <h2 class="s-ttl" style="margin-bottom: 3rem; text-align:center;">A Jar of Reasons</h2>
@@ -988,13 +1065,12 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
     </div>
   </section>
 
-  <!-- CHAPTER XIII: PARALLAX MEMORIES -->
-  <section id="parallax-memories" class="content-sec" data-name="Memories" data-num="13" style="min-height: 800vh; position:relative; align-items: flex-start;">
-    <!-- Moved heading to the top and made it sticky so it stays visible -->
+  <!-- PARALLAX MEMORIES -->
+  <section id="parallax-memories" class="content-sec" data-name="Memories" data-num="14" style="min-height: 800vh; position:relative; align-items: flex-start;">
     <div style="position:sticky; top: 10vh; z-index: 10; width: 100%; text-align:center; height: fit-content; pointer-events: none;">
       <div class="ch-tag center rev">
         <div class="cl cl-l"></div>
-        <span>Chapter XIII</span>
+        <span>Chapter XIV</span>
         <div class="cl cl-r"></div>
       </div>
       <h2 class="s-ttl rev">Floating Through Time</h2>
@@ -1106,12 +1182,12 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
     </div>
   </section>
 
-  <!-- CHAPTER XIV: SOLAR ECLIPSE -->
-  <section id="eclipse" class="content-sec" data-name="Eclipse" data-num="14">
+  <!-- SOLAR ECLIPSE -->
+  <section id="eclipse" class="content-sec" data-name="Eclipse" data-num="15">
     <div class="eclipse-container">
       <div class="ch-tag center rev">
         <div class="cl cl-l"></div>
-        <span>Chapter XIV</span>
+        <span>Chapter XV</span>
         <div class="cl cl-r"></div>
       </div>
       <h2 class="s-ttl rev" style="margin-bottom: 0.5rem;">Align our stars</h2>
@@ -1123,27 +1199,57 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
       </div>
 
       <div class="e-quote" id="e-quote">
-        "You are my eclipse — the rare, beautiful moment that makes my whole world stop. 😳😚💖✨"
+        "astronomers call this eclipse right??? but for meee another reason to think abt you😂😂😏"
       </div>
     </div>
   </section>
 
-  <!-- CHAPTER XV: THE TULIP GARDEN -->
-  <section id="tulips-sec" class="content-sec" data-name="The Garden" data-num="15">
+  <!-- THE TULIP GARDEN -->
+  <section id="tulips-sec" class="content-sec" data-name="The Garden" data-num="16">
     <canvas id="tulip-canvas" style="position:absolute; inset:0; z-index:1; cursor: pointer;"></canvas>
     
-    <div id="tulip-hint" style="position:absolute; top: 20%; left:50%; transform:translateX(-50%); z-index:5; font-family:'Playfair Display', serif; font-style:italic; color:var(--blush); font-size:1.5rem; text-shadow: 0 0 20px rgba(0,0,0,0.8); pointer-events:none; transition: opacity 0.5s;">
-      Tap anywhere to plant a seed of our love 🌷
+    <div id="tulip-hint" style="position:absolute; top: 20%; left:50%; transform:translateX(-50%); z-index:5; font-family:'Playfair Display', serif; font-style:italic; color:var(--blush); font-size:1.5rem; text-shadow: 0 0 20px rgba(0,0,0,0.8); pointer-events:none; transition: opacity 0.5s; text-align: center; line-height: 1.5; width: 80%;">
+      go on jeshuuu.... plant a little love 🌿<br>don't worry baba.. unlike me this one won't get jealous if you forgot to water it 🤭❤️<br>plzz tap the screen anywhere but here onlly 😂
+    </div>
+
+    <div id="tulip-post-text">
+       <p class="tulip-msg">
+         ik these aren't real tulips.......🌷 🥹<br>
+         i wish i could have handed u a big bouquet of tulips today..<br>
+         so until i can...<br>
+         i hope these tiny tiny digital ones make you smile yaar❤️
+       </p>
     </div>
   </section>
 
-  <!-- CHAPTER XVI: OUTRO -->
-  <section id="outro" class="content-sec" data-name="The End" data-num="16">
-    <div class="outro-c rev" id="outro-content" style="opacity:0; pointer-events:none; z-index:10; transition: opacity 2s;">
+  <!-- ONE LAST THING (NEW) -->
+  <section id="one-last-thing" class="content-sec" data-name="One Last Thing" data-num="17">
+    <div class="ch-tag center rev" style="position: absolute; top: 15%;">
+        <div class="cl cl-l"></div>
+        <span>Chapter XVII</span>
+        <div class="cl cl-r"></div>
+    </div>
+    <h2 class="s-ttl rev" style="margin-bottom: 3rem; position: absolute; top: 20%;">One lasttt thing.....</h2>
+    
+    <button class="olt-btn rev" id="olt-btn">Click mee!!</button>
+    
+    <div class="olt-fade-layer" id="olt-fade-layer">
+      <div class="olt-final-text">
+        happiest birthday dearrrr jeshuuuuuu<br>
+        now imagine i am giving you the biggest hug right nowwww🤗<br>
+        thank you yaar for exciting in my lifeeee!!<br>
+        i loveee youuu moreeee thannn thiss website could ever explainnn🫶🏻💖
+      </div>
+    </div>
+  </section>
+
+  <!-- OUTRO -->
+  <section id="outro" class="content-sec" data-name="The End" data-num="18">
+    <div class="outro-c rev" id="outro-content">
       <p class="o-script">forever &amp;</p>
       <h2 class="o-ttl">always, my Jeshuu</h2>
       <p class="o-sub">Happiest Birthday — today, and every year after 🌸</p>
-      <button class="btn-fw" id="replayBtn" style="opacity:0; pointer-events:auto; transition: opacity 1s;">↑ &nbsp; Scroll To Top</button>
+      <button class="btn-fw" id="replayBtn">↑ &nbsp; Scroll To Top</button>
       <p class="o-credit">made with all my love, just for you, Deon</p>
     </div>
   </section>
@@ -1465,7 +1571,7 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ══════════════════════════════════════
      CINEMATIC TYPEWRITER & NEBULA REVEAL
   ══════════════════════════════════════ */
-  const msgStr = "I have been waiting for this day from the start, from day 1... and now the time has come. From my heart to yours, I wish you a great year ahead with lots of happiness and success. Happy Birthday, my darling Jeshuu jii ✨💖🌸";
+  const msgStr = "Before you go any further......... i just want one thing. plzzzz don't rush through thiss jeshuuuu everything you're abt to see was made while thinking only abt you!!😊 sooo today give me some minutes of your heart , just like you've always had mine.....🤭😉💖";
   const msgContainer = document.getElementById('transition-message');
   const charSpans = [];
   
@@ -1512,9 +1618,9 @@ document.addEventListener("DOMContentLoaded", () => {
                   }, 500);
                 }, 2000); 
               }, 1500);
-            }, 3500);
+            }, 4500);
           }
-        }, 50); 
+        }, 90); /* Slower typing speed */
       }, 6000); 
 
     }, 1500);
@@ -1535,15 +1641,28 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ══════════════════════════════════════
-     INTERACTIVE BIRTHDAY WISH 
+     INTERACTIVE BIRTHDAY WISH & CHATBOX
   ══════════════════════════════════════ */
   const wishBtn = document.getElementById('make-wish-btn');
+  const candlesRow = document.getElementById('candles-container');
+  const wishChatbox = document.getElementById('wish-chatbox');
+  const wishChatContent = document.getElementById('wish-chat-content');
+  const wishTyping = document.getElementById('wish-typing-indicator');
+  
+  const wishMessages = [
+     { sender: 'sys', text: "hold on a sec...", delay: 1000 },
+     { sender: 'deon', text: "yeahhh wish madee ahhh😁✨", delay: 1800 },
+     { sender: 'deon', text: "i hope your every wish you made comes truee yaar.....", delay: 1800 },
+     { sender: 'deon', text: "and if one of them happens to be us....💖🫶🏻", delay: 2000 },
+     { sender: 'deon', text: "then i will try my thee bestttt to fulfill that baba😉😚💌", delay: 2200 }
+  ];
+
   if (wishBtn) {
     wishBtn.addEventListener('click', function() {
       this.style.display = 'none';
       document.getElementById('candle-hint').style.display = 'none';
-      document.getElementById('wish-granted-msg').style.opacity = '1';
-
+      candlesRow.classList.add('extinguished');
+      
       const wrapC = document.getElementById('confetti-c'); 
       const cols=['#F9A2BE','#A8D8FA','#FAE4A0','#C8A8FA','#A8FAD4','#F9C6A0','#FFD700','#FF94C0'];
       for(let i = 0; i < 90; i++) {
@@ -1554,6 +1673,45 @@ document.addEventListener("DOMContentLoaded", () => {
           setTimeout(() => el.remove(), 5500);
         }, i * 20);
       }
+
+      setTimeout(() => {
+         wishChatbox.style.display = 'flex';
+         setTimeout(() => { wishChatbox.style.opacity = '1'; }, 50);
+         
+         let cumDelay = 0;
+         wishMessages.forEach((msg, idx) => {
+            cumDelay += msg.delay;
+            setTimeout(() => {
+               if(msg.sender !== 'sys') {
+                 wishTyping.style.display = 'flex';
+                 wishChatContent.appendChild(wishTyping); // move to bottom
+               }
+            }, cumDelay - 800);
+            
+            setTimeout(() => {
+               wishTyping.style.display = 'none';
+               const wrapper = document.createElement('div');
+               wrapper.className = 'chat-bubble-wrapper';
+               wrapper.style.alignSelf = msg.sender === 'deon' ? 'flex-end' : 'center';
+               
+               if(msg.sender !== 'sys') {
+                 const nameLabel = document.createElement('div');
+                 nameLabel.className = 'chat-name';
+                 nameLabel.textContent = 'Deon';
+                 nameLabel.style.textAlign = 'right';
+                 wrapper.appendChild(nameLabel);
+               }
+               
+               const bubble = document.createElement('div');
+               bubble.className = `chat-bubble chat-${msg.sender}`;
+               bubble.textContent = msg.text;
+               
+               wrapper.appendChild(bubble);
+               wishChatContent.appendChild(wrapper);
+               requestAnimationFrame(() => wrapper.classList.add('vis'));
+            }, cumDelay);
+         });
+      }, 1000);
     });
   }
 
@@ -1599,7 +1757,7 @@ document.addEventListener("DOMContentLoaded", () => {
       cursor.style.opacity='1'; trail.style.opacity='1';
     });
     
-    const hovEls = ()=>[...document.querySelectorAll('button,.qcard,.dot,a,.flip-card,.planet,#playVoiceBtn,.tl-content,.magic-frame,.lantern,#magic-paper,.secret-trigger,.cv, #heartbeat-scanner, .open-chat, .para-polaroid, .e-moon')];
+    const hovEls = ()=>[...document.querySelectorAll('button,.qcard,.dot,a,.flip-card,.planet,#playVoiceBtn,.tl-content,.magic-frame,.lantern,#magic-paper,.secret-trigger,.cv, #heartbeat-scanner, .open-chat, .para-polaroid, .e-moon, #warning-box, .olt-btn')];
     
     document.addEventListener('mousemove', e => { 
       const isHovering = hovEls().some(el=>el.contains(e.target)||el===e.target);
@@ -1646,8 +1804,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const i=sections.indexOf(e.target);
       dots.forEach(d=>d.classList.remove('on')); if(dots[i])dots[i].classList.add('on');
       isCanvasVisible = (i === 0);
-      window.isConstellationVisible = (i === 10);
-      window.isTulipVisible = (i === 14);
+      window.isConstellationVisible = (e.target.id === 'constellation');
+      window.isTulipVisible = (e.target.id === 'tulips-sec');
       document.getElementById('si-n').textContent = e.target.dataset.num||'01';
       document.getElementById('si-t').textContent = e.target.dataset.name||'';
       document.getElementById('sec-ind').style.opacity='1';
@@ -1742,6 +1900,16 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById('close-chat').addEventListener('click', () => { chatModal.classList.remove('active'); typingIndicator.classList.remove('active'); });
 
   /* ══════════════════════════════════════
+     WARNING SECTION INTERACTION
+  ══════════════════════════════════════ */
+  const warnBox = document.getElementById('warning-box');
+  if(warnBox) {
+    warnBox.addEventListener('click', () => {
+      warnBox.classList.toggle('expanded');
+    });
+  }
+
+  /* ══════════════════════════════════════
      LANTERN WISHES
   ══════════════════════════════════════ */
   const lantern = document.getElementById('the-lantern');
@@ -1799,7 +1967,7 @@ document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll('.flip-card').forEach(c=>{ c.setAttribute('tabindex','0'); c.addEventListener('click', ()=>c.classList.toggle('flipped')); });
 
   /* ══════════════════════════════════════
-     CHAPTER 9: HEARTBEAT SCANNER & TIMER
+     CHAPTER 10: HEARTBEAT SCANNER & TIMER
   ══════════════════════════════════════ */
   const scanner = document.getElementById('heartbeat-scanner');
   const sProg = document.getElementById('scanner-progress');
@@ -1885,7 +2053,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* ══════════════════════════════════════
-     CHAPTER 11: CONSTELLATION REVEAL 
+     CHAPTER 12: CONSTELLATION REVEAL 
   ══════════════════════════════════════ */
   const constCanvas = document.getElementById('constellation-canvas');
   if(constCanvas) {
@@ -1895,6 +2063,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     let nodes = [];
     let state = 'wandering'; // 'wandering' or 'forming'
+    let messageRevealed = false;
     const totalNodes = isMobile ? 60 : 100;
     const baseScale = isMobile ? 8 : 12;
     
@@ -1928,6 +2097,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const time = Date.now() / 300; 
         const pulse = 1 + Math.sin(time) * 0.08; 
         currentScale = baseScale * pulse;
+        
+        if (!messageRevealed) {
+            messageRevealed = true;
+            setTimeout(() => {
+                document.getElementById('constellation-post-text').style.opacity = '1';
+            }, 2500);
+        }
       }
 
       nodes.forEach((n, i) => {
@@ -1972,7 +2148,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ══════════════════════════════════════
-     CHAPTER 12: FIREFLY MEMORY JAR 
+     CHAPTER 13: FIREFLY MEMORY JAR 
   ══════════════════════════════════════ */
   const jar = document.getElementById('the-jar');
   const fireflyContainer = document.getElementById('firefly-container');
@@ -2048,7 +2224,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ══════════════════════════════════════
-     CHAPTER 13: PARALLAX POLAROIDS (BUTTERSMOOTH LERP)
+     CHAPTER 14: PARALLAX POLAROIDS 
   ══════════════════════════════════════ */
   const parallaxSec = document.getElementById('parallax-memories');
   const paraItems = document.querySelectorAll('.para-polaroid');
@@ -2084,7 +2260,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ══════════════════════════════════════
-     CHAPTER 14: SOLAR ECLIPSE 
+     CHAPTER 15: SOLAR ECLIPSE 
   ══════════════════════════════════════ */
   const moon = document.getElementById('e-moon');
   const sun = document.getElementById('e-sun');
@@ -2181,7 +2357,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ══════════════════════════════════════
-     CHAPTER 15: THE TULIP GARDEN 
+     CHAPTER 16: THE TULIP GARDEN 
   ══════════════════════════════════════ */
   const tCanvas = document.getElementById('tulip-canvas');
   if (tCanvas) {
@@ -2191,6 +2367,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let tulips = [];
     let magicSpores = [];
     let firstPlanted = false;
+    let postTextShown = false;
 
     class Tulip {
       constructor(x) {
@@ -2322,22 +2499,40 @@ document.addEventListener("DOMContentLoaded", () => {
                 tulips.push(new Tulip(Math.random() * tW));
                 if (tulips.length > 50) {
                     clearInterval(bloomInterval);
-                    
-                    setTimeout(() => {
-                        const targetOutro = document.getElementById('outro');
-                        smoothScrollTo(targetOutro.offsetTop, 3000); 
-                        
+                    if(!postTextShown) {
+                        postTextShown = true;
                         setTimeout(() => {
-                            document.getElementById('outro-content').style.opacity = '1';
-                            document.getElementById('outro-content').style.pointerEvents = 'auto';
-                            document.getElementById('replayBtn').style.opacity = '1';
-                        }, 1800);
-                    }, 2000);
+                            document.getElementById('tulip-post-text').style.opacity = '1';
+                        }, 2500);
+                    }
                 }
             }, 60); 
         } else {
             tulips.push(new Tulip(e.clientX));
         }
+    });
+  }
+
+  /* ══════════════════════════════════════
+     ONE LAST THING BUTTON LOGIC
+  ══════════════════════════════════════ */
+  const oltBtn = document.getElementById('olt-btn');
+  const oltFadeLayer = document.getElementById('olt-fade-layer');
+  if(oltBtn) {
+    let clickCount = 0;
+    oltBtn.addEventListener('click', () => {
+      clickCount++;
+      if (clickCount === 1) {
+        oltBtn.textContent = "ahh what, nah nah come here press again nahhh";
+      } else if (clickCount === 2) {
+        oltBtn.textContent = "noooooo closer🤭";
+      } else if (clickCount === 3) {
+        oltBtn.textContent = "nahhhh stilll not enough reee... closerrrrr";
+      } else if (clickCount >= 4) {
+        oltBtn.style.opacity = '0';
+        oltBtn.style.pointerEvents = 'none';
+        oltFadeLayer.classList.add('active');
+      }
     });
   }
 
