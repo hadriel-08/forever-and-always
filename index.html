@@ -481,9 +481,9 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
 ═══════════════════════════════════════ */
 #constellation { background: var(--night); position: relative; overflow: hidden; }
 
-/* Firefly Jar (UPDATED FOR RESPONSIVENESS) */
-#memory-jar { background: linear-gradient(180deg, var(--night) 0%, #16091E 100%); position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
-.jar-wrap { display: flex; flex-direction: column; align-items: center; position: relative; z-index: 10; width: 100%; margin-top: 10vh; }
+/* Firefly Jar (LAPTOP PERFECT POSITIONING) */
+#memory-jar { background: linear-gradient(180deg, var(--night) 0%, #16091E 100%); position: relative; min-height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.jar-wrap { display: flex; flex-direction: column; align-items: center; position: relative; z-index: 10; width: 100%; margin-top: 25vh; }
 .the-jar { width: 140px; height: 180px; position: relative; margin: 0 auto; cursor: pointer; transition: transform 0.3s ease; }
 .the-jar:hover { transform: scale(1.05); }
 .jar-lid { width: 100px; height: 25px; background: linear-gradient(90deg, #8B5A2B, #D2B48C, #8B5A2B); border-radius: 5px 5px 2px 2px; position: absolute; top: -15px; left: 20px; z-index: 2; transition: transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.8s; box-shadow: 0 -2px 5px rgba(0,0,0,0.5); }
@@ -494,7 +494,7 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
 .the-jar.opened .jar-hint { opacity: 0; }
 @keyframes jarPulse { 0% { opacity: 0.6; transform: translateX(-50%) scale(0.9); } 100% { opacity: 1; transform: translateX(-50%) scale(1.1); } }
 
-/* Fireflies (UPDATED FOR RESPONSIVENESS) */
+/* Fireflies */
 #firefly-container { position: absolute; inset: 0; pointer-events: none; z-index: 5; }
 .firefly-bubble { 
   position: absolute; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,215,0,0.3); 
@@ -502,7 +502,7 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
   font-family: 'Playfair Display', serif; font-style: italic; color: var(--champ); font-size: 0.95rem; 
   opacity: 0; transform: scale(0.5); transition: opacity 0.5s, transform 0.5s; 
   white-space: normal; 
-  max-width: 160px;
+  max-width: 160px; 
   text-align: center;
   line-height: 1.3;
   z-index: 20;
@@ -512,8 +512,8 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
 @keyframes fireflyWander { 0% { transform: translate(0,0) scale(1); opacity: 0.8; } 100% { transform: translate(15px, -15px) scale(1.3); opacity: 1; } }
 @keyframes bubbleFloat { 0% { transform: scale(1) translateY(0px); } 100% { transform: scale(1) translateY(-10px); } }
 
-/* Parallax Polaroids */
-#parallax-memories { background: #06020A; overflow: hidden; }
+/* Parallax Polaroids (EXTENDED TO FIT 18 ITEMS SPREAD WIDELY) */
+#parallax-memories { background: #06020A; overflow: hidden; min-height: 500vh; position: relative; }
 .parallax-container { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 .para-polaroid { 
   position: absolute; background: rgba(246,234,216,0.03); border: 1px solid rgba(246,234,216,0.1); 
@@ -859,12 +859,12 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
         <h2 class="s-ttl">You are everything, Jeshuu</h2>
       </div>
       <div class="grid-3">
-        <div class="qcard magnetic-wrap"><div class="q-ico">🌟</div><h3 class="q-t">You Light Up Every Room</h3><p class="q-d">There's something about the way you walk in — the whole world gets a little brighter. Your energy is genuinely, wonderfully contagious.</p></div>
-        <div class="qcard magnetic-wrap"><div class="q-ico">🌸</div><h3 class="q-t">Your Heart is Pure Gold</h3><p class="q-d">The kindness you show — to everyone around you, even the littlest things — it's rare. It's real. It's one of the very first things that made me fall for you.</p></div>
-        <div class="qcard magnetic-wrap"><div class="q-ico">💫</div><h3 class="q-t">Your Laugh Is My Favourite Sound</h3><p class="q-d">Loud, genuine, completely unfiltered — whenever you laugh, I want to bottle that sound and keep it with me forever. It's the best thing in the world.</p></div>
-        <div class="qcard magnetic-wrap"><div class="q-ico">🧠</div><h3 class="q-t">Brilliantly, Beautifully You</h3><p class="q-d">Your mind is sharp, your perspectives are fascinating, and the way you see the world is a kind of art. Talking with you — about anything — never gets old.</p></div>
-        <div class="qcard magnetic-wrap"><div class="q-ico">🤍</div><h3 class="q-t">My Safest Place</h3><p class="q-d">On my hardest days, just knowing you exist makes everything feel lighter. You are home. Not a place — a feeling I never want to let go of.</p></div>
-        <div class="qcard magnetic-wrap"><div class="q-ico">✨</div><h3 class="q-t">Everything I Didn't Know I Needed</h3><p class="q-d">Before you, I had no idea what was missing. Now I can't imagine a single day without your smile, your voice, your presence in my life.</p></div>
+        <div class="qcard magnetic-wrap"><div class="q-ico">🌟</div><h3 class="q-t">Your Smile is Everything</h3><p class="q-d">You just light up everything reee. Whenever u come around, my mood just instantly fixes. It's magic.</p></div>
+        <div class="qcard magnetic-wrap"><div class="q-ico">🌸</div><h3 class="q-t">You're so Caring</h3><p class="q-d">Your heart is so pure yaar... The way u care about small things, it just makes me fall harder for u dear.</p></div>
+        <div class="qcard magnetic-wrap"><div class="q-ico">💫</div><h3 class="q-t">Best Laugh Ever</h3><p class="q-d">Your laugh is literally my fav sound in the whole world. I can just listen to it all day without getting bored.</p></div>
+        <div class="qcard magnetic-wrap"><div class="q-ico">🧠</div><h3 class="q-t">You're so Smart</h3><p class="q-d">You are just so smart and beautiful at the same time. The way u talk and think... just wow.</p></div>
+        <div class="qcard magnetic-wrap"><div class="q-ico">🤍</div><h3 class="q-t">My Safe Space</h3><p class="q-d">U are my safe space reee. Whenever I'm stressed, just talking to u makes everything feel okay again.</p></div>
+        <div class="qcard magnetic-wrap"><div class="q-ico">✨</div><h3 class="q-t">My Everything</h3><p class="q-d">Before u came, I didn't even know what I was missing. Now u are literally my everything.</p></div>
       </div>
     </div>
   </section>
@@ -887,12 +887,11 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
 
         <p class="l-dear">My dearest Jeshuu,</p>
         <div class="l-body">
-          <p><span class="l-hi">Tu jaanti hai na</span> — jab main tujhe dekhta hoon, waqt ruk sa jaata hai. You have this way of making every second feel like it matters, like the whole universe just slowed down to notice you.</p>
-          <p><span class="l-hi">Teri muskaan dekh ke dil ko chain milta hai.</span> Seriously Jeshuu — tujhe pata bhi hai kya, tere haasne se mere saare tension khatam ho jaate hain? Your laugh is the most honest sound I've ever heard, and I would do anything to keep hearing it for the rest of my life.</p>
-          <p><span class="l-hi">Har subah uthte hi sabse pehle tum yaad aate ho.</span> And the last thought before I sleep — also you. Somewhere in between, every single ordinary moment became extraordinary because of nothing but you.</p>
-          <p><span class="l-hi">Zindagi mein bohot kuch mila hai mujhe, par jo tujhe paake mila — woh kisi aur cheez mein nahi mila.</span> You are not just someone I love. You are the version of home I never knew I was looking for.</p>
-          <p>Happy Birthday, Jeslyn Christal Soans. You are the poem I never knew I was writing, the answer to questions I forgot to ask. I would choose you, in every lifetime, in every universe that has ever existed.</p>
-          <p><span class="l-hi">Tujhse pyaar karna meri sabse badi khushi hai.</span> 💕</p>
+          <p>Honestly yaar, writing this feels so surreal. Do u even know how much u mean to me? From that very first day, u just completely changed my life.</p>
+          <p>Everything just feels so right when u are with me. Maza aata hai jab tu paas hoti hai. Your smile, your voice, even when u get annoyed at me... I love all of it.</p>
+          <p>I know I don't say this enough, but u are the absolute best thing that ever happened to me reee. You're not just my girlfriend, you're my safe place.</p>
+          <p>Happy Birthday, my love. I promise to keep annoying u, caring for u, and loving u forever. Let's make this year amazing together.</p>
+          <p><span class="l-hi">I love u sooooo muchhh dear.</span> 💕</p>
         </div>
         <div class="l-hearts">💕 &nbsp; 🌸 &nbsp; 💕</div>
         <p class="l-sig">Forever yours, Deon</p>
@@ -925,12 +924,12 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
       </div>
       <p class="prom-hint rev">tap each card to reveal ✨</p>
       <div class="grid-3 promises-grid">
-        <div class="flip-card rev magnetic-wrap"><div class="flip-inner"><div class="flip-front"><div class="q-ico">🤝</div><p>Tap to reveal</p></div><div class="flip-back"><p class="fb-hi">Main hamesha tumhara haath thaam ke rakhunga.</p><p class="fb-en">I will always hold your hand — through every storm and every sunrise.</p></div></div></div>
-        <div class="flip-card rev magnetic-wrap"><div class="flip-inner"><div class="flip-front"><div class="q-ico">🌷</div><p>Tap to reveal</p></div><div class="flip-back"><p class="fb-hi">Teri choti choti khushiyon ka sabse bada hissa banunga.</p><p class="fb-en">I'll celebrate even your smallest joys like they're the biggest moments of my life.</p></div></div></div>
-        <div class="flip-card rev magnetic-wrap"><div class="flip-inner"><div class="flip-front"><div class="q-ico">🌙</div><p>Tap to reveal</p></div><div class="flip-back"><p class="fb-hi">Tumhe kabhi akela mehsoos nahi hone dunga.</p><p class="fb-en">I will never let you feel alone, not even for a single moment.</p></div></div></div>
-        <div class="flip-card rev magnetic-wrap"><div class="flip-inner"><div class="flip-front"><div class="q-ico">🍃</div><p>Tap to reveal</p></div><div class="flip-back"><p class="fb-hi">Tumhare saath buddha hona chahta hoon.</p><p class="fb-en">I want to grow old with you — wrinkles, grey hair, slow walks, and all.</p></div></div></div>
-        <div class="flip-card rev magnetic-wrap"><div class="flip-inner"><div class="flip-front"><div class="q-ico">♾️</div><p>Tap to reveal</p></div><div class="flip-back"><p class="fb-hi">Tujhse roz pyaar karunga, kal se thoda zyada.</p><p class="fb-en">I'll love you a little more every single day than I did the day before.</p></div></div></div>
-        <div class="flip-card rev magnetic-wrap"><div class="flip-inner"><div class="flip-front"><div class="q-ico">🦋</div><p>Tap to reveal</p></div><div class="flip-back"><p class="fb-hi">Tu jahan bhi rahe, main tera sabse bada supporter rahunga.</p><p class="fb-en">Wherever life takes you, I'll be cheering loudest from your corner — always.</p></div></div></div>
+        <div class="flip-card rev magnetic-wrap"><div class="flip-inner"><div class="flip-front"><div class="q-ico">🤝</div><p>Tap to reveal</p></div><div class="flip-back"><p class="fb-hi">Hamesha tere saath rahunga.</p><p class="fb-en">I'll always be by your side, no matter what happens.</p></div></div></div>
+        <div class="flip-card rev magnetic-wrap"><div class="flip-inner"><div class="flip-front"><div class="q-ico">🌷</div><p>Tap to reveal</p></div><div class="flip-back"><p class="fb-hi">Teri har choti khushi mere liye important hai.</p><p class="fb-en">I'll always try to be the reason behind your smile, dear.</p></div></div></div>
+        <div class="flip-card rev magnetic-wrap"><div class="flip-inner"><div class="flip-front"><div class="q-ico">🌙</div><p>Tap to reveal</p></div><div class="flip-back"><p class="fb-hi">Tujhe kabhi akela nahi chodunga.</p><p class="fb-en">I promise to never let you feel alone in anything yaar.</p></div></div></div>
+        <div class="flip-card rev magnetic-wrap"><div class="flip-inner"><div class="flip-front"><div class="q-ico">🍃</div><p>Tap to reveal</p></div><div class="flip-back"><p class="fb-hi">Tere saath hi life bitani hai.</p><p class="fb-en">I honestly just want to grow old with u.</p></div></div></div>
+        <div class="flip-card rev magnetic-wrap"><div class="flip-inner"><div class="flip-front"><div class="q-ico">♾️</div><p>Tap to reveal</p></div><div class="flip-back"><p class="fb-hi">Har din aur zyada pyar karunga.</p><p class="fb-en">I'll love u more today than I did yesterday, I promise.</p></div></div></div>
+        <div class="flip-card rev magnetic-wrap"><div class="flip-inner"><div class="flip-front"><div class="q-ico">🦋</div><p>Tap to reveal</p></div><div class="flip-back"><p class="fb-hi">Hamesha tera sabse bada fan rahunga.</p><p class="fb-en">I'll always support u in everything u do, my princess.</p></div></div></div>
       </div>
     </div>
   </section>
@@ -1049,7 +1048,7 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
   </section>
 
   <!-- CHAPTER XIII: PARALLAX MEMORIES -->
-  <section id="parallax-memories" class="content-sec" data-name="Memories" data-num="13" style="min-height: 250vh; align-items: flex-start; padding-top: 10vh; position:relative;">
+  <section id="parallax-memories" class="content-sec" data-name="Memories" data-num="13" style="min-height: 500vh; align-items: flex-start; padding-top: 10vh; position:relative;">
     <div style="position:relative; z-index: 10; width: 100%; text-align:center;">
       <div class="ch-tag center rev">
         <div class="cl cl-l"></div>
@@ -1061,27 +1060,78 @@ canvas#fw { position:absolute; inset:0; width:100%; height:100%; pointer-events:
     </div>
     
     <div class="parallax-container">
-      <div class="para-polaroid open-polaroid" data-speed="0.15" data-rotation="-5" style="top: 10%; left: 10%;" data-img="memory1.jpeg" data-cap="best moments ✨">
+      <!-- 12 NEW IMAGES -->
+      <div class="para-polaroid open-polaroid" data-speed="0.2" data-rotation="-4" style="top: 2%; left: 15%;" data-img="j1.jpeg" data-cap="💖">
+        <img class="pp-media" src="j1.jpeg" alt="Memory">
+        <p class="pp-cap">💖</p>
+      </div>
+      <div class="para-polaroid open-polaroid" data-speed="0.3" data-rotation="6" style="top: 7%; right: 15%;" data-img="j2.jpeg" data-cap="💕">
+        <img class="pp-media" src="j2.jpeg" alt="Memory">
+        <p class="pp-cap">💕</p>
+      </div>
+      <div class="para-polaroid open-polaroid" data-speed="0.15" data-rotation="-3" style="top: 13%; left: 20%;" data-img="j3.jpeg" data-cap="💗">
+        <img class="pp-media" src="j3.jpeg" alt="Memory">
+        <p class="pp-cap">💗</p>
+      </div>
+      <div class="para-polaroid open-polaroid" data-speed="0.35" data-rotation="8" style="top: 18%; right: 20%;" data-img="j4.jpeg" data-cap="💓">
+        <img class="pp-media" src="j4.jpeg" alt="Memory">
+        <p class="pp-cap">💓</p>
+      </div>
+      <div class="para-polaroid open-polaroid" data-speed="0.25" data-rotation="-7" style="top: 24%; left: 15%;" data-img="j5.jpeg" data-cap="💞">
+        <img class="pp-media" src="j5.jpeg" alt="Memory">
+        <p class="pp-cap">💞</p>
+      </div>
+      <div class="para-polaroid open-polaroid" data-speed="0.4" data-rotation="4" style="top: 29%; right: 25%;" data-img="j6.jpeg" data-cap="💝">
+        <img class="pp-media" src="j6.jpeg" alt="Memory">
+        <p class="pp-cap">💝</p>
+      </div>
+      <div class="para-polaroid open-polaroid" data-speed="0.18" data-rotation="-5" style="top: 35%; left: 25%;" data-img="j7.jpeg" data-cap="🥰">
+        <img class="pp-media" src="j7.jpeg" alt="Memory">
+        <p class="pp-cap">🥰</p>
+      </div>
+      <div class="para-polaroid open-polaroid" data-speed="0.32" data-rotation="7" style="top: 40%; right: 10%;" data-img="j8.jpeg" data-cap="💌">
+        <img class="pp-media" src="j8.jpeg" alt="Memory">
+        <p class="pp-cap">💌</p>
+      </div>
+      <div class="para-polaroid open-polaroid" data-speed="0.22" data-rotation="-2" style="top: 46%; left: 12%;" data-img="j9.jpeg" data-cap="😘">
+        <img class="pp-media" src="j9.jpeg" alt="Memory">
+        <p class="pp-cap">😘</p>
+      </div>
+      <div class="para-polaroid open-polaroid" data-speed="0.38" data-rotation="5" style="top: 51%; right: 18%;" data-img="j10.jpeg" data-cap="🤗">
+        <img class="pp-media" src="j10.jpeg" alt="Memory">
+        <p class="pp-cap">🤗</p>
+      </div>
+      <div class="para-polaroid open-polaroid" data-speed="0.15" data-rotation="-6" style="top: 57%; left: 22%;" data-img="j11.jpeg" data-cap="🫀">
+        <img class="pp-media" src="j11.jpeg" alt="Memory">
+        <p class="pp-cap">🫀</p>
+      </div>
+      <div class="para-polaroid open-polaroid" data-speed="0.42" data-rotation="3" style="top: 62%; right: 12%;" data-img="j12.jpeg" data-cap="🫶🏻">
+        <img class="pp-media" src="j12.jpeg" alt="Memory">
+        <p class="pp-cap">🫶🏻</p>
+      </div>
+
+      <!-- ORIGINAL 6 IMAGES -->
+      <div class="para-polaroid open-polaroid" data-speed="0.2" data-rotation="-5" style="top: 68%; left: 18%;" data-img="memory1.jpeg" data-cap="best moments ✨">
         <img class="pp-media" src="memory1.jpeg" alt="Memory">
         <p class="pp-cap">best moments ✨</p>
       </div>
-      <div class="para-polaroid open-polaroid" data-speed="0.4" data-rotation="6" style="top: 25%; right: 10%;" data-img="memory2.jpeg" data-cap="OMG can't stop watching you 😍">
+      <div class="para-polaroid open-polaroid" data-speed="0.35" data-rotation="6" style="top: 73%; right: 22%;" data-img="memory2.jpeg" data-cap="OMG can't stop watching you 😍">
         <img class="pp-media" src="memory2.jpeg" alt="Memory">
         <p class="pp-cap">OMG can't stop watching you 😍</p>
       </div>
-      <div class="para-polaroid open-polaroid" data-speed="0.25" data-rotation="-3" style="top: 45%; left: 20%;" data-img="memory3.jpeg" data-cap="My favorite place🫠">
+      <div class="para-polaroid open-polaroid" data-speed="0.18" data-rotation="-3" style="top: 79%; left: 15%;" data-img="memory3.jpeg" data-cap="My favorite place🫠">
         <img class="pp-media" src="memory3.jpeg" alt="Memory">
         <p class="pp-cap">My favorite place🫠</p>
       </div>
-      <div class="para-polaroid open-polaroid" data-speed="0.55" data-rotation="8" style="top: 60%; right: 20%;" data-img="memory4.jpeg" data-cap="Unforgettable 💫">
+      <div class="para-polaroid open-polaroid" data-speed="0.4" data-rotation="8" style="top: 84%; right: 20%;" data-img="memory4.jpeg" data-cap="Unforgettable 💫">
         <img class="pp-media" src="memory4.jpeg" alt="Memory">
         <p class="pp-cap">Unforgettable 💫</p>
       </div>
-      <div class="para-polaroid open-polaroid" data-speed="0.35" data-rotation="-7" style="top: 75%; left: 15%;" data-img="memory5.jpeg" data-cap="woww that smile😳">
+      <div class="para-polaroid open-polaroid" data-speed="0.25" data-rotation="-7" style="top: 90%; left: 25%;" data-img="memory5.jpeg" data-cap="woww that smile😳">
         <img class="pp-media" src="memory5.jpeg" alt="Memory">
         <p class="pp-cap">woww that smile😳</p>
       </div>
-      <div class="para-polaroid open-polaroid" data-speed="0.65" data-rotation="4" style="top: 85%; right: 15%;" data-img="memory6.jpeg" data-cap="u and me forever ❤️">
+      <div class="para-polaroid open-polaroid" data-speed="0.3" data-rotation="4" style="top: 95%; right: 15%;" data-img="memory6.jpeg" data-cap="u and me forever ❤️">
         <img class="pp-media" src="memory6.jpeg" alt="Memory">
         <p class="pp-cap">u and me forever ❤️</p>
       </div>
@@ -1379,13 +1429,12 @@ document.addEventListener("DOMContentLoaded", () => {
           flashAlpha -= 0.015; 
         }
         
-        // This brings back the beautifully spaced, gently rotating white stars behind the typewriter text
         for(const s of stars){
           s.angle += s.orbitSpeed * 0.5; 
           let px = W/2 + Math.cos(s.angle) * s.dist; 
           let py = H/2 + Math.sin(s.angle) * s.dist;
           ctxHero.globalAlpha = Math.max(0, 0.6 - flashAlpha); 
-          ctxHero.fillStyle = '#fff'; // Pure white as requested
+          ctxHero.fillStyle = '#fff';
           ctxHero.beginPath(); 
           ctxHero.arc(px, py, s.r, 0, Math.PI*2); 
           ctxHero.fill();
@@ -1432,8 +1481,6 @@ document.addEventListener("DOMContentLoaded", () => {
       introMode = 'flash'; 
       flashAlpha = 1;
       
-      // THIS IS THE FIX FOR THE STARS IN THE CENTER!
-      // Re-scatter the stars to fill the whole screen right as the flash hits
       buildStars(); 
       
       setTimeout(() => { document.getElementById('intro-flash').style.opacity = '0'; }, 800); 
@@ -1666,10 +1713,10 @@ document.addEventListener("DOMContentLoaded", () => {
         { sender: 'jeshuu', text: ".", delay: 1500 },
         { sender: 'deon', text: "do u have crush on anyone??", delay: 2000 },
         { sender: 'jeshuu', text: "yes ..", delay: 1500 },
-        { sender: 'sys', text: "ltr on the best night in my life... 🌙✨", delay: 2000 },
         { sender: 'deon', text: "is it me??", delay: 2000 },
         { sender: 'jeshuu', text: "yesss!!", delay: 1500 },
-        { sender: 'deon', text: "u dont need to imagine", delay: 2000 },
+        { sender: 'sys', text: "ltr on the best night in my life... 🌙✨", delay: 2000 },
+        { sender: 'deon', text: "ig now i don't need to imagine anymore", delay: 2000 },
         { sender: 'jeshuu', text: "ahh really i can't digest", delay: 2000 },
         { sender: 'deon', text: "don't digest simply agree", delay: 2000 },
         { sender: 'sys', text: "And that's how our love story started... ✨", delay: 2000 }
@@ -2005,17 +2052,16 @@ document.addEventListener("DOMContentLoaded", () => {
       const startX = rect.left + rect.width/2;
       const startY = rect.top + 20;
 
-      // Perfectly spaced absolute coordinates for a wide laptop screen 
-      // ensuring NO bubbles overlap!
+      // PERFECTED LAPTOP COORDINATES: A huge, wide arch so NO bubbles overlap
       const positions = [
-        { dx: -380, dy: -200 }, // 1. Far Left
-        { dx: -240, dy: -320 }, // 2. Mid-High Left
-        { dx: -100, dy: -420 }, // 3. Top Left
-        { dx: 100,  dy: -420 }, // 4. Top Right
-        { dx: 240,  dy: -320 }, // 5. Mid-High Right
-        { dx: 380,  dy: -200 }, // 6. Far Right
-        { dx: -200, dy: -90 },  // 7. Low Left
-        { dx: 200,  dy: -90 }   // 8. Low Right
+        { dx: -350, dy: -60 },  // Lower left
+        { dx: 350,  dy: -60 },  // Lower right
+        { dx: -400, dy: -180 }, // Mid left
+        { dx: 400,  dy: -180 }, // Mid right
+        { dx: -280, dy: -320 }, // Top left
+        { dx: 280,  dy: -320 }, // Top right
+        { dx: -120, dy: -420 }, // Top center-left
+        { dx: 120,  dy: -420 }  // Top center-right
       ];
 
       reasons.forEach((text, i) => {
